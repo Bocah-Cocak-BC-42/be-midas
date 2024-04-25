@@ -56,8 +56,8 @@ public partial class MidasContext : DbContext
 
     public virtual DbSet<Withdrawal> Withdrawals { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-5P7RNJE4;Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True");
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //     => optionsBuilder.UseSqlServer("Data Source=[NAMA LAPTOP];Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
