@@ -11,7 +11,7 @@ public static class UserSeeder
             {
                 Id = "41dfada5-6c53-4c7b-8c07-89037e511874",
                 Email = "admin@midas.com",
-                Password = "",
+                Password = "$2a$12$ZEqw5fRxjcndbH.TekcXq.Pvk03lJD.mzxN73qownotDhtSfJ.vdq",
                 FullName = "Admin",
                 NickName = "Admin",
                 IdentityNumber = "AA00000001",
