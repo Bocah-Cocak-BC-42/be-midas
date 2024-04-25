@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MidasDataAccess.Seeders;
 
 namespace MidasDataAccess.Models;
 
@@ -55,8 +56,8 @@ public partial class MidasContext : DbContext
 
     public virtual DbSet<Withdrawal> Withdrawals { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseSqlServer("Data Source=[NAMA LAPTOP];Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-5P7RNJE4;Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -899,33 +900,11 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.DeletedAt).HasColumnType("datetime");
-            entity.Property(e => e.DeletedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            entity.Property(e => e.UpdatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.RoleCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Roles__CreatedBy__2F10007B");
-
-            entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.RoleDeletedByNavigations)
-                .HasForeignKey(d => d.DeletedBy)
-                .HasConstraintName("FK__Roles__DeletedBy__30F848ED");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.RoleUpdatedByNavigations)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK__Roles__UpdatedBy__300424B4");
         });
 
         modelBuilder.Entity<SubDistrict>(entity =>
@@ -1181,6 +1160,10 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.VerifiedBy)
                 .HasConstraintName("FK__Withdrawa__Verif__282DF8C2");
         });
+
+        // // Seeders
+        modelBuilder.Entity<Role>().HasData(RoleSeeder.SeedRoles());
+        modelBuilder.Entity<User>().HasData(UserSeeder.SeedUsers());
 
         OnModelCreatingPartial(modelBuilder);
     }

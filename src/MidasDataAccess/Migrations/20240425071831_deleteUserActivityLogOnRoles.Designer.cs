@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidasDataAccess.Models;
 
@@ -11,9 +12,11 @@ using MidasDataAccess.Models;
 namespace MidasDataAccess.Migrations
 {
     [DbContext(typeof(MidasContext))]
-    partial class MidasContextModelSnapshot : ModelSnapshot
+    [Migration("20240425071831_deleteUserActivityLogOnRoles")]
+    partial class deleteUserActivityLogOnRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1186,20 +1189,6 @@ namespace MidasDataAccess.Migrations
                         .HasName("PK__Roles__3214EC077DFD2452");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a993d9d6-0836-40b7-9fd8-a28a7f04a3d0",
-                            CreatedAt = new DateTime(2024, 4, 25, 14, 19, 3, 468, DateTimeKind.Local).AddTicks(3760),
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "445e48a4-f3f6-4660-96d7-82505bc740d3",
-                            CreatedAt = new DateTime(2024, 4, 25, 14, 19, 3, 468, DateTimeKind.Local).AddTicks(3776),
-                            Name = "Nasabah"
-                        });
                 });
 
             modelBuilder.Entity("MidasDataAccess.Models.SubDistrict", b =>
@@ -1383,22 +1372,6 @@ namespace MidasDataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                            CreatedAt = new DateTime(2024, 4, 25, 14, 19, 3, 468, DateTimeKind.Local).AddTicks(3864),
-                            CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                            Email = "admin@midas.com",
-                            FullName = "Admin",
-                            Gender = "M",
-                            IdentityNumber = "AA00000001",
-                            NickName = "Admin",
-                            Password = "",
-                            RegistrationDate = new DateTime(2024, 4, 25, 14, 19, 3, 468, DateTimeKind.Local).AddTicks(3860),
-                            RoleId = "a993d9d6-0836-40b7-9fd8-a28a7f04a3d0"
-                        });
                 });
 
             modelBuilder.Entity("MidasDataAccess.Models.Village", b =>

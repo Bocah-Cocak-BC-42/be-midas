@@ -19,13 +19,13 @@ public partial class User
 
     public string Gender { get; set; } = null!;
 
-    public string BirthPlace { get; set; } = null!;
+    public string? BirthPlace { get; set; }
 
-    public DateOnly BirthDate { get; set; }
+    public DateOnly? BirthDate { get; set; }
 
-    public string PhoneNumber { get; set; } = null!;
+    public string? PhoneNumber { get; set; }
 
-    public int CreditScore { get; set; }
+    public int? CreditScore { get; set; }
 
     public decimal? PersonalCreditLimit { get; set; }
 
@@ -130,12 +130,6 @@ public partial class User
     public virtual ICollection<Province> ProvinceUpdatedByNavigations { get; set; } = new List<Province>();
 
     public virtual Role Role { get; set; } = null!;
-
-    public virtual ICollection<Role> RoleCreatedByNavigations { get; set; } = new List<Role>();
-
-    public virtual ICollection<Role> RoleDeletedByNavigations { get; set; } = new List<Role>();
-
-    public virtual ICollection<Role> RoleUpdatedByNavigations { get; set; } = new List<Role>();
 
     public virtual ICollection<SubDistrict> SubDistrictCreatedByNavigations { get; set; } = new List<SubDistrict>();
 
