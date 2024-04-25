@@ -5,6 +5,12 @@
         "Microsoft.AspNetCore": "Warning"
       }
     },
-    "AllowedHosts": "*"
+    "AllowedHosts": "*",
+    "ConnectionStrings": {
+      "MidasConnection" : "Data Source=[NAMA LAPTOP];Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True"
+    },
+    "AppSettings": {
+      "Token": "LorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRel"
+    }
   }
   
