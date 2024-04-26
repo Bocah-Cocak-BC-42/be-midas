@@ -9,6 +9,8 @@ public partial class Village
 
     public string Name { get; set; } = null!;
 
+    public string PostalCode { get; set; } = null!;
+
     public string SubDistrictId { get; set; } = null!;
 
     public string CreatedBy { get; set; } = null!;
@@ -27,9 +29,15 @@ public partial class Village
 
     public virtual User? DeletedByNavigation { get; set; }
 
-    public virtual ICollection<PostalCode> PostalCodes { get; set; } = new List<PostalCode>();
-
     public virtual SubDistrict SubDistrict { get; set; } = null!;
 
     public virtual User? UpdatedByNavigation { get; set; }
+    
+    public virtual ICollection<BranchOffice> BranchOffices { get; set; } = new List<BranchOffice>();
+
+    public virtual ICollection<IndividualCredit> IndividualCreditBusinessVillageNavigations { get; set; } = new List<IndividualCredit>();
+
+    public virtual ICollection<IndividualCredit> IndividualCreditVillages { get; set; } = new List<IndividualCredit>();
+
+    public virtual ICollection<CompanyCredit> CompanyCredits { get; set; } = new List<CompanyCredit>();
 }

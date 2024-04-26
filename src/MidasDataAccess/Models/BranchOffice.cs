@@ -13,7 +13,7 @@ public partial class BranchOffice
 
     public string Address { get; set; } = null!;
 
-    public string PostalCodeId { get; set; } = null!;
+    public string VillageId { get; set; } = null!;
 
     public string CreatedBy { get; set; } = null!;
 
@@ -37,7 +37,7 @@ public partial class BranchOffice
 
     public virtual ICollection<IndividualCredit> IndividualCredits { get; set; } = new List<IndividualCredit>();
 
-    public virtual PostalCode PostalCode { get; set; } = null!;
+    public virtual Village Village { get; set; } = null!;
 
     public virtual User? UpdatedByNavigation { get; set; }
 }
