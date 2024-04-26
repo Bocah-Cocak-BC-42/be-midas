@@ -21,9 +21,6 @@ public class FileManagementServices
             Name = AddImage(dto.FileCategory, dto.File)
         };
         model.Path = dto.FileCategory+"/"+model.Name;
-        if (model.Name==null){
-            return "Extension is not valid, please reupload with .jpg/.jpeg/.png file";
-        }
         _rep.Insert(model);
         return model.Id;
     }
