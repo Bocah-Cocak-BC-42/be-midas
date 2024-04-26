@@ -117,12 +117,6 @@ public partial class User
 
     public virtual ICollection<User> InverseUpdatedByNavigation { get; set; } = new List<User>();
 
-    public virtual ICollection<PostalCode> PostalCodeCreatedByNavigations { get; set; } = new List<PostalCode>();
-
-    public virtual ICollection<PostalCode> PostalCodeDeletedByNavigations { get; set; } = new List<PostalCode>();
-
-    public virtual ICollection<PostalCode> PostalCodeUpdatedByNavigations { get; set; } = new List<PostalCode>();
-
     public virtual ICollection<Province> ProvinceCreatedByNavigations { get; set; } = new List<Province>();
 
     public virtual ICollection<Province> ProvinceDeletedByNavigations { get; set; } = new List<Province>();

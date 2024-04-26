@@ -42,8 +42,6 @@ public partial class MidasContext : DbContext
 
     public virtual DbSet<IndividualCredit> IndividualCredits { get; set; }
 
-    public virtual DbSet<PostalCode> PostalCodes { get; set; }
-
     public virtual DbSet<Province> Provinces { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -56,8 +54,8 @@ public partial class MidasContext : DbContext
 
     public virtual DbSet<Withdrawal> Withdrawals { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseSqlServer("Data Source=[NAMA LAPTOP];Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(DbContextConnectionConfig.ConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -153,7 +151,7 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.OfficeName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.PostalCodeId)
+            entity.Property(e => e.VillageId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -170,10 +168,10 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.DeletedBy)
                 .HasConstraintName("FK__BranchOff__Delet__5EBF139D");
 
-            entity.HasOne(d => d.PostalCode).WithMany(p => p.BranchOffices)
-                .HasForeignKey(d => d.PostalCodeId)
+            entity.HasOne(d => d.Village).WithMany(p => p.BranchOffices)
+                .HasForeignKey(d => d.VillageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BranchOff__Posta__5AEE82B9");
+                .HasConstraintName("FK__BranchOff__Vill__5AEE82B9");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.BranchOfficeUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
@@ -400,7 +398,7 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.PlaceOfEstasblishment)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.PostalCodeId)
+            entity.Property(e => e.VillageId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Status)
@@ -464,10 +462,10 @@ public partial class MidasContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CompanyCr__NPWPF__05D8E0BE");
 
-            entity.HasOne(d => d.PostalCode).WithMany(p => p.CompanyCredits)
-                .HasForeignKey(d => d.PostalCodeId)
+            entity.HasOne(d => d.Village).WithMany(p => p.CompanyCredits)
+                .HasForeignKey(d => d.VillageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__CompanyCr__Posta__01142BA1");
+                .HasConstraintName("FK__CompanyCr__Vill__01142BA1");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.CompanyCreditUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
@@ -688,7 +686,7 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.BusinessPlaceStatus)
                 .HasMaxLength(25)
                 .IsUnicode(false);
-            entity.Property(e => e.BusinessPostalCode)
+            entity.Property(e => e.BusinessVillage)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.BusinessSectorId)
@@ -725,7 +723,7 @@ public partial class MidasContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Note).IsUnicode(false);
-            entity.Property(e => e.PostalCodeId)
+            entity.Property(e => e.VillageId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Status)
@@ -749,8 +747,8 @@ public partial class MidasContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Individua__Busin__76969D2E");
 
-            entity.HasOne(d => d.BusinessPostalCodeNavigation).WithMany(p => p.IndividualCreditBusinessPostalCodeNavigations)
-                .HasForeignKey(d => d.BusinessPostalCode)
+            entity.HasOne(d => d.BusinessVillageNavigation).WithMany(p => p.IndividualCreditBusinessVillageNavigations)
+                .HasForeignKey(d => d.BusinessVillage)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Individua__Busin__70DDC3D8");
 
@@ -788,10 +786,10 @@ public partial class MidasContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Individua__Ident__74AE54BC");
 
-            entity.HasOne(d => d.PostalCode).WithMany(p => p.IndividualCreditPostalCodes)
-                .HasForeignKey(d => d.PostalCodeId)
+            entity.HasOne(d => d.Village).WithMany(p => p.IndividualCreditVillages)
+                .HasForeignKey(d => d.VillageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Individua__Posta__6EF57B66");
+                .HasConstraintName("FK__Individua__Vill__6EF57B66");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.IndividualCreditUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
@@ -801,54 +799,6 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Individua__UserI__6E01572D");
-        });
-
-        modelBuilder.Entity<PostalCode>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__PostalCo__3214EC0744B4C17E");
-
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.DeletedAt).HasColumnType("datetime");
-            entity.Property(e => e.DeletedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PostalCode1)
-                .HasMaxLength(6)
-                .IsUnicode(false)
-                .HasColumnName("PostalCode");
-            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
-            entity.Property(e => e.UpdatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.VillageId)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.PostalCodeCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__PostalCod__Creat__4E88ABD4");
-
-            entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.PostalCodeDeletedByNavigations)
-                .HasForeignKey(d => d.DeletedBy)
-                .HasConstraintName("FK__PostalCod__Delet__5165187F");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.PostalCodeUpdatedByNavigations)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK__PostalCod__Updat__5070F446");
-
-            entity.HasOne(d => d.Village).WithMany(p => p.PostalCodes)
-                .HasForeignKey(d => d.VillageId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__PostalCod__Villa__4D94879B");
         });
 
         modelBuilder.Entity<Province>(entity =>

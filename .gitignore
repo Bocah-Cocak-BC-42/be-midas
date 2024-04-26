@@ -1,5 +1,6 @@
 appsettings.json
 appsettings.Development.json
+DbContextConnectionConfig
 
 # Build results
 [Dd]ebug/
