@@ -14,7 +14,7 @@ public class CityRepository : ICityRepository
     public List<City> Get(int pageNumber, int pageSize, string name, string provinceId)
     {
         return _dbContext.Cities
-        .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId)
+        .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToList();
@@ -23,7 +23,7 @@ public class CityRepository : ICityRepository
     public List<City> Get(string provinceId)
     {
         return _dbContext.Cities
-        .Where(city => city.DeletedAt == null && city.ProvinceId == provinceId)
+        .Where(city => city.DeletedAt == null && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
         .ToList();
     }
 
@@ -61,7 +61,7 @@ public class CityRepository : ICityRepository
     public int Count(string name, string provinceId)
     {
         return _dbContext.Cities
-        .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId)
+        .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
         .Count();
     }
 }
