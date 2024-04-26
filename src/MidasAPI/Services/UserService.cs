@@ -12,30 +12,15 @@ public class UserService
         _userRepository = userRepository;
     }
 
-    public List<UserResponseDTO> GetAllCustomer(int pageNumber, int pageSize)
+    public List<CustomerResponseDTO> GetAllCustomer(int pageNumber, int pageSize, string fullName, string identityNumber)
     {
-        return _userRepository.GetAllCustomers(pageNumber, pageSize).Select(x => new UserResponseDTO
+        return _userRepository.GetAllCustomers(pageNumber, pageSize, fullName, identityNumber).Select(x => new CustomerResponseDTO
             {
                 Id = x.Id,
-                Email = x.Email,
                 FullName = x.FullName,
                 NickName = x.NickName,
                 IdentityNumber = x.IdentityNumber,
-                Gender = x.Gender,
-                BirthPlace = x.BirthPlace,
-                BirthDate = x.BirthDate,
-                PhoneNumber = x.PhoneNumber,
-                CreditScore = x.CreditScore,
-                PersonalCreditLimit = x.PersonalCreditLimit,
-                CompanyCreditLimit = x.CompanyCreditLimit,
-                RegistrationDate = x.RegistrationDate,
-                RoleId = x.RoleId,
-                CreatedBy = x.CreatedBy,
-                CreatedAt = x.CreatedAt,
-                UpdatedBy = x.UpdatedBy,
-                UpdatedAt = x.UpdatedAt,
-                DeletedBy = x.DeletedBy,
-                DeletedAt = x.DeletedAt,
+                CreditScore = x.CreditScore
             }).ToList();
     }
 }

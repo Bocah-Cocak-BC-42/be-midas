@@ -6,7 +6,7 @@ namespace MidasAPI.Controllers
 {
 
     [ApiController]
-    [Route("api/v1/category")]
+    [Route("api/v1/user")]
     public class UserController : ControllerBase
     {
         private readonly UserService _service;
@@ -17,11 +17,11 @@ namespace MidasAPI.Controllers
         }
 
         [HttpGet("GetAllCustomer")]
-        public IActionResult Get(int pageNumber = 1, int pageSize = 5)
+        public IActionResult Get(int pageNumber = 1, int pageSize = 5, string fullName ="", string identityNumber = "")
         {
             try
             {
-                var res = _service.GetAllCustomer(pageNumber, pageSize);
+                var res = _service.GetAllCustomer(pageNumber, pageSize, fullName, identityNumber);
                 if (res.Count == 0)
                     return NotFound(new ResponseDTO<string[]>()
                     {
@@ -30,7 +30,7 @@ namespace MidasAPI.Controllers
                         Data = Array.Empty<string>()
                     });
 
-                return Ok(new ResponseWithPaginationDTO<List<UserResponseDTO>>()
+                return Ok(new ResponseWithPaginationDTO<List<CustomerResponseDTO>>()
                 {
                     Message = ConstantConfigs.MESSAGE_GET("Customer"),
                     Status = ConstantConfigs.STATUS_OK,

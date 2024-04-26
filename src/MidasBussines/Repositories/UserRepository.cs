@@ -22,15 +22,17 @@ namespace MidasBussines.Repositories
             return dbContext.Users.Where(user => user.RoleId == id).First();
         }
 
-        public List<User> GetAllCustomers(int pageNumber, int pageSize)
+        public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah")
+            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
+            && user.FullName.Contains(fullName??"") && user.IdentityNumber.Contains(identityNumber??""))
                 .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        public int CountAllCustomers()
+        public int CountAllCustomers(string fullName, string identityNumber)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah")
+            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"
+            && user.FullName.Contains(fullName?? "") && user.IdentityNumber.Contains(identityNumber ?? ""))
                 .Count();
         }
         public User GetCustomerByName(string name)

@@ -10,8 +10,8 @@ namespace MidasBussines.Interfaces
     public interface IUserRepository
     {
         public User GetById(string id);
-        public List<User> GetAllCustomers(int pageNumber, int pageSize);
-        public int CountAllCustomers();
+        public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber);
+        public int CountAllCustomers(string fullName, string identityNumber);
         public User GetCustomerByName(string name);
         public void Insert(User model);
         public void Update(User model);
