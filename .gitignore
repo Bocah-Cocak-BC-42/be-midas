@@ -25,3 +25,6 @@ project.lock.json
 .fake
 /src/MidasDataAccess/Migrations/20240425024426_initializeDatabase.cs
 /.vs
+/src/MidasDataAccess/DbContextConnectionConfig.cs
+/src/MidasDataAccess/DbContextConnectionConfig.cs
+/.gitignore
