@@ -15,7 +15,7 @@ public partial class IndividualCredit
 
     public string Address { get; set; } = null!;
 
-    public string PostalCodeId { get; set; } = null!;
+    public string VillageId { get; set; } = null!;
 
     public string BusinessSectorId { get; set; } = null!;
 
@@ -29,7 +29,7 @@ public partial class IndividualCredit
 
     public int TotalEmployee { get; set; }
 
-    public string BusinessPostalCode { get; set; } = null!;
+    public string BusinessVillage { get; set; } = null!;
 
     public string BranchOfficeId { get; set; } = null!;
 
@@ -73,7 +73,7 @@ public partial class IndividualCredit
 
     public virtual FileManagement BusinessCertificateFileNavigation { get; set; } = null!;
 
-    public virtual PostalCode BusinessPostalCodeNavigation { get; set; } = null!;
+    public virtual Village BusinessVillageNavigation { get; set; } = null!;
 
     public virtual BusinessSector BusinessSector { get; set; } = null!;
 
@@ -93,7 +93,7 @@ public partial class IndividualCredit
 
     public virtual FileManagement IdentityCardSelfieFileNavigation { get; set; } = null!;
 
-    public virtual PostalCode PostalCode { get; set; } = null!;
+    public virtual Village Village { get; set; } = null!;
 
     public virtual User? UpdatedByNavigation { get; set; }
 

@@ -29,7 +29,7 @@ public partial class CompanyCredit
 
     public string Address { get; set; } = null!;
 
-    public string PostalCodeId { get; set; } = null!;
+    public string VillageId { get; set; } = null!;
 
     public string CompanyOwnerId { get; set; } = null!;
 
@@ -101,7 +101,7 @@ public partial class CompanyCredit
 
     public virtual FileManagement NpwpfileNavigation { get; set; } = null!;
 
-    public virtual PostalCode PostalCode { get; set; } = null!;
+    public virtual Village Village { get; set; } = null!;
 
     public virtual User? UpdatedByNavigation { get; set; }
 
