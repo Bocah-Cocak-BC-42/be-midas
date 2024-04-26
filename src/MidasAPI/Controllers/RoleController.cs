@@ -8,19 +8,18 @@ namespace MidasAPI;
 public class RoleController : ControllerBase
 {   
 
-    private readonly RoleServices services;
+    private readonly RoleServices _service;
 
-    public RoleController(RoleServices services)
+    public RoleController(RoleServices _service)
     {
-        this.services = services;
+        this._service = _service;
     }
 
 
     [HttpGet("getAllRoles")]
     public IActionResult Get(){
-
         try{
-            var dto = services.GetRoles();
+            var dto = _service.GetRoles();
             if(dto.Roles.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("jabatan"),
@@ -36,20 +35,20 @@ public class RoleController : ControllerBase
             });
 
         }
-        catch(Exception e){
+        catch(System.Exception){
             return BadRequest(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
-        
     }
 
 
+
     [HttpGet("getAllRolesWithPagination")]
-    public IActionResult Get(int page, int pageSize){
+    public IActionResult Get(int page, int pageSize, string roleName = ""){
         try{
-            var dto = services.GetRoles(page, pageSize);
+            var dto = _service.GetRoles(page, pageSize, roleName);
             if(dto.Roles.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("jabatan"),
@@ -65,7 +64,7 @@ public class RoleController : ControllerBase
                 Pagination = new PaginationDTO(){
                     Page = page,
                     PageSize = pageSize,
-                    TotalData = services.CountData()
+                    TotalData = _service.CountData(roleName)
                 }
             });
 
@@ -80,11 +79,10 @@ public class RoleController : ControllerBase
 
 
 
-
-    [HttpPost("InsertRole{roleName}")]
-    public IActionResult Insert(string roleName){
+    [HttpPost("InsertRole")]
+    public IActionResult Insert([FromBody] InsertRoleDTO dto){
         try{
-            services.Insert(roleName);
+            _service.Insert(dto);
 
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_POST("jabatan"),
@@ -105,7 +103,7 @@ public class RoleController : ControllerBase
     public IActionResult Update([FromBody] UpdateRoleDTO dto){
         try
         {
-            services.Update(dto);
+            _service.Update(dto);
             
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_PUT("jabatan"),
@@ -125,7 +123,7 @@ public class RoleController : ControllerBase
     [HttpDelete("DeleteRole/{roleId}")]
     public IActionResult Delete(string roleId){
         try{
-            services.Delete(roleId);
+            _service.Delete(roleId);
 
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_DELETE("jabatan"),

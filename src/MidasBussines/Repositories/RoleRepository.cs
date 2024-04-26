@@ -4,42 +4,48 @@ namespace MidasBussines;
 
 public class RoleRepository : IRoleRepository
 {
-    private readonly MidasContext dbContext;
+    private readonly MidasContext _dbContext;
 
-    public RoleRepository(MidasContext dbContext)
+    public RoleRepository(MidasContext _dbContext)
     {
-        this.dbContext = dbContext;
+        this._dbContext = _dbContext;
     }
 
 
     public List<Role> GetRoles()
     {
-        var roles = dbContext.Roles;
-        return roles.ToList();
+        var roles = _dbContext.Roles;
+        return roles
+            .Where(role => role.DeletedAt == null)
+            .ToList();
     }
 
-    public List<Role> GetRoles(int page, int pageSize){
-        var roles = dbContext.Roles;
+    public List<Role> GetRoles(int page, int pageSize, string roleName){
+        var roles = _dbContext.Roles;
         return roles
+            .Where(role => role.DeletedAt == null && role.Name.Contains(roleName??"".ToLower()))
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
     }
 
 
-    public int CountData(){
-        return dbContext.Roles.Count();
+    public int CountData(string roleName){
+        var roles = _dbContext.Roles;
+        return roles
+            .Where(role => role.DeletedAt == null && role.Name.Contains(roleName??"".ToLower()))
+            .Count();
     }
 
     public Role GetRoleById(string roleId){
-        return dbContext.Roles.Find(roleId);
+        return _dbContext.Roles.Find(roleId);
     }
 
     public void Insert(Role model)
     {
         try{
-            dbContext.Roles.Add(model);
-            dbContext.SaveChanges();
+            _dbContext.Roles.Add(model);
+            _dbContext.SaveChanges();
         }
         catch(System.Exception){
             throw;
@@ -49,8 +55,8 @@ public class RoleRepository : IRoleRepository
     public void Update(Role model)
     {
         try{
-            dbContext.Roles.Update(model);
-            dbContext.SaveChanges();
+            _dbContext.Roles.Update(model);
+            _dbContext.SaveChanges();
         }
         catch(System.Exception){
             throw;
@@ -59,8 +65,8 @@ public class RoleRepository : IRoleRepository
     public void Delete(Role model)
     {
         try{
-            dbContext.Roles.Update(model);
-            dbContext.SaveChanges();
+            _dbContext.Roles.Update(model);
+            _dbContext.SaveChanges();
         }
         catch(System.Exception){
             throw;
