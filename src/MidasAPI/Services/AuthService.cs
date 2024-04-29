@@ -53,7 +53,7 @@ public class AuthService
             return CreateToken(model ?? throw new NullReferenceException(""));
         }
 
-        throw new EmailPasswordException("Email or Password is incorrect!");
+        throw new EmailPasswordException("Email atau Password salah!");
     }
 
 }
