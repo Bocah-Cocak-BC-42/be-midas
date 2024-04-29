@@ -42,7 +42,7 @@ public class BankService
         );
     public void Update(BankUpdateDTO req)
     {
-        var model = _bankRep.Get(req.Id);
+        var model = _bankRep.Get(req.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("bank"));
         model.Name = req.Name;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
@@ -50,7 +50,7 @@ public class BankService
     }
     public void Delete(string id)
     {
-        var model = _bankRep.Get(id);
+        var model = _bankRep.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("bank"));
         model.DeletedAt = DateTime.Now;
         model.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
         _bankRep.Update(model); 

@@ -12,7 +12,10 @@ public class BusinessSectorRepository : IBusinessSectorRepository
     }
     public int CountData(string name) =>
          _context.BusinessSectors
-        .Where(sector=>sector.Name.ToString().ToLower().Contains(name??"".ToLower()))
+        .Where(sector=>
+            sector.DeletedAt == null&&
+            sector.Name.ToString().ToLower().Contains(name??"".ToLower())
+        )
         .Count();
     
     public void Delete(string id)
@@ -47,6 +50,7 @@ public class BusinessSectorRepository : IBusinessSectorRepository
 
     public BusinessSector? Get(string id) =>
         _context.BusinessSectors
+        .Where(sector=>sector.DeletedAt == null)
         .FirstOrDefault(sector => sector.Id == id);
 
     public void Insert(BusinessSector req)

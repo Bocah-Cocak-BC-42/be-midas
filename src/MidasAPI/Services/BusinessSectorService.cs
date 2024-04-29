@@ -45,7 +45,7 @@ public class BusinessSectorService
     
     public void Update(BusinessSectorUpdateDTO req)
     {
-        var model = _sectorRep.Get(req.Id);
+        var model = _sectorRep.Get(req.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"));
         model.Name = req.Name;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
@@ -54,7 +54,7 @@ public class BusinessSectorService
 
     public void Delete(string id)
     {
-        var model = _sectorRep.Get(id);
+        var model = _sectorRep.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"));
         model.DeletedAt = DateTime.Now;
         model.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
         _sectorRep.Update(model); 

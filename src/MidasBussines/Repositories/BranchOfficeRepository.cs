@@ -15,6 +15,7 @@ public class BranchOfficeRepository : IBranchOfficeRepository
     public int CountData(string officeName, string province, string city) =>
         _context.BranchOffices
         .Where(office=>
+            office.DeletedAt == null &&
             office.OfficeName.ToString().ToLower().Contains(officeName??"".ToLower())&&
             office.Village.SubDistrict.City.Province.Name.ToString().ToLower().Contains(province??"".ToLower())&&
             office.Village.SubDistrict.City.Name.ToString().ToLower().Contains(city??"".ToLower())
@@ -47,6 +48,7 @@ public class BranchOfficeRepository : IBranchOfficeRepository
     public List<BranchOffice> Get(int page, int pageSize, string officeName, string province, string city) =>
         _context.BranchOffices
         .Where(office=>
+            office.DeletedAt == null &&
             office.OfficeName.ToString().ToLower().Contains(officeName??"".ToLower())&&
             office.Village.SubDistrict.City.Province.Name.ToString().ToLower().Contains(province??"".ToLower())&&
             office.Village.SubDistrict.City.Name.ToString().ToLower().Contains(city??"".ToLower())
@@ -61,6 +63,7 @@ public class BranchOfficeRepository : IBranchOfficeRepository
 
     public BranchOffice? Get(string id) =>
         _context.BranchOffices
+        .Where(office=>office.DeletedAt == null)
         .FirstOrDefault(office => office.Id == id);
 
     public void Insert(BranchOffice req)

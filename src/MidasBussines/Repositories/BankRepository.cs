@@ -13,7 +13,10 @@ public class BankRepository : IBankRepository
 
     public int CountData(string name) =>
         _context.Banks
-        .Where(bank=>bank.Name.ToString().ToLower().Contains(name??"".ToLower()))
+        .Where(bank=>
+            bank.Name.ToString().ToLower().Contains(name??"".ToLower())&&
+            bank.DeletedAt == null
+        )
         .Count();
 
     public void Delete(string id)
@@ -45,6 +48,7 @@ public class BankRepository : IBankRepository
             .ToList();
     public Bank? Get(string id) =>
         _context.Banks
+        .Where(bank=>bank.DeletedAt == null)
         .FirstOrDefault(bank => bank.Id == id);
         
     public void Insert(Bank req)
