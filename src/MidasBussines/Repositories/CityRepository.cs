@@ -36,8 +36,11 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            _dbContext.Cities.Add(city);
-            _dbContext.SaveChanges();
+            if (city.Province.DeletedAt == null)
+            {
+                _dbContext.Cities.Add(city);
+                _dbContext.SaveChanges();
+            }
         }
         catch (System.Exception)
         {
