@@ -1,44 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MidasAPI;
-
 [ApiController]
-[Route("api/v1/province")]
-public class ProvinceController : ControllerBase
-{
-    private readonly ProvinceService _service;
+[Route("api/v1/subdistrict")]
 
-    public ProvinceController(ProvinceService service)
+public class SubdistrictController : ControllerBase
+{
+    private readonly SubdistrictServices _service;
+
+    public SubdistrictController(SubdistrictServices service)
     {
         _service = service;
     }
 
     [HttpGet]
-    public IActionResult Get(int pageNumber, int pageSize, string name = "")
+    public IActionResult Get(int pageNumber, int pageSize, string cityId, string name = "")
     {
         try
         {
-            var prov = _service.Get(pageNumber, pageSize, name);
-            if (prov.Count == 0)
+            var subdistricts = _service.Get(pageNumber, pageSize, cityId, name);
+            if (subdistricts.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
                 {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kecamatan"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
 
-            return Ok(new ResponseWithPaginationDTO<List<ProvinceResponseDTO>>()
+            return Ok(new ResponseWithPaginationDTO<List<SubdistrictrResponseDTO>>()
             {
-                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
+                Message = ConstantConfigs.MESSAGE_GET("kecamatan"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = prov,
+                Data = subdistricts,
                 Pagination = new PaginationDTO()
                 {
                     Page = pageNumber,
                     PageSize = pageSize,
-                    TotalData = _service.Count(name)
+                    TotalData = _service.Count(name, cityId),
                 }
             });
         }
@@ -47,32 +47,31 @@ public class ProvinceController : ControllerBase
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
+                Status = ConstantConfigs.STATUS_FAILED,
             });
         }
     }
 
-    [HttpGet("all")]
-    public IActionResult Get()
+    [HttpGet("{cityId}")]
+    public IActionResult Get(string cityId)
     {
         try
         {
-            var prov = _service.Get();
-            if (prov.Count == 0)
+            var subdistricts = _service.Get(cityId);
+            if (subdistricts.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
                 {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kecamatan"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
-
-            return Ok(new ResponseDTO<List<ProvinceResponseDTO>>()
+            return Ok(new ResponseDTO<List<SubdistrictrResponseDTO>>()
             {
-                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
+                Message = ConstantConfigs.MESSAGE_GET("kecamatan"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = prov
+                Data = subdistricts
             });
         }
         catch (System.Exception)
@@ -80,21 +79,20 @@ public class ProvinceController : ControllerBase
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
+                Status = ConstantConfigs.STATUS_FAILED,
             });
         }
     }
 
     [HttpPost]
-    public IActionResult Insert(ProvinceInsertDTO dto)
+    public IActionResult Insert(SubdistrictInsertDTO req)
     {
         try
         {
-            _service.Insert(dto);
-
+            _service.Insert(req);
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_POST("provinsi"),
+                Message = ConstantConfigs.MESSAGE_POST("kecamatan"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -109,15 +107,14 @@ public class ProvinceController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(ProvinceUpdateDTO dto)
+    public IActionResult Update(SubdistrictUpdateDTO req)
     {
         try
         {
-            _service.Update(dto);
-
+            _service.Update(req);
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_PUT("provinsi"),
+                Message = ConstantConfigs.MESSAGE_PUT("kecamatan"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -137,10 +134,9 @@ public class ProvinceController : ControllerBase
         try
         {
             _service.Delete(id);
-
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_DELETE("provinsi"),
+                Message = ConstantConfigs.MESSAGE_DELETE("kecamatan"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
