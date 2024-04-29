@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MidasBussines;
 
 namespace MidasAPI;
 
@@ -21,7 +22,10 @@ public class AuthController : ControllerBase
             return Ok(_service.GetToken(request));
         }
         catch(Exception e){
-            return Unauthorized(e.Message);
+            return BadRequest(new ResponseDTO<string>(){
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
         }
     }
 }
