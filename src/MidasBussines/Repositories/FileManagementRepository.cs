@@ -12,6 +12,12 @@ public class FileManagementRepository : IFileManagementRepository
         _context = context;
     }
 
+    public FileManagement Get(string id)
+    {
+        return _context.FileManagements
+        .FirstOrDefault(file => file.Id == id);
+    }
+
     public void Insert(FileManagement req)
     {
         try

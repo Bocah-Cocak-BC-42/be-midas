@@ -13,6 +13,11 @@ public class FileManagementServices
         _rep = rep;
     }
 
+    public FileManagement GetFile (string id)
+    {
+        return _rep.Get(id);
+    }
+
     public string Upload(FileInsertDTO dto)
     {
         var model = new FileManagement
