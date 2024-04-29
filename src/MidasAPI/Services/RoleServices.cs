@@ -13,7 +13,7 @@ public class RoleServices
         this._roleRepository = _roleRepository;
     }
 
-    public IndexRoleDTO GetRoles(){
+    public List<RoleDTO> GetRoles(){
         var model = _roleRepository
             .GetRoles()
             .Select(role => new RoleDTO(){
@@ -21,13 +21,11 @@ public class RoleServices
                 Name = role.Name
             });
 
-        return new IndexRoleDTO{
-            Roles = model.ToList()
-        };
+        return model.ToList();
     }
 
 
-    public IndexRoleDTO GetRoles(int page, int pageSize, string roleName){
+    public List<RoleDTO> GetRoles(int page, int pageSize, string roleName){
         var model = _roleRepository
             .GetRoles(page, pageSize, roleName)
             .Select(role => new RoleDTO(){
@@ -35,14 +33,7 @@ public class RoleServices
                 Name = role.Name,
             });
 
-        return new IndexRoleDTO(){
-            Roles = model.ToList(),
-            Pagination = new PaginationDTO(){
-                Page = page,
-                PageSize = pageSize,
-                TotalData = _roleRepository.CountData(roleName)
-            }
-        };
+        return model.ToList();
     }
     
 
@@ -62,7 +53,7 @@ public class RoleServices
     
 
     public void Update(UpdateRoleDTO dto){
-        var model = _roleRepository.GetRoleById(dto.Id);
+        var model = _roleRepository.GetRoleById(dto.Id) ?? throw new NullReferenceException("");
         model.Name = dto.Name;
         model.UpdatedAt = DateTime.Now;
 
@@ -71,7 +62,7 @@ public class RoleServices
 
 
     public void Delete(string roleId){
-        var model = _roleRepository.GetRoleById(roleId);
+        var model = _roleRepository.GetRoleById(roleId) ?? throw new NullReferenceException("");
         model.DeletedAt = DateTime.Now;
 
         _roleRepository.Delete(model);

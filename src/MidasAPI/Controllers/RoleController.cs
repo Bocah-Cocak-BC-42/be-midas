@@ -16,11 +16,11 @@ public class RoleController : ControllerBase
     }
 
 
-    [HttpGet("getAllRoles")]
+    [HttpGet("all")]
     public IActionResult Get(){
         try{
             var dto = _service.GetRoles();
-            if(dto.Roles.Count == 0){
+            if(dto.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("jabatan"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
@@ -31,7 +31,7 @@ public class RoleController : ControllerBase
             return Ok(new ResponseWithPaginationDTO<List<RoleDTO>>(){
                 Message = ConstantConfigs.MESSAGE_GET("jabatan"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = dto.Roles
+                Data = dto
             });
 
         }
@@ -45,11 +45,11 @@ public class RoleController : ControllerBase
 
 
 
-    [HttpGet("getAllRolesWithPagination")]
+    [HttpGet]
     public IActionResult Get(int page, int pageSize, string roleName = ""){
         try{
             var dto = _service.GetRoles(page, pageSize, roleName);
-            if(dto.Roles.Count == 0){
+            if(dto.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("jabatan"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
@@ -60,7 +60,7 @@ public class RoleController : ControllerBase
             return Ok(new ResponseWithPaginationDTO<List<RoleDTO>>(){
                 Message = ConstantConfigs.MESSAGE_GET("jabatan"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = dto.Roles,
+                Data = dto,
                 Pagination = new PaginationDTO(){
                     Page = page,
                     PageSize = pageSize,
@@ -79,7 +79,7 @@ public class RoleController : ControllerBase
 
 
 
-    [HttpPost("InsertRole")]
+    [HttpPost]
     public IActionResult Insert([FromBody] InsertRoleDTO dto){
         try{
             _service.Insert(dto);
@@ -99,7 +99,7 @@ public class RoleController : ControllerBase
 
 
 
-    [HttpPut("UpdateRole")]
+    [HttpPut]
     public IActionResult Update([FromBody] UpdateRoleDTO dto){
         try
         {
@@ -120,7 +120,7 @@ public class RoleController : ControllerBase
     }
 
 
-    [HttpDelete("DeleteRole/{roleId}")]
+    [HttpDelete("{roleId}")]
     public IActionResult Delete(string roleId){
         try{
             _service.Delete(roleId);

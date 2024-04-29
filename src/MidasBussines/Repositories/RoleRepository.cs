@@ -37,7 +37,7 @@ public class RoleRepository : IRoleRepository
             .Count();
     }
 
-    public Role GetRoleById(string roleId){
+    public Role? GetRoleById(string roleId){
         return _dbContext.Roles.Find(roleId);
     }
 
