@@ -36,10 +36,14 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            if (city.Province.DeletedAt == null)
+            var prov = _dbContext.Provinces.Find(city.ProvinceId);
+            if (prov.DeletedAt == null)
             {
                 _dbContext.Cities.Add(city);
                 _dbContext.SaveChanges();
+            } else
+            {
+                throw new Exception();
             }
         }
         catch (System.Exception)
