@@ -9,5 +9,4 @@ public class UpdateRoleDTO
 
     [Required(ErrorMessage = "Nama jabatan tidak boleh kosong!")]
     public string Name { get; set; } = null!;
-    public DateTime? UpdatedAt { get; set; }
 }
