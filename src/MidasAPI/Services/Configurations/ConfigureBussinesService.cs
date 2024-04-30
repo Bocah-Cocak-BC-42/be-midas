@@ -3,11 +3,12 @@ using MidasBussines;
 using MidasBussines.Interfaces;
 using MidasBussines.Repositories;
 
-namespace MidasAPI.Configurations;
+namespace MidasAPI.Services.Configurations;
 
 public static class ConfigureBussinesService
 {
-    public static IServiceCollection AddBusinessServices(this IServiceCollection services){
+    public static IServiceCollection AddBusinessServices(this IServiceCollection services)
+    {
         //Interfaces & Repositories
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IAuthRepository, AuthRepository>();
@@ -17,7 +18,7 @@ public static class ConfigureBussinesService
         services.AddScoped<RoleServices>();
         services.AddScoped<AuthService>();
         services.AddScoped<UserService>();
-        
+
         return services;
     }
 }
