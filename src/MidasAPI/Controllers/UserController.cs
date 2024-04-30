@@ -164,5 +164,29 @@ namespace MidasAPI.Controllers
                 });
             }
         }
+
+        [HttpPatch("ResetPassword")]
+        public IActionResult ResetPassword(string userId)
+        {
+            try
+            {
+                _service.ResetPassword(userId);
+
+                return Ok(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_PUT("User"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = userId
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
     }
 }

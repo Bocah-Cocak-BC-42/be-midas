@@ -95,4 +95,16 @@ public class UserService
 
         _userRepository.Insert(model);
     }
+
+    public void ResetPassword(string userId)
+    {
+        var model = _userRepository.GetById(userId);
+
+        if(model.Role.Name == "Nasabah")
+            model.Password = BCrypt.Net.BCrypt.HashPassword("nasabah123");
+        else
+            model.Password = BCrypt.Net.BCrypt.HashPassword("karyawan123");
+
+        _userRepository.Update(model);
+    }
 }

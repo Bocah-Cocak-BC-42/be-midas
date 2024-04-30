@@ -14,7 +14,7 @@ namespace MidasBussines.Repositories
         }
         public User GetById(string id)
         {
-            return dbContext.Users.Where(user => user.RoleId == id).First();
+            return dbContext.Users.Include("Role").Where(user => user.Id == id).First();
         }
 
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)
