@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.BranchOffice;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
+[Authorize]
 [ApiController]
 [Route("api/v1/branch-office")]
 public class BranchOfficeController : ControllerBase
@@ -115,7 +117,8 @@ public class BranchOfficeController : ControllerBase
     {
         try
         {
-            _service.Insert(req);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Insert(req,userId);
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_POST("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK
@@ -134,7 +137,8 @@ public class BranchOfficeController : ControllerBase
     {
         try
         {
-            _service.Update(req);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Update(req,userId);
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_PUT("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK
@@ -153,7 +157,8 @@ public class BranchOfficeController : ControllerBase
     {
         try
         {
-            _service.Delete(id);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Delete(id,userId);
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_DELETE("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK

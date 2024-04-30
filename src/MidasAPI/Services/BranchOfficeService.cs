@@ -46,7 +46,7 @@ public class BranchOfficeService
         _officeRep.CountData(officeName,province,city);
     public BranchOffice? Get(string id) =>
         _officeRep.Get(id);
-    public void Insert(BranchOfficeInsertDTO req) =>
+    public void Insert(BranchOfficeInsertDTO req, string userId) =>
         _officeRep.Insert(new BranchOffice
             {
                 Id = Guid.NewGuid().ToString(),
@@ -55,10 +55,10 @@ public class BranchOfficeService
                 Address = req.Address,
                 VillageId = req.VillageId,
                 CreatedAt = DateTime.Now,
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874"
+                CreatedBy = userId
             }
         );
-    public void Update(BranchOfficeUpdateDTO req)
+    public void Update(BranchOfficeUpdateDTO req, string userId)
     {
         var model = _officeRep.Get(req.Id)?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
         model.OfficeName = req.OfficeName;
@@ -66,15 +66,15 @@ public class BranchOfficeService
         model.Address = req.Address;
         model.VillageId = req.VillageId;
         model.UpdatedAt = DateTime.Now;
-        model.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.UpdatedBy = userId;
         _officeRep.Update(model); 
         
     }
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var model = _officeRep.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
         model.DeletedAt = DateTime.Now;
-        model.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.DeletedBy = userId;
         _officeRep.Update(model);
     }
     

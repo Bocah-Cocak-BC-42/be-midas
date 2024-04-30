@@ -34,30 +34,30 @@ public class BusinessSectorService
     public BusinessSector? Get(string id) => 
         _sectorRep.Get(id);
 
-    public void Insert(BusinessSectorInsertDTO req) =>
+    public void Insert(BusinessSectorInsertDTO req, string userId) =>
         _sectorRep.Insert(new BusinessSector
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = req.Name,
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+                CreatedBy = userId,
                 CreatedAt = DateTime.Now
             }     
         );
     
-    public void Update(BusinessSectorUpdateDTO req)
+    public void Update(BusinessSectorUpdateDTO req, string userId)
     {
         var model = _sectorRep.Get(req.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"));
         model.Name = req.Name;
         model.UpdatedAt = DateTime.Now;
-        model.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.UpdatedBy = userId;
         _sectorRep.Update(model); 
     }
 
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var model = _sectorRep.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"));
         model.DeletedAt = DateTime.Now;
-        model.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.DeletedBy = userId;
         _sectorRep.Update(model); 
     }
 
