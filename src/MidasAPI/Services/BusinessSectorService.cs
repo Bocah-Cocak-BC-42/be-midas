@@ -1,4 +1,5 @@
 ﻿using MidasAPI.DTOs.BusinessSector;
+using MidasBussines;
 using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 

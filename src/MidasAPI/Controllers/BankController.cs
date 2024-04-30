@@ -121,7 +121,7 @@ public class BankController : ControllerBase
                 Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
-        }    
+        }   
     }
     [HttpPut("{id}")]
     public IActionResult Update([FromBody] BankUpdateDTO req)
