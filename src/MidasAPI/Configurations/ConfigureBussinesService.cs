@@ -12,11 +12,15 @@ public static class ConfigureBussinesService
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProvinceRepository, ProvinceRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
 
         //Services
         services.AddScoped<RoleServices>();
         services.AddScoped<AuthService>();
         services.AddScoped<UserService>();
+        services.AddScoped<ProvinceService>();
+        services.AddScoped<CityService>();
         
         return services;
     }
