@@ -21,8 +21,8 @@ public class AuthService
 
     public AuthResponseDTO CreateToken(User model){
         List<Claim> claims = new List<Claim>(){
-            new Claim(ClaimTypes.NameIdentifier, model.Email),
-            new Claim(ClaimTypes.Role, model.RoleId)
+            new Claim("nickname", model.NickName),
+            new Claim("userId", model.Id)
         };
 
         var key = new SymmetricSecurityKey(
