@@ -36,8 +36,16 @@ public class SubdistrictRepository : ISubdistrictRepository
     {
         try
         {
-            _context.SubDistricts.Add(req);
-            _context.SaveChanges();
+            var city = _context.Cities.Find(req.CityId);
+            if (city.DeletedAt == null)
+            {
+                _context.SubDistricts.Add(req);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
         catch (System.Exception)
         {

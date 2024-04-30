@@ -36,8 +36,16 @@ public class VillageRepository : IVillageRepository
     {
         try
         {
-            _context.Villages.Add(req);
-            _context.SaveChanges();
+            var subDistrict = _context.SubDistricts.Find(req.SubDistrictId);
+            if (subDistrict.DeletedAt == null)
+            {
+                _context.Villages.Add(req);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
         catch (System.Exception)
         {
