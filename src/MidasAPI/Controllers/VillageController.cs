@@ -86,11 +86,12 @@ public class VillageController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post(VillageInsertDTO model)
+    public IActionResult Insert(VillageInsertDTO model)
     {
         try
         {
-            _service.Insert(model);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Insert(model, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -113,7 +114,8 @@ public class VillageController : ControllerBase
     {
         try
         {
-            _service.Update(model);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Update(model, userId);
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_PUT("kelurahan/desa"),
@@ -135,7 +137,8 @@ public class VillageController : ControllerBase
     {
         try
         {
-            _service.Delete(id);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Delete(id, userId);
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_DELETE("kelurahan/desa"),

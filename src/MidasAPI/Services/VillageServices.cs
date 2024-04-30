@@ -35,7 +35,7 @@ public class VillageServices
         }).ToList();
     }
 
-    public void Insert(VillageInsertDTO model)
+    public void Insert(VillageInsertDTO model, string userId)
     {
         var dto = new Village()
         {
@@ -43,26 +43,26 @@ public class VillageServices
             Name = model.Name,
             SubDistrictId = model.SubDistrictId,
             PostalCode = model.PostalCode,
-            CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+            CreatedBy = userId,
             CreatedAt = DateTime.Now
         };
         _repo.Insert(dto);
     }
 
-    public void Update(VillageUpdateDTO model)
+    public void Update(VillageUpdateDTO model, string userId)
     {
         var village = _repo.GetById(model.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kelurahan/desa"));
         village.Name = model.Name;
         village.PostalCode = model.PostalCode;
-        village.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        village.UpdatedBy = userId;
         village.UpdatedAt = DateTime.Now;
         _repo.Update(village);
     }
 
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var dto = _repo.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kelurahan/desa"));
-        dto.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        dto.DeletedBy = userId;
         dto.DeletedAt = DateTime.Now;
         _repo.Update(dto);
     }
