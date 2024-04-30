@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.User;
 using MidasAPI.Services;
+using MidasDataAccess.Models;
 
 namespace MidasAPI.Controllers
 {
@@ -80,6 +81,46 @@ namespace MidasAPI.Controllers
                         PageSize = pageSize,
                         TotalData = _service.CountAllEmployee(fullName, nip, role)
                     }
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpPost("AddCustomer")]
+        public IActionResult AddCustomer(CustomerRegisterDTO customerRegisterDTO)
+        {
+            try
+            {
+                //if (customerRegisterDTO.IdentityNumber.Length != 16)
+                //    return BadRequest(new ResponseDTO<string>()
+                //    {
+                //        Message = "NIK harus berjumlah 16 digit",
+                //        Status = ConstantConfigs.STATUS_FAILED,
+                //        Data = customerRegisterDTO.IdentityNumber
+                //    });
+                //else if (customerRegisterDTO.PhoneNumber.Length < 10 ||
+                //    customerRegisterDTO.PhoneNumber.Length > 13)
+                //    return BadRequest(new ResponseDTO<string>()
+                //    {
+                //        Message = "Nomor telepon harus berjumlah 10-13 digit",
+                //        Status = ConstantConfigs.STATUS_FAILED,
+                //        Data = customerRegisterDTO.PhoneNumber
+                //    });
+
+                _service.AddCustomer(customerRegisterDTO);
+
+                return Ok(new ResponseDTO<CustomerRegisterDTO>()
+                {
+                    Message = ConstantConfigs.MESSAGE_POST("Customer"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = customerRegisterDTO
                 });
             }
             catch (System.Exception)

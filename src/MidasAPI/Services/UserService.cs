@@ -1,5 +1,7 @@
-﻿using MidasAPI.DTOs.User;
+﻿using BCrypt.Net;
+using MidasAPI.DTOs.User;
 using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
 
 namespace MidasAPI.Services;
 
@@ -46,5 +48,31 @@ public class UserService
     public int CountAllEmployee(string fullName, string identityNumber, string role)
     {
         return _userRepository.CountAllEmployee(fullName, identityNumber, role);
+    }
+
+    public void AddCustomer(CustomerRegisterDTO customerRegisterDTO)
+    {
+        var model = new User()
+        {
+            Id = Guid.NewGuid().ToString(),
+            RoleId = "445e48a4-f3f6-4660-96d7-82505bc740d3",
+            Email = customerRegisterDTO.Email,
+            Password = BCrypt.Net.BCrypt.HashPassword(customerRegisterDTO.Password),
+            FullName = customerRegisterDTO.FullName,
+            NickName = customerRegisterDTO.NickName,
+            IdentityNumber = customerRegisterDTO.IdentityNumber,
+            Gender = customerRegisterDTO.Gender,
+            BirthPlace = customerRegisterDTO.BirthPlace,
+            BirthDate = customerRegisterDTO.BirthDate,
+            PhoneNumber = customerRegisterDTO.PhoneNumber,
+            CreditScore = 100,
+            PersonalCreditLimit = 100_000_000,
+            CompanyCreditLimit = 1_000_000_000,
+            RegistrationDate = DateTime.Now
+        };
+
+        model.CreatedBy = model.Id;
+
+        _userRepository.Insert(model);
     }
 }
