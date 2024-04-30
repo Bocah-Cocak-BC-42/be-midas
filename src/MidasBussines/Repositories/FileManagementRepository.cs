@@ -1,6 +1,7 @@
-﻿using MidasDataAccess.Models;
+﻿using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Repositories;
 
 public class FileManagementRepository : IFileManagementRepository
 {
@@ -12,7 +13,7 @@ public class FileManagementRepository : IFileManagementRepository
         _context = context;
     }
 
-    public FileManagement Get(string id)
+    public FileManagement? Get(string id)
     {
         return _context.FileManagements
         .FirstOrDefault(file => file.Id == id);

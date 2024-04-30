@@ -1,7 +1,8 @@
-﻿using MidasBussines;
+﻿using MidasAPI.DTOs.Province;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class ProvinceService
 {
@@ -47,7 +48,7 @@ public class ProvinceService
 
     public void Update(ProvinceUpdateDTO dto)
     {
-        var prov = _repository.GetById(dto.Id);
+        var prov = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"));
         prov.Name = dto.Name;
         prov.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874"; // sementara
         prov.UpdatedAt = DateTime.Now;
@@ -57,7 +58,7 @@ public class ProvinceService
 
     public void Delete(string id)
     {
-        var prov = _repository.GetById(id);
+        var prov = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"));
         prov.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874"; //sementara
         prov.DeletedAt = DateTime.Now;
 

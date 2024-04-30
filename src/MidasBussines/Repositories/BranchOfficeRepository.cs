@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Repositories;
 
 public class BranchOfficeRepository : IBranchOfficeRepository
 {

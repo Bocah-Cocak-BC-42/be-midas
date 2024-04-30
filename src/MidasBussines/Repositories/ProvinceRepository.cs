@@ -1,6 +1,7 @@
-﻿using MidasDataAccess.Models;
+﻿using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Repositories;
 
 public class ProvinceRepository : IProvinceRepository
 {
@@ -27,7 +28,7 @@ public class ProvinceRepository : IProvinceRepository
         .ToList();
     }
 
-    public Province GetById(string id)
+    public Province? GetById(string id)
     {
         return _context.Provinces.Find(id);
     }

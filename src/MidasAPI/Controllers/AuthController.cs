@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MidasBussines;
+using MidasAPI.DTOs.Authorization;
+using MidasAPI.Services;
 
-namespace MidasAPI;
+namespace MidasAPI.Controllers;
 
 [Route("api/v1/auth")]
 [ApiController]

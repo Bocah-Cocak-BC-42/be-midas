@@ -1,7 +1,8 @@
-﻿using MidasBussines;
+﻿using MidasAPI.DTOs.Bank;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class BankService
 {

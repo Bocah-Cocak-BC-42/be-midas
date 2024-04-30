@@ -1,8 +1,8 @@
-﻿using Azure.Core.Pipeline;
-using MidasBussines;
+﻿using MidasAPI.DTOs.Role;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class RoleServices
 {

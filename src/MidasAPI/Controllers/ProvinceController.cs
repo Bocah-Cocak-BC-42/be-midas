@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MidasAPI.DTOs.Province;
+using MidasAPI.Services;
 
-namespace MidasAPI;
+namespace MidasAPI.Controllers;
 
 [ApiController]
 [Route("api/v1/province")]

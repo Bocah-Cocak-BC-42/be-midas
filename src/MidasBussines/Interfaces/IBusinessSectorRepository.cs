@@ -1,6 +1,6 @@
 ﻿using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Interfaces;
 
 public interface IBusinessSectorRepository
 {

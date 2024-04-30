@@ -1,4 +1,4 @@
-﻿namespace MidasAPI;
+﻿namespace MidasAPI.DTOs.Subdistrict;
 
 public class SubdistrictrResponseDTO
 {

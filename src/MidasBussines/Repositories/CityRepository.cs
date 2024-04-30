@@ -1,6 +1,7 @@
-﻿using MidasDataAccess.Models;
+﻿using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Repositories;
 
 public class CityRepository : ICityRepository
 {
@@ -27,7 +28,7 @@ public class CityRepository : ICityRepository
         .ToList();
     }
 
-    public City GetById(string id)
+    public City? GetById(string id)
     {
         return _dbContext.Cities.Find(id);
     }
@@ -36,7 +37,7 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            var prov = _dbContext.Provinces.Find(city.ProvinceId);
+            var prov = _dbContext.Provinces.Find(city.ProvinceId) ?? throw new Exception();
             if (prov.DeletedAt == null)
             {
                 _dbContext.Cities.Add(city);

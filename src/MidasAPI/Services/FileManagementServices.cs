@@ -1,8 +1,8 @@
-﻿using System.Text;
-using MidasBussines;
+﻿using MidasAPI.DTOs.FileManagaement;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class FileManagementServices
 {
@@ -13,7 +13,7 @@ public class FileManagementServices
         _rep = rep;
     }
 
-    public FileManagement GetFile (string id)
+    public FileManagement? GetFile (string id)
     {
         return _rep.Get(id);
     }

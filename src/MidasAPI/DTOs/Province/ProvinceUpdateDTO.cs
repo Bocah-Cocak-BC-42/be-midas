@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MidasAPI;
+namespace MidasAPI.DTOs.Province;
 
 public class ProvinceUpdateDTO
 {

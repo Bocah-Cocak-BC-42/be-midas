@@ -1,7 +1,8 @@
-﻿using MidasBussines;
+﻿using MidasAPI.DTOs.BusinessSector;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class BusinessSectorService
 {

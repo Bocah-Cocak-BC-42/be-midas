@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MidasAPI.DTOs.FileManagaement;
+using MidasAPI.Services;
 
-namespace MidasAPI;
+namespace MidasAPI.Controllers;
 
 [ApiController]
 [Route("api/v1/file-managements")]

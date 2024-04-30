@@ -1,6 +1,7 @@
-﻿using MidasDataAccess.Models;
+﻿using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
 
-namespace MidasBussines;
+namespace MidasBussines.Repositories;
 
 public class SubdistrictRepository : ISubdistrictRepository
 {
@@ -36,7 +37,7 @@ public class SubdistrictRepository : ISubdistrictRepository
     {
         try
         {
-            var city = _context.Cities.Find(req.CityId);
+            var city = _context.Cities.Find(req.CityId) ?? throw new Exception();
             if (city.DeletedAt == null)
             {
                 _context.SubDistricts.Add(req);

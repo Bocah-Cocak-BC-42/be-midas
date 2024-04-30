@@ -1,6 +1,8 @@
-﻿using MidasBussines;
+﻿using MidasAPI.DTOs.Village;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
-namespace MidasAPI;
+
+namespace MidasAPI.Services;
 
 public class VillageServices
 {

@@ -1,7 +1,8 @@
-﻿using MidasBussines;
+﻿using MidasAPI.DTOs.Subdistrict;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class SubdistrictServices
 {

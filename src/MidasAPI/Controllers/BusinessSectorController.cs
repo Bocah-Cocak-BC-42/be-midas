@@ -1,7 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using MidasAPI.DTOs.BusinessSector;
+using MidasAPI.Services;
 
-namespace MidasAPI;
+namespace MidasAPI.Controllers;
 [ApiController]
 [Route("api/v1/business-sector")]
 public class BusinessSectorController : ControllerBase

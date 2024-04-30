@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using MidasBussines;
+﻿using MidasAPI.DTOs.City;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
-namespace MidasAPI;
+namespace MidasAPI.Services;
 
 public class CityService
 {
@@ -50,7 +49,7 @@ public class CityService
 
     public void Update(CityUpdateDTO dto)
     {
-        var city = _repository.GetById(dto.Id);
+        var city = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kota"));
         city.Name = dto.Name;
         city.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
         city.UpdatedAt = DateTime.Now;
@@ -60,7 +59,7 @@ public class CityService
 
     public void Delete(string id)
     {
-        var city = _repository.GetById(id);
+        var city = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kota"));
         city.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
         city.DeletedAt = DateTime.Now;
 

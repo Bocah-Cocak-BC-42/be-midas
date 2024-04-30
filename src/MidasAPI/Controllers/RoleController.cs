@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MidasAPI.DTOs.Role;
+using MidasAPI.Services;
 
-namespace MidasAPI;
+namespace MidasAPI.Controllers;
 
 [Route("api/v1/roles")]
 [ApiController]

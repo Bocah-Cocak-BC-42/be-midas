@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
-namespace MidasAPI;
+namespace MidasAPI.DTOs.Subdistrict;
 
 public class SubdistrictUpdateDTO
 {
