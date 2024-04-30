@@ -17,6 +17,9 @@ public static class ConfigureBussinesService
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ISubdistrictRepository, SubdistrictRepository>();
         services.AddScoped<IVillageRepository, VillageRepository>();
+        services.AddScoped<IBankRepository,BankRepository>();
+        services.AddScoped<IBusinessSectorRepository,BusinessSectorRepository>();
+        services.AddScoped<IBranchOfficeRepository,BranchOfficeRepository>();
 
         //Services
         services.AddScoped<RoleServices>();
@@ -26,7 +29,9 @@ public static class ConfigureBussinesService
         services.AddScoped<CityService>();
         services.AddScoped<SubdistrictServices>();
         services.AddScoped<VillageServices>();
-
+        services.AddScoped<BusinessSectorService>();
+        services.AddScoped<BankService>();
+        
         return services;
     }
 }
