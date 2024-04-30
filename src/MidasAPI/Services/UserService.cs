@@ -75,4 +75,24 @@ public class UserService
 
         _userRepository.Insert(model);
     }
+
+    public void AddEmployee(EmployeeRegisterDTO employeeRegisterDTO)
+    {
+        var model = new User()
+        {
+            Id = Guid.NewGuid().ToString(),
+            RoleId = employeeRegisterDTO.RoleId,
+            Email = employeeRegisterDTO.Email,
+            Password = BCrypt.Net.BCrypt.HashPassword("karyawan123"),
+            FullName = employeeRegisterDTO.FullName,
+            NickName = employeeRegisterDTO.NickName,
+            IdentityNumber = employeeRegisterDTO.IdentityNumber,
+            Gender = employeeRegisterDTO.Gender,
+            RegistrationDate = DateTime.Now
+        };
+
+        model.CreatedBy = model.Id;
+
+        _userRepository.Insert(model);
+    }
 }

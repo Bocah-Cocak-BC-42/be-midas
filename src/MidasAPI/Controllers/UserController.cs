@@ -98,21 +98,21 @@ namespace MidasAPI.Controllers
         {
             try
             {
-                //if (customerRegisterDTO.IdentityNumber.Length != 16)
-                //    return BadRequest(new ResponseDTO<string>()
-                //    {
-                //        Message = "NIK harus berjumlah 16 digit",
-                //        Status = ConstantConfigs.STATUS_FAILED,
-                //        Data = customerRegisterDTO.IdentityNumber
-                //    });
-                //else if (customerRegisterDTO.PhoneNumber.Length < 10 ||
-                //    customerRegisterDTO.PhoneNumber.Length > 13)
-                //    return BadRequest(new ResponseDTO<string>()
-                //    {
-                //        Message = "Nomor telepon harus berjumlah 10-13 digit",
-                //        Status = ConstantConfigs.STATUS_FAILED,
-                //        Data = customerRegisterDTO.PhoneNumber
-                //    });
+                if (customerRegisterDTO.IdentityNumber.Length != 16)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIK harus berjumlah 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = customerRegisterDTO.IdentityNumber
+                    });
+                else if (customerRegisterDTO.PhoneNumber.Length < 10 ||
+                    customerRegisterDTO.PhoneNumber.Length > 13)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Nomor telepon harus berjumlah 10-13 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = customerRegisterDTO.PhoneNumber
+                    });
 
                 _service.AddCustomer(customerRegisterDTO);
 
@@ -121,6 +121,38 @@ namespace MidasAPI.Controllers
                     Message = ConstantConfigs.MESSAGE_POST("Customer"),
                     Status = ConstantConfigs.STATUS_OK,
                     Data = customerRegisterDTO
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpPost("AddEmployee")]
+        public IActionResult AddEmployee(EmployeeRegisterDTO employeeRegisterDTO)
+        {
+            try
+            {
+                if (employeeRegisterDTO.IdentityNumber.Length > 20)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIP hanya diperbolehkan maksimal 20 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = employeeRegisterDTO.IdentityNumber
+                    });
+
+                _service.AddEmployee(employeeRegisterDTO);
+
+                return Ok(new ResponseDTO<EmployeeRegisterDTO>()
+                {
+                    Message = ConstantConfigs.MESSAGE_POST("Karyawan"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = employeeRegisterDTO
                 });
             }
             catch (System.Exception)
