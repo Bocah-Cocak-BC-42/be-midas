@@ -7,13 +7,16 @@ namespace MidasAPI.Configurations;
 
 public static class ConfigureBussinesService
 {
-    public static IServiceCollection AddBusinessServices(this IServiceCollection services){
+    public static IServiceCollection AddBusinessServices(this IServiceCollection services)
+    {
         //Interfaces & Repositories
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProvinceRepository, ProvinceRepository>();
         services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<ISubdistrictRepository, SubdistrictRepository>();
+        services.AddScoped<IVillageRepository, VillageRepository>();
 
         //Services
         services.AddScoped<RoleServices>();
@@ -21,7 +24,9 @@ public static class ConfigureBussinesService
         services.AddScoped<UserService>();
         services.AddScoped<ProvinceService>();
         services.AddScoped<CityService>();
-        
+        services.AddScoped<SubdistrictServices>();
+        services.AddScoped<VillageServices>();
+
         return services;
     }
 }

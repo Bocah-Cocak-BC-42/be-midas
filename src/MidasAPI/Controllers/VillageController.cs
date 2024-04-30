@@ -1,78 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MidasAPI;
-
 [ApiController]
-[Route("api/v1/province")]
-public class ProvinceController : ControllerBase
+[Route("api/v1/village")]
+public class VillageController : ControllerBase
 {
-    private readonly ProvinceService _service;
+    private readonly VillageServices _service;
 
-    public ProvinceController(ProvinceService service)
+    public VillageController(VillageServices service)
     {
         _service = service;
     }
-
     [HttpGet]
-    public IActionResult Get(int pageNumber, int pageSize, string name = "")
+    public IActionResult Get(int pageNumber, int pageSize, string subdistrictId, string name = "")
     {
         try
         {
-            var prov = _service.Get(pageNumber, pageSize, name);
-            if (prov.Count == 0)
+            var villages = _service.Get(pageNumber, pageSize, subdistrictId, name);
+            if (villages.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
                 {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kelurahan/desa"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
 
-            return Ok(new ResponseWithPaginationDTO<List<ProvinceResponseDTO>>()
+            return Ok(new ResponseWithPaginationDTO<List<VillageResponseDTO>>()
             {
-                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
+                Message = ConstantConfigs.MESSAGE_GET("kelurahan/desa"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = prov,
+                Data = villages,
                 Pagination = new PaginationDTO()
                 {
                     Page = pageNumber,
                     PageSize = pageSize,
-                    TotalData = _service.Count(name)
+                    TotalData = _service.Count(name, subdistrictId),
                 }
-            });
+            }
+            );
         }
         catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
+                Status = ConstantConfigs.STATUS_FAILED,
             });
         }
     }
 
-    [HttpGet("all")]
-    public IActionResult Get()
+    [HttpGet("{subdistrictId}")]
+    public IActionResult Get(string subdistrictId)
     {
         try
         {
-            var prov = _service.Get();
-            if (prov.Count == 0)
+            var villages = _service.Get(subdistrictId);
+            if (villages.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
                 {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kelurahan/desa"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
-
-            return Ok(new ResponseDTO<List<ProvinceResponseDTO>>()
+            return Ok(new ResponseDTO<List<VillageResponseDTO>>()
             {
-                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
+                Message = ConstantConfigs.MESSAGE_GET("kelurahan/desa"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = prov
+                Data = villages
             });
         }
         catch (System.Exception)
@@ -80,21 +78,21 @@ public class ProvinceController : ControllerBase
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
+                Status = ConstantConfigs.STATUS_FAILED,
             });
         }
     }
 
     [HttpPost]
-    public IActionResult Insert(ProvinceInsertDTO dto)
+    public IActionResult Post(VillageInsertDTO model)
     {
         try
         {
-            _service.Insert(dto);
+            _service.Insert(model);
 
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_POST("provinsi"),
+                Message = ConstantConfigs.MESSAGE_POST("kelurahan/desa"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -103,21 +101,20 @@ public class ProvinceController : ControllerBase
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
+                Status = ConstantConfigs.STATUS_FAILED,
             });
         }
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(ProvinceUpdateDTO dto)
+    public IActionResult Update(VillageUpdateDTO model)
     {
         try
         {
-            _service.Update(dto);
-
+            _service.Update(model);
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_PUT("provinsi"),
+                Message = ConstantConfigs.MESSAGE_PUT("kelurahan/desa"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -137,10 +134,9 @@ public class ProvinceController : ControllerBase
         try
         {
             _service.Delete(id);
-
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_DELETE("provinsi"),
+                Message = ConstantConfigs.MESSAGE_DELETE("kelurahan/desa"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
