@@ -33,33 +33,33 @@ public class ProvinceService
         }).ToList();
     }
 
-    public void Insert(ProvinceInsertDTO dto)
+    public void Insert(ProvinceInsertDTO dto, string userId)
     {
         var prov = new Province()
         {
             Id = Guid.NewGuid().ToString(),
             Name = dto.Name,
-            CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874", // sementara
+            CreatedBy = userId,
             CreatedAt = DateTime.Now
         };
 
         _repository.Insert(prov);
     }
 
-    public void Update(ProvinceUpdateDTO dto)
+    public void Update(ProvinceUpdateDTO dto, string userId)
     {
         var prov = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"));
         prov.Name = dto.Name;
-        prov.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874"; // sementara
+        prov.UpdatedBy = userId;
         prov.UpdatedAt = DateTime.Now;
 
         _repository.Update(prov);
     }
 
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var prov = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("provinsi"));
-        prov.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874"; //sementara
+        prov.DeletedBy = userId;
         prov.DeletedAt = DateTime.Now;
 
         _repository.Update(prov);
