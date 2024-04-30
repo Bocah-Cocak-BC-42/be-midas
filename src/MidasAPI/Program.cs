@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MidasAPI.Services.Configurations;
@@ -59,6 +60,12 @@ public class Program
             app.UseSwaggerUI();
         }
         app.UseCors(MyAllowSpecificOrigins);
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(
+                Path.Combine(builder.Environment.ContentRootPath, "Files")),
+            RequestPath = "/Files"
+        });
         app.UseAuthentication();
         app.UseAuthorization();
 
