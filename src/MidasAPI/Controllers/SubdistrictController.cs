@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.Subdistrict;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
+[Authorize]
 [ApiController]
 [Route("api/v1/subdistrict")]
 
