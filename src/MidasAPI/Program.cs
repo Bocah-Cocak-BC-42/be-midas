@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MidasAPI.Services.Configurations;
+using MidasAPI.Configurations;
 using MidasDataAccess;
 using Swashbuckle.AspNetCore.Filters;
 
