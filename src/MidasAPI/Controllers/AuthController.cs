@@ -20,11 +20,19 @@ public class AuthController : ControllerBase
     [HttpPost]
     public IActionResult Post(AuthRequestDTO request){
         try{
-            return Ok(_service.GetToken(request));
+            var model = _service.GetToken(request);
+            if(model.Token == null){
+                return BadRequest(new ResponseDTO<string>(){
+                    Message = "Email atau Password salah!",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+
+            return Ok(model);
         }
         catch(Exception e){
             return BadRequest(new ResponseDTO<string>(){
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
