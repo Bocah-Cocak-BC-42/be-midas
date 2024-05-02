@@ -805,6 +805,8 @@ public partial class MidasContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Province__3214EC07115CA759");
 
+            entity.HasIndex(e => e.Name, "UQ__Provinces").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
                 .IsUnicode(false);
