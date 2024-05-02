@@ -12,9 +12,15 @@ namespace MidasBussines.Repositories
         {
             this.dbContext = dbContext;
         }
+
         public User GetById(string id)
         {
-            return dbContext.Users.Where(user => user.RoleId == id).First();
+            return dbContext.Users.Include("Role").Where(user => user.Id == id).First();
+        }
+
+        public User GetByEmail(string email)
+        {
+            return dbContext.Users.Include("Role").Where(user => user.Email == email).First();
         }
 
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)

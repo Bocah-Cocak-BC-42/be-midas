@@ -1,22 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
 
 namespace MidasAPI.DTOs.User
 {
-    public class CustomerRegisterDTO
+    public class CustomerUpdateDTO
     {
+        [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        public string Id { get; set; } = null!;
+
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
-        [Display(Name = "Password")]
-        public string Password { get; set; } = null!;
-
-        [Required(ErrorMessage = "{0} tidak boleh kosong")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage ="{0} tidak boleh terdapat angka")]
-        [Display(Name ="Nama Lengkap")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "{0} tidak boleh terdapat angka")]
+        [Display(Name = "Nama Lengkap")]
         public string FullName { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
@@ -25,7 +22,7 @@ namespace MidasAPI.DTOs.User
         public string NickName { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
-        [Range(1, Int64.MaxValue, ErrorMessage ="{0} harus berupa angka")]
+        [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
         [Display(Name = "NIK")]
         public string IdentityNumber { get; set; } = null!;
 
