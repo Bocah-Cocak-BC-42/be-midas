@@ -43,6 +43,10 @@ public class BranchOfficeRepository : IBranchOfficeRepository
     public List<BranchOffice> Get() =>
         _context.BranchOffices
             .Where(office=>office.DeletedAt == null)
+            .Include(office=>office.Village)
+                .ThenInclude(village=>village.SubDistrict)
+                    .ThenInclude(subDistrict=>subDistrict.City)
+                        .ThenInclude(city=>city.Province)
             .ToList();
 
 
@@ -65,6 +69,10 @@ public class BranchOfficeRepository : IBranchOfficeRepository
     public BranchOffice? Get(string id) =>
         _context.BranchOffices
         .Where(office=>office.DeletedAt == null)
+        .Include(office=>office.Village)
+                .ThenInclude(village=>village.SubDistrict)
+                    .ThenInclude(subDistrict=>subDistrict.City)
+                        .ThenInclude(city=>city.Province)
         .FirstOrDefault(office => office.Id == id);
 
     public void Insert(BranchOffice req)

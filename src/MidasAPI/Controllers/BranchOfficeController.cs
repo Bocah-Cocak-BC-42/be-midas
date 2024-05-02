@@ -1,42 +1,41 @@
-﻿
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MidasAPI.DTOs.BusinessSector;
+using MidasAPI.DTOs.BranchOffice;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
 [Authorize]
 [ApiController]
-[Route("api/v1/business-sector")]
-public class BusinessSectorController : ControllerBase
+[Route("api/v1/branch-office")]
+public class BranchOfficeController : ControllerBase
 {
-    private readonly BusinessSectorService _service;
+    private readonly BranchOfficeService _service;
 
-    public BusinessSectorController(BusinessSectorService service)
+    public BranchOfficeController(BranchOfficeService service)
     {
         _service = service;
     }
     [HttpGet]
-    public IActionResult Get(int page, int pageSize, string name="")
+    public IActionResult Get(int page, int pageSize, string officeName="", string province="", string city="")
     {
         try
         {
-            var res = _service.Get(page, pageSize, name);
+            var res = _service.Get(page, pageSize, officeName, province, city);
             if (res.Count == 0)
                 return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
 
-            return Ok(new ResponseWithPaginationDTO<List<BusinessSectorResponseDTO>>(){
-                Message = ConstantConfigs.MESSAGE_GET("sektor usaha"),
+            return Ok(new ResponseWithPaginationDTO<List<BranchOfficeResponseDTO>>(){
+                Message = ConstantConfigs.MESSAGE_GET("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = res,
                 Pagination = new PaginationDTO(){
                     Page = page,
                     PageSize = pageSize,
-                    TotalData = _service.CountData(name),
+                    TotalData = _service.CountData(officeName,province,city)
                 }
             });
         }
@@ -47,6 +46,7 @@ public class BusinessSectorController : ControllerBase
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
+
     }
     [HttpGet("all")]
     public IActionResult Get()
@@ -56,13 +56,13 @@ public class BusinessSectorController : ControllerBase
             var res = _service.Get();
             if (res.Count == 0)
                 return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
 
-            return Ok(new ResponseDTO<List<BusinessSectorResponseDTO>>(){
-                Message = ConstantConfigs.MESSAGE_GET("sektor usaha"),
+            return Ok(new ResponseDTO<List<BranchOfficeResponseDTO>>(){
+                Message = ConstantConfigs.MESSAGE_GET("bank"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = res,
             });
@@ -83,18 +83,45 @@ public class BusinessSectorController : ControllerBase
             var res = _service.Get(id);
             if (res is null)
                 return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("sektor usaha"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
 
-            return Ok(new ResponseDTO<BusinessSectorResponseDTO>(){
-                Message = ConstantConfigs.MESSAGE_GET("sektor usaha"),
+            return Ok(new ResponseDTO<BranchOfficeResponseDetailDTO>(){
+                Message = ConstantConfigs.MESSAGE_GET("bank"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = new BusinessSectorResponseDTO(){
+                Data = new BranchOfficeResponseDetailDTO(){
                     Id = res.Id,
-                    Name = res.Name
+                    Name = res.OfficeName,
+                    Code = res.OfficeCode,
+                    Province = res.Village.SubDistrict.City.Province.Name,
+                    City = res.Village.SubDistrict.City.Name,
+                    SubDistrict = res.Village.SubDistrict.Name,
+                    Address = res.Address,
+                    Village = res.Village.Name,
+                    PostalCode = res.Village.PostalCode
                 },
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>(){
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED,
+            });
+        }  
+    }
+    [HttpPost]
+    public IActionResult Insert([FromBody] BranchOfficeInsertDTO req)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Insert(req,userId);
+            return Ok(new ResponseDTO<string>(){
+                Message = ConstantConfigs.MESSAGE_POST("kantor cabang"),
+                Status = ConstantConfigs.STATUS_OK
             });
         }
         catch (System.Exception)
@@ -105,35 +132,15 @@ public class BusinessSectorController : ControllerBase
             });
         }   
     }
-    [HttpPost]
-    public IActionResult Insert([FromBody] BusinessSectorInsertDTO req)
-    {
-        try
-        {
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.Insert(req,userId);
-            return Ok(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_POST("sektor usaha"),
-                Status = ConstantConfigs.STATUS_OK
-            });
-        }
-        catch (System.Exception)
-        {
-            return BadRequest(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED,
-            });
-        }    
-    }
     [HttpPut("{id}")]
-    public IActionResult Update([FromBody] BusinessSectorUpdateDTO req)
+    public IActionResult Update([FromBody] BranchOfficeUpdateDTO req)
     {
         try
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _service.Update(req,userId);
             return Ok(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_PUT("sektor usaha"),
+                Message = ConstantConfigs.MESSAGE_PUT("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -153,7 +160,7 @@ public class BusinessSectorController : ControllerBase
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _service.Delete(id,userId);
             return Ok(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_DELETE("sektor usaha"),
+                Message = ConstantConfigs.MESSAGE_DELETE("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
@@ -164,5 +171,5 @@ public class BusinessSectorController : ControllerBase
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
-    }
+    } 
 }

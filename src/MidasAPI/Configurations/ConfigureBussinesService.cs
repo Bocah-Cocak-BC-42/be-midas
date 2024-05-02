@@ -21,6 +21,7 @@ public static class ConfigureBussinesService
         services.AddScoped<IBranchOfficeRepository,BranchOfficeRepository>();
         services.AddScoped<IFileManagementRepository, FileManagementRepository>();
 
+
         //Services
         services.AddScoped<RoleServices>();
         services.AddScoped<AuthService>();
@@ -32,6 +33,7 @@ public static class ConfigureBussinesService
         services.AddScoped<BusinessSectorService>();
         services.AddScoped<BankService>();
         services.AddScoped<FileManagementServices>();
+        services.AddScoped<BranchOfficeService>();
         
         return services;
     }

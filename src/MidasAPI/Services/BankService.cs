@@ -32,28 +32,28 @@ public class BankService
         _bankRep.CountData(name);
     public Bank? Get(string id) => 
         _bankRep.Get(id);
-    public void Insert(BankInsertDTO req) =>
+    public void Insert(BankInsertDTO req, string userId) =>
         _bankRep.Insert(new Bank
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = req.Name,
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+                CreatedBy = userId,
                 CreatedAt = DateTime.Now
             }     
         );
-    public void Update(BankUpdateDTO req)
+    public void Update(BankUpdateDTO req, string userId)
     {
         var model = _bankRep.Get(req.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("bank"));
         model.Name = req.Name;
         model.UpdatedAt = DateTime.Now;
-        model.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.UpdatedBy = userId;
         _bankRep.Update(model); 
     }
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var model = _bankRep.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("bank"));
         model.DeletedAt = DateTime.Now;
-        model.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        model.DeletedBy = userId;
         _bankRep.Update(model); 
     }
 }
