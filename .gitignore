@@ -25,5 +25,4 @@ project.lock.json
 .fake
 /.vs
 /src/MidasDataAccess/DbContextConnectionConfig.cs
-/src/MidasDataAccess/DbContextConnectionConfig.cs
 /.gitignore
