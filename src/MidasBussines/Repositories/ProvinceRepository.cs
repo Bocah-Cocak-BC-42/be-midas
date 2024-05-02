@@ -37,8 +37,18 @@ public class ProvinceRepository : IProvinceRepository
     {
         try
         {
-            _context.Provinces.Add(province);
-            _context.SaveChanges();
+            var isExist = _context.Provinces.Any(
+                prov => prov.Name == province.Name
+            );
+
+            if (!isExist)
+            {
+                _context.Provinces.Add(province);
+                _context.SaveChanges();
+            } else
+            {
+                throw new Exception();
+            }
         }
         catch (System.Exception)
         {
