@@ -90,7 +90,8 @@ public class UserService
             CreditScore = 100,
             PersonalCreditLimit = 100_000_000,
             CompanyCreditLimit = 1_000_000_000,
-            RegistrationDate = DateTime.Now
+            RegistrationDate = DateTime.Now,
+            CreatedAt = DateTime.Now
         };
 
         model.CreatedBy = model.Id;
@@ -110,10 +111,10 @@ public class UserService
             NickName = employeeRegisterDTO.NickName,
             IdentityNumber = employeeRegisterDTO.IdentityNumber,
             Gender = employeeRegisterDTO.Gender,
-            RegistrationDate = DateTime.Now
+            RegistrationDate = DateTime.Now,
+            CreatedAt = DateTime.Now,
+            CreatedBy = adminId
         };
-
-        model.CreatedBy = adminId;
 
         _userRepository.Insert(model);
     }

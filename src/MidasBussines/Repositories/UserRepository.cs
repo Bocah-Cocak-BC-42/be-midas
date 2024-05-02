@@ -18,6 +18,11 @@ namespace MidasBussines.Repositories
             return dbContext.Users.Include("Role").Where(user => user.Id == id).First();
         }
 
+        public User GetByEmail(string email)
+        {
+            return dbContext.Users.Include("Role").Where(user => user.Email == email).First();
+        }
+
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)
         {
             return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
