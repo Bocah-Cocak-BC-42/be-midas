@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.Role;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
 
+[Authorize(Roles = "Admin")]
 [Route("api/v1/roles")]
 [ApiController]
 
