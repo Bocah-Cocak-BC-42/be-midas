@@ -50,6 +50,28 @@ public class UserService
         return _userRepository.CountAllEmployee(fullName, identityNumber, role);
     }
 
+    public UserDetailDTO GetById(string id)
+    {
+        var model = _userRepository.GetById(id);
+        return new UserDetailDTO
+        {
+            Id = model.Id,
+            Email = model.Email,
+            FullName = model.FullName,
+            NickName = model.NickName,
+            Gender = model.Gender,
+            BirthPlace = model.BirthPlace,
+            BirthDate = model.BirthDate,
+            PhoneNumber = model.PhoneNumber,
+            RoleId = model.RoleId,
+            IdentityNumber = model.IdentityNumber,
+            CreditScore = model.CreditScore,
+            PersonalCreditLimit = model.PersonalCreditLimit,
+            CompanyCreditLimit = model.CompanyCreditLimit,
+            RegistrationDate = model.RegistrationDate
+        };
+    }
+
     public void AddCustomer(CustomerRegisterDTO customerRegisterDTO)
     {
         var model = new User()
@@ -76,7 +98,7 @@ public class UserService
         _userRepository.Insert(model);
     }
 
-    public void AddEmployee(EmployeeRegisterDTO employeeRegisterDTO)
+    public void AddEmployee(EmployeeRegisterDTO employeeRegisterDTO, string adminId)
     {
         var model = new User()
         {
@@ -91,9 +113,41 @@ public class UserService
             RegistrationDate = DateTime.Now
         };
 
-        model.CreatedBy = model.Id;
+        model.CreatedBy = adminId;
 
         _userRepository.Insert(model);
+    }
+
+    public void UpdateCustomer(CustomerUpdateDTO customerUpdateDTO, string userId)
+    {
+        var model = _userRepository.GetById(customerUpdateDTO.Id?? "User tidak ada");
+        model.Email = customerUpdateDTO.Email;
+        model.FullName = customerUpdateDTO.FullName;
+        model.NickName = customerUpdateDTO.NickName;
+        model.IdentityNumber = customerUpdateDTO.IdentityNumber;
+        model.Gender = customerUpdateDTO.Gender;
+        model.BirthPlace = customerUpdateDTO.BirthPlace;
+        model.BirthDate = customerUpdateDTO.BirthDate;
+        model.PhoneNumber = customerUpdateDTO.PhoneNumber;
+        model.UpdatedAt = DateTime.Now;
+        model.UpdatedBy = userId;
+
+        _userRepository.Update(model);
+    }
+
+    public void UpdateEmployee(EmployeeUpdateDTO employeeUpdateDTO, string adminId)
+    {
+        var model = _userRepository.GetById(employeeUpdateDTO.Id ?? "User tidak ada");
+        model.Email = employeeUpdateDTO.Email;
+        model.FullName = employeeUpdateDTO.FullName;
+        model.NickName = employeeUpdateDTO.NickName;
+        model.IdentityNumber = employeeUpdateDTO.IdentityNumber;
+        model.Gender = employeeUpdateDTO.Gender;
+        model.RoleId = employeeUpdateDTO.RoleId;
+        model.UpdatedAt = DateTime.Now;
+        model.UpdatedBy = adminId;
+
+        _userRepository.Update(model);
     }
 
     public void ResetPassword(string userId)

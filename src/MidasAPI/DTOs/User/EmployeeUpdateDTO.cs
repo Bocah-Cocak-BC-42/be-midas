@@ -2,15 +2,13 @@
 
 namespace MidasAPI.DTOs.User
 {
-    public class EmployeeRegisterDTO
+    public class EmployeeUpdateDTO
     {
+        public string Id { get; set; } = null!;
+
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
-
-        [Required(ErrorMessage = "{0} tidak boleh kosong")]
-        [Display(Name = "Password")]
-        public string Password { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Display(Name = "ID Jabatan")]

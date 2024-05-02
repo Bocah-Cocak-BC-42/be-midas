@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.User;
 using MidasAPI.Services;
 using MidasDataAccess.Models;
+using System.Security.Claims;
 
 namespace MidasAPI.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/v1/user")]
     public class UserController : ControllerBase
@@ -93,6 +95,28 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [HttpGet("GetUserDetail")]
+        public IActionResult GetUserDetail(string id)
+        {
+            try
+            {
+                return Ok(new ResponseDTO<UserDetailDTO>()
+                {
+                    Message = ConstantConfigs.MESSAGE_GET("User"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = _service.GetById(id)
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
         [HttpPost("AddCustomer")]
         public IActionResult AddCustomer(CustomerRegisterDTO customerRegisterDTO)
         {
@@ -146,13 +170,85 @@ namespace MidasAPI.Controllers
                         Data = employeeRegisterDTO.IdentityNumber
                     });
 
-                _service.AddEmployee(employeeRegisterDTO);
+                _service.AddEmployee(employeeRegisterDTO, User.FindFirstValue("userId")??"");
 
                 return Ok(new ResponseDTO<EmployeeRegisterDTO>()
                 {
                     Message = ConstantConfigs.MESSAGE_POST("Karyawan"),
                     Status = ConstantConfigs.STATUS_OK,
                     Data = employeeRegisterDTO
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpPut("UpdateCustomer")]
+        public IActionResult UpdateCustomer(CustomerUpdateDTO customerUpdateDTO)
+        {
+            try
+            {
+                if (customerUpdateDTO.IdentityNumber.Length != 16)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIK harus berjumlah 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = customerUpdateDTO.IdentityNumber
+                    });
+                else if (customerUpdateDTO.PhoneNumber.Length < 10 ||
+                    customerUpdateDTO.PhoneNumber.Length > 13)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Nomor telepon harus berjumlah 10-13 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = customerUpdateDTO.PhoneNumber
+                    });
+
+                _service.UpdateCustomer(customerUpdateDTO, User.FindFirstValue("userId") ?? "");
+
+                return Ok(new ResponseDTO<CustomerUpdateDTO>()
+                {
+                    Message = ConstantConfigs.MESSAGE_POST("Customer"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = customerUpdateDTO
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpPut("UpdateEmployee")]
+        public IActionResult UpdateEmployee(EmployeeUpdateDTO employeeUpdateDTO)
+        {
+            try
+            {
+                if (employeeUpdateDTO.IdentityNumber.Length > 20)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIP hanya diperbolehkan maksimal 20 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = employeeUpdateDTO.IdentityNumber
+                    });
+
+                _service.UpdateEmployee(employeeUpdateDTO, User.FindFirstValue("userId") ?? "");
+
+                return Ok(new ResponseDTO<EmployeeUpdateDTO>()
+                {
+                    Message = ConstantConfigs.MESSAGE_POST("Karyawan"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = employeeUpdateDTO
                 });
             }
             catch (System.Exception)

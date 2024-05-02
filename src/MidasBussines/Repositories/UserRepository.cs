@@ -12,6 +12,7 @@ namespace MidasBussines.Repositories
         {
             this.dbContext = dbContext;
         }
+
         public User GetById(string id)
         {
             return dbContext.Users.Include("Role").Where(user => user.Id == id).First();
