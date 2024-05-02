@@ -10,7 +10,6 @@ public static class ConfigureBussinesService
     {
         //Interfaces & Repositories
         services.AddScoped<IRoleRepository, RoleRepository>();
-        services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProvinceRepository, ProvinceRepository>();
         services.AddScoped<ICityRepository, CityRepository>();
