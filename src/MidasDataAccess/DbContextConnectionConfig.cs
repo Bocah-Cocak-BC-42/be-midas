@@ -2,5 +2,5 @@
 
 public static class DbContextConnectionConfig
 {
-    public static readonly string ConnectionString = "Data Source=LAPTOP-LB6NF3K3;Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True";
+    public static readonly string ConnectionString = "Data Source=LAPTOP-GC0OOTL9;Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True";
 }
