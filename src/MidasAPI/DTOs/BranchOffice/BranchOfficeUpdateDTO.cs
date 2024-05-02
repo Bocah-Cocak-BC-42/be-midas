@@ -10,8 +10,10 @@ public class BranchOfficeUpdateDTO
 {
     [Required(ErrorMessage = "Ada kesalahan pada sistem, Id kantor cabang tidak terdefinisi")]
     public string Id { get; set; } = null!;
+    [UniqueBranchOfficeUpdateNameValidation]
     [Required(ErrorMessage = "Nama kantor cabang tidak boleh kosong")]
     public string OfficeName { get; set; } = null!;
+    [UniqueBranchOfficeUpdateCodeValidation]
     [Required(ErrorMessage = "Kode kantor cabang tidak boleh kosong")]
     public string Code { get; set; } = null!;
     [Required(ErrorMessage = "Alamat kantor cabang tidak boleh kosong")]
