@@ -33,34 +33,34 @@ public class CityService
         }).ToList();
     }
 
-    public void Insert(CityInsertDTO dto)
+    public void Insert(CityInsertDTO dto, string userId)
     {
         var city = new City()
         {
             Id = Guid.NewGuid().ToString(),
             Name = dto.Name,
             ProvinceId = dto.ProvinceId,
-            CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+            CreatedBy = userId,
             CreatedAt = DateTime.Now
         };
 
         _repository.Insert(city);
     }
 
-    public void Update(CityUpdateDTO dto)
+    public void Update(CityUpdateDTO dto, string userId)
     {
         var city = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kota"));
         city.Name = dto.Name;
-        city.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        city.UpdatedBy = userId;
         city.UpdatedAt = DateTime.Now;
 
         _repository.Update(city);
     }
 
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var city = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kota"));
-        city.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        city.DeletedBy = userId;
         city.DeletedAt = DateTime.Now;
 
         _repository.Update(city);

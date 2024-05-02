@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.City;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/city")]
 public class CityController : ControllerBase
@@ -92,7 +94,8 @@ public class CityController : ControllerBase
     {
         try
         {
-            _service.Insert(dto);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Insert(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -115,7 +118,8 @@ public class CityController : ControllerBase
     {
         try
         {
-            _service.Update(dto);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Update(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -138,7 +142,8 @@ public class CityController : ControllerBase
     {
         try
         {
-            _service.Delete(id);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Delete(id, userId);
 
             return Ok(new ResponseDTO<string>()
             {
