@@ -83,6 +83,39 @@ public class RoleController : ControllerBase
 
 
 
+    [HttpGet("{id}")]
+    public IActionResult GetDetail(string id)
+    {
+        try
+        {
+            var dto = _service.GetRoleById(id);
+            if (dto is null)
+                return NotFound(new ResponseDTO<string[]>(){
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("jabatan"),
+                    Status = ConstantConfigs.STATUS_NOT_FOUND,
+                    Data = Array.Empty<string>()
+                });
+
+            return Ok(new ResponseDTO<RoleDTO>(){
+                Message = ConstantConfigs.MESSAGE_GET("jabatan"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = new RoleDTO(){
+                    Id = dto.Id,
+                    Name = dto.Name
+                },
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>(){
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED,
+            });
+        }   
+    }
+
+
+
     [HttpPost]
     public IActionResult Insert([FromBody] InsertRoleDTO dto){
         try{
@@ -103,8 +136,8 @@ public class RoleController : ControllerBase
 
 
 
-    [HttpPut]
-    public IActionResult Update([FromBody] UpdateRoleDTO dto){
+    [HttpPut("{id}")]
+    public IActionResult Update([FromBody] UpdateRoleDTO dto, string id){
         try
         {
             _service.Update(dto);
