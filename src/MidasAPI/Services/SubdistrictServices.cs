@@ -33,33 +33,33 @@ public class SubdistrictServices
         }).ToList();
     }
 
-    public void Insert(SubdistrictInsertDTO model)
+    public void Insert(SubdistrictInsertDTO model, string userId)
     {
         var dto = new SubDistrict()
         {
             Id = Guid.NewGuid().ToString(),
             Name = model.Name,
             CityId = model.CityId,
-            CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+            CreatedBy = userId,
             CreatedAt = DateTime.Now
         };
         _repo.Insert(dto);
     }
 
-    public void Update(SubdistrictUpdateDTO model)
+    public void Update(SubdistrictUpdateDTO model, string userId)
     {
         var subdistrict = _repo.GetById(model.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kecamatan"));
         subdistrict.Name = model.Name;
-        subdistrict.UpdatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        subdistrict.UpdatedBy = userId;
         subdistrict.UpdatedAt = DateTime.Now;
 
         _repo.Update(subdistrict);
     }
 
-    public void Delete(string id)
+    public void Delete(string id, string userId)
     {
         var subdistrict = _repo.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kecamatan"));
-        subdistrict.DeletedBy = "41dfada5-6c53-4c7b-8c07-89037e511874";
+        subdistrict.DeletedBy = userId;
         subdistrict.DeletedAt = DateTime.Now;
         _repo.Update(subdistrict);
     }

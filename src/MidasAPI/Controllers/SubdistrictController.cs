@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.Subdistrict;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
+[Authorize]
 [ApiController]
 [Route("api/v1/subdistrict")]
 
@@ -91,7 +93,8 @@ public class SubdistrictController : ControllerBase
     {
         try
         {
-            _service.Insert(req);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Insert(req, userId);
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_POST("kecamatan"),
@@ -113,7 +116,8 @@ public class SubdistrictController : ControllerBase
     {
         try
         {
-            _service.Update(req);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Update(req, userId);
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_PUT("kecamatan"),
@@ -135,7 +139,8 @@ public class SubdistrictController : ControllerBase
     {
         try
         {
-            _service.Delete(id);
+            var userId = User.FindFirst("userId")?.Value ?? string.Empty;
+            _service.Delete(id, userId);
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_DELETE("kecamatan"),
