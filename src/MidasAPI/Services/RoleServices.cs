@@ -36,6 +36,10 @@ public class RoleServices
         return model.ToList();
     }
     
+    public Role GetRoleById(string id){
+        var model = _roleRepository.GetRoleById(id);
+        return model;
+    }
 
     public int CountData(string roleName) => _roleRepository.CountData(roleName);
 
