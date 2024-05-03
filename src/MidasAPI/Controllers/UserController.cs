@@ -189,7 +189,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPut("UpdateCustomer")]
+        [HttpPut("UpdateCustomer/{userId}")]
         public IActionResult UpdateCustomer(CustomerUpdateDTO customerUpdateDTO)
         {
             try
@@ -229,7 +229,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPut("UpdateEmployee")]
+        [HttpPut("UpdateEmployee/{userId}")]
         public IActionResult UpdateEmployee(EmployeeUpdateDTO employeeUpdateDTO)
         {
             try
@@ -273,6 +273,46 @@ namespace MidasAPI.Controllers
                     Message = ConstantConfigs.MESSAGE_PUT("User"),
                     Status = ConstantConfigs.STATUS_OK,
                     Data = userId
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpPatch("ChangePassword")]
+        public IActionResult ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            try
+            {
+                if (changePasswordDTO.newPassword == changePasswordDTO.oldPassword)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Password baru tidak bisa sama dengan password lama",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = changePasswordDTO.newPassword
+                    });
+
+                bool isChanged = _service.ChangePassword(changePasswordDTO, User.FindFirstValue("userId") ?? "");
+
+                if(!isChanged)
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Password lama tidak sesuai",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = changePasswordDTO.oldPassword
+                    });
+
+                return Ok(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_PUT("User"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = changePasswordDTO.newPassword
                 });
             }
             catch (System.Exception)
