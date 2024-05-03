@@ -17,7 +17,7 @@ public class RoleRepository : IRoleRepository
     {
         var roles = _dbContext.Roles;
         return roles
-            .Where(role => role.DeletedAt == null)
+            .Where(role => role.DeletedAt == null && role.Name != "Nasabah")
             .ToList();
     }
 
