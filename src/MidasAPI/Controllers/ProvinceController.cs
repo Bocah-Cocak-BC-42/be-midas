@@ -18,11 +18,11 @@ public class ProvinceController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Get(int pageNumber, int pageSize, string name = "")
+    public IActionResult Get(int page, int pageSize, string name = "")
     {
         try
         {
-            var prov = _service.Get(pageNumber, pageSize, name);
+            var prov = _service.Get(page, pageSize, name);
             if (prov.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
@@ -40,7 +40,7 @@ public class ProvinceController : ControllerBase
                 Data = prov,
                 Pagination = new PaginationDTO()
                 {
-                    Page = pageNumber,
+                    Page = page,
                     PageSize = pageSize,
                     TotalData = _service.Count(name)
                 }

@@ -5,7 +5,7 @@ namespace MidasBussines.Interfaces;
 
 public interface ICityRepository
 {
-    List<City> Get(int pageNumber, int pageSize, string name, string provinceId);
+    List<City> Get(int page, int pageSize, string name, string provinceId);
     List<City> Get(string provinceId);
     City? GetById(string id);
     void Insert(City city);
