@@ -1,4 +1,5 @@
-﻿using BCrypt.Net;
+﻿using Azure.Core;
+using BCrypt.Net;
 using MidasAPI.DTOs.User;
 using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
@@ -161,5 +162,20 @@ public class UserService
             model.Password = BCrypt.Net.BCrypt.HashPassword("karyawan123");
 
         _userRepository.Update(model);
+    }
+
+    public bool ChangePassword(ChangePasswordDTO changePasswordDTO, string userId)
+    {
+        var model = _userRepository.GetById(userId);
+        bool isChanged = BCrypt.Net.BCrypt.Verify(changePasswordDTO.oldPassword, model.Password);
+        if (!isChanged) 
+            return false;
+
+        model.Password = BCrypt.Net.BCrypt.HashPassword(changePasswordDTO.newPassword);
+        model.UpdatedAt = DateTime.Now;
+        model.UpdatedBy = userId;
+
+        _userRepository.Update(model);
+        return true;
     }
 }

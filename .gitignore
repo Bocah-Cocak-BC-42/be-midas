@@ -26,3 +26,4 @@ project.lock.json
 /.vs
 /src/MidasDataAccess/DbContextConnectionConfig.cs
 /.gitignore
+/src/MidasDataAccess/DbContextConnectionConfig.cs

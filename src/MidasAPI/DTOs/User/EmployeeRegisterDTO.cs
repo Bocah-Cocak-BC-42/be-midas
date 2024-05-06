@@ -9,10 +9,6 @@ namespace MidasAPI.DTOs.User
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
-        [Display(Name = "Password")]
-        public string Password { get; set; } = null!;
-
-        [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Display(Name = "ID Jabatan")]
         public string RoleId { get; set; } = null!;
 
