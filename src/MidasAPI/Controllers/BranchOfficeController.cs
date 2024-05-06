@@ -62,7 +62,7 @@ public class BranchOfficeController : ControllerBase
                 });
 
             return Ok(new ResponseDTO<List<BranchOfficeResponseDTO>>(){
-                Message = ConstantConfigs.MESSAGE_GET("bank"),
+                Message = ConstantConfigs.MESSAGE_GET("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = res,
             });
@@ -89,17 +89,17 @@ public class BranchOfficeController : ControllerBase
                 });
 
             return Ok(new ResponseDTO<BranchOfficeResponseDetailDTO>(){
-                Message = ConstantConfigs.MESSAGE_GET("bank"),
+                Message = ConstantConfigs.MESSAGE_GET("kantor cabang"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = new BranchOfficeResponseDetailDTO(){
                     Id = res.Id,
                     Name = res.OfficeName,
                     Code = res.OfficeCode,
-                    Province = res.Village.SubDistrict.City.Province.Name,
-                    City = res.Village.SubDistrict.City.Name,
-                    SubDistrict = res.Village.SubDistrict.Name,
+                    Province = res.Village.SubDistrict.City.ProvinceId,
+                    City = res.Village.SubDistrict.CityId,
+                    SubDistrict = res.Village.SubDistrictId,
                     Address = res.Address,
-                    Village = res.Village.Name,
+                    Village = res.VillageId,
                     PostalCode = res.Village.PostalCode
                 },
             });
