@@ -73,8 +73,10 @@ public class BranchOfficeRepository : IBranchOfficeRepository
                 .ThenInclude(village=>village.SubDistrict)
                     .ThenInclude(subDistrict=>subDistrict.City)
                         .ThenInclude(city=>city.Province)
+        .Include(office=>office.AssociateUserBranches)
+            .ThenInclude(associate=>associate.User)
         .FirstOrDefault(office => office.Id == id);
-
+ 
     public void Insert(BranchOffice req)
     {
         try
