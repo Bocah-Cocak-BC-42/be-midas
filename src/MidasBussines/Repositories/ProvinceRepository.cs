@@ -16,6 +16,7 @@ public class ProvinceRepository : IProvinceRepository
     {
         return _context.Provinces
         .Where(prov => prov.DeletedAt == null && prov.Name.ToLower().Contains(name??"".ToLower()))
+        .OrderBy(prov => prov.Name)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToList();
@@ -25,6 +26,7 @@ public class ProvinceRepository : IProvinceRepository
     {
         return _context.Provinces
         .Where(prov => prov.DeletedAt == null)
+        .OrderBy(prov => prov.Name)
         .ToList();
     }
 

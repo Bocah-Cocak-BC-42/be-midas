@@ -16,6 +16,7 @@ public class CityRepository : ICityRepository
     {
         return _dbContext.Cities
         .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
+        .OrderBy(city => city.Name)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToList();
@@ -25,6 +26,7 @@ public class CityRepository : ICityRepository
     {
         return _dbContext.Cities
         .Where(city => city.DeletedAt == null && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
+        .OrderBy(city => city.Name)
         .ToList();
     }
 
