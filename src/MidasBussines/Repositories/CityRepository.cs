@@ -12,12 +12,12 @@ public class CityRepository : ICityRepository
         _dbContext = dbContext;
     }
 
-    public List<City> Get(int pageNumber, int pageSize, string name, string provinceId)
+    public List<City> Get(int page, int pageSize, string name, string provinceId)
     {
         return _dbContext.Cities
         .Where(city => city.DeletedAt == null && city.Name.ToLower().Contains(name??"".ToLower()) && city.ProvinceId == provinceId && city.Province.DeletedAt == null)
         .OrderBy(city => city.Name)
-        .Skip((pageNumber - 1) * pageSize)
+        .Skip((page - 1) * pageSize)
         .Take(pageSize)
         .ToList();
     }

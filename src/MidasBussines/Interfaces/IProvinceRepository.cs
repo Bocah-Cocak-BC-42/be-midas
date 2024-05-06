@@ -4,7 +4,7 @@ namespace MidasBussines.Interfaces;
 
 public interface IProvinceRepository
 {
-    List<Province> Get(int pageNumber, int pageSize, string name);
+    List<Province> Get(int page, int pageSize, string name);
     List<Province> Get();
     Province? GetById(string id);
     void Insert(Province province);

@@ -12,12 +12,12 @@ public class ProvinceRepository : IProvinceRepository
         _context = context;
     }
 
-    public List<Province> Get(int pageNumber, int pageSize, string name)
+    public List<Province> Get(int page, int pageSize, string name)
     {
         return _context.Provinces
         .Where(prov => prov.DeletedAt == null && prov.Name.ToLower().Contains(name??"".ToLower()))
         .OrderBy(prov => prov.Name)
-        .Skip((pageNumber - 1) * pageSize)
+        .Skip((page - 1) * pageSize)
         .Take(pageSize)
         .ToList();
     }
