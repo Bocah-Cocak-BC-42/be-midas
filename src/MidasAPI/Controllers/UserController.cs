@@ -20,12 +20,12 @@ namespace MidasAPI.Controllers
         }
 
         [HttpGet("GetAllCustomers")]
-        public IActionResult GetCustomers(int pageNumber = 1, int pageSize = 5, string fullName ="", 
+        public IActionResult GetCustomers(int page = 1, int pageSize = 5, string fullName ="", 
             string nik = "")
         {
             try
             {
-                var res = _service.GetAllCustomer(pageNumber, pageSize, fullName, nik);
+                var res = _service.GetAllCustomer(page, pageSize, fullName, nik);
                 if (res.Count == 0)
                     return NotFound(new ResponseDTO<string[]>()
                     {
@@ -41,7 +41,7 @@ namespace MidasAPI.Controllers
                     Data = res,
                     Pagination = new PaginationDTO()
                     {
-                        Page = pageNumber,
+                        Page = page,
                         PageSize = pageSize,
                         TotalData = _service.CountAllCustomers(fullName, nik)
                     }
@@ -58,12 +58,12 @@ namespace MidasAPI.Controllers
         }
 
         [HttpGet("GetAllEmployees")]
-        public IActionResult GetEmployees(int pageNumber = 1, int pageSize = 5, string fullName = "", 
+        public IActionResult GetEmployees(int page = 1, int pageSize = 5, string fullName = "", 
             string nip = "", string role = "")
         {
             try
             {
-                var res = _service.GetAllEmployee(pageNumber, pageSize, fullName, nip, role);
+                var res = _service.GetAllEmployee(page, pageSize, fullName, nip, role);
                 if (res.Count == 0)
                     return NotFound(new ResponseDTO<string[]>()
                     {
@@ -79,7 +79,7 @@ namespace MidasAPI.Controllers
                     Data = res,
                     Pagination = new PaginationDTO()
                     {
-                        Page = pageNumber,
+                        Page = page,
                         PageSize = pageSize,
                         TotalData = _service.CountAllEmployee(fullName, nip, role)
                     }
