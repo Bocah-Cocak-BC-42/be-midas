@@ -16,11 +16,11 @@ public class VillageController : ControllerBase
         _service = service;
     }
     [HttpGet]
-    public IActionResult Get(int pageNumber, int pageSize, string subdistrictId, string name = "")
+    public IActionResult Get(int page, int pageSize, string subdistrictId, string name = "")
     {
         try
         {
-            var villages = _service.Get(pageNumber, pageSize, subdistrictId, name);
+            var villages = _service.Get(page, pageSize, subdistrictId, name);
             if (villages.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
@@ -38,7 +38,7 @@ public class VillageController : ControllerBase
                 Data = villages,
                 Pagination = new PaginationDTO()
                 {
-                    Page = pageNumber,
+                    Page = page,
                     PageSize = pageSize,
                     TotalData = _service.Count(name, subdistrictId),
                 }

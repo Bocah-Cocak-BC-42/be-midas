@@ -18,11 +18,11 @@ public class SubdistrictController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Get(int pageNumber, int pageSize, string cityId, string name = "")
+    public IActionResult Get(int page, int pageSize, string cityId, string name = "")
     {
         try
         {
-            var subdistricts = _service.Get(pageNumber, pageSize, cityId, name);
+            var subdistricts = _service.Get(page, pageSize, cityId, name);
             if (subdistricts.Count == 0)
             {
                 return NotFound(new ResponseDTO<string[]>()
@@ -40,7 +40,7 @@ public class SubdistrictController : ControllerBase
                 Data = subdistricts,
                 Pagination = new PaginationDTO()
                 {
-                    Page = pageNumber,
+                    Page = page,
                     PageSize = pageSize,
                     TotalData = _service.Count(name, cityId),
                 }
