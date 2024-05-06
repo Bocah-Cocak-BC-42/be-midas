@@ -18,6 +18,7 @@ public class VillageRepository : IVillageRepository
         .Where(x => x.SubDistrictId == subDistrictId && x.Name.ToLower().Contains(name ?? "".ToLower()) && x.DeletedAt == null)
         .Skip((page - 1) * pageSize)
         .Take(pageSize)
+        .OrderBy(x => x.Name)
         .ToList();
     }
 
@@ -25,6 +26,7 @@ public class VillageRepository : IVillageRepository
     {
         return _context.Villages
         .Where(x => x.SubDistrictId == subDistrictId && x.DeletedAt == null)
+        .OrderBy(x => x.Name)
         .ToList();
     }
 
