@@ -1,4 +1,6 @@
-﻿namespace MidasAPI;
+﻿using MidasAPI.DTOs.User;
+
+namespace MidasAPI;
 
 public class BranchOfficeResponseDetailDTO
 {
@@ -11,4 +13,5 @@ public class BranchOfficeResponseDetailDTO
     public string SubDistrict { get; set; } = null!;
     public string Village { get; set; } = null!;
     public string PostalCode { get; set; } = null!;
+    public List<UserResponseDTO> Employees { get; set; } = new List<UserResponseDTO>();
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTOs.BranchOffice;
+using MidasAPI.DTOs.User;
 using MidasAPI.Services;
 
 namespace MidasAPI.Controllers;
@@ -80,7 +81,15 @@ public class BranchOfficeController : ControllerBase
     {
         try
         {
-            var res = _service.Get(id);
+            var res = _service.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
+            var employees = res.AssociateUserBranches.ToList()
+            .Select(resp => new UserResponseDTO(){
+                Id = resp.User.Id??"",
+                FullName = resp.User.FullName??"",
+                NickName = resp.User.NickName??"",
+                Role = resp.User.Role.Name??""
+            });
+            
             if (res is null)
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
@@ -100,7 +109,8 @@ public class BranchOfficeController : ControllerBase
                     SubDistrict = res.Village.SubDistrictId,
                     Address = res.Address,
                     Village = res.VillageId,
-                    PostalCode = res.Village.PostalCode
+                    PostalCode = res.Village.PostalCode,
+                    Employees = employees.ToList()
                 },
             });
         }
