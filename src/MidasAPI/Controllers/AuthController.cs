@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
 
             return Ok(model);
         }
-        catch(Exception e){
+        catch(System.Exception){
             return BadRequest(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
