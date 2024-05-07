@@ -1123,7 +1123,7 @@ public partial class MidasContext : DbContext
         modelBuilder.Entity<City>().HasData(CitySeeder.SeedCities());
         modelBuilder.Entity<SubDistrict>().HasData(SubdistrictSeeder.SeedSubdistricts());
         modelBuilder.Entity<Village>().HasData(VillageSeeder.SeedVillages());
-        modelBuilder.Entity<BranchOffice>().HasData(BranchOfficeSeeder.SeedBranchOffices());
+        // modelBuilder.Entity<BranchOffice>().HasData(BranchOfficeSeeder.SeedBranchOffices());
 
         OnModelCreatingPartial(modelBuilder);
     }
