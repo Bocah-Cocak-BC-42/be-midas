@@ -1115,9 +1115,15 @@ public partial class MidasContext : DbContext
                 .HasConstraintName("FK__Withdrawa__Verif__282DF8C2");
         });
 
-        // // Seeders
+        // Seeders
         modelBuilder.Entity<Role>().HasData(RoleSeeder.SeedRoles());
         modelBuilder.Entity<User>().HasData(UserSeeder.SeedUsers());
+        modelBuilder.Entity<BusinessSector>().HasData(BusinessSectorSeeder.SeedBusinessSectors());
+        modelBuilder.Entity<Province>().HasData(ProvinceSeeder.SeedProvinces());
+        modelBuilder.Entity<City>().HasData(CitySeeder.SeedCities());
+        modelBuilder.Entity<SubDistrict>().HasData(SubdistrictSeeder.SeedSubdistricts());
+        modelBuilder.Entity<Village>().HasData(VillageSeeder.SeedVillages());
+        modelBuilder.Entity<BranchOffice>().HasData(BranchOfficeSeeder.SeedBranchOffices());
 
         OnModelCreatingPartial(modelBuilder);
     }
