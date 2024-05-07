@@ -87,18 +87,5 @@ namespace MidasBussines.Repositories
                 throw;
             };
         }
-
-        public void SoftDelete(User model)
-        {
-            try
-            {
-                dbContext.Users.Update(model);
-                dbContext.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }

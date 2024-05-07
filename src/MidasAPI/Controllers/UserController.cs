@@ -157,6 +157,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost("AddEmployee")]
         public IActionResult AddEmployee(EmployeeRegisterDTO employeeRegisterDTO)
         {
@@ -261,6 +262,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch("ResetPassword")]
         public IActionResult ResetPassword(string userId)
         {
@@ -313,6 +315,30 @@ namespace MidasAPI.Controllers
                     Message = ConstantConfigs.MESSAGE_PUT("User"),
                     Status = ConstantConfigs.STATUS_OK,
                     Data = changePasswordDTO.newPassword
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
+        [HttpDelete("DeleteUser/{userId}")]
+        public IActionResult DeleteUser(string userId)
+        {
+            try
+            {
+                _service.DeleteUser(userId, User.FindFirstValue("userId") ?? "");
+
+                return Ok(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_DELETE("User"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = userId
                 });
             }
             catch (System.Exception)

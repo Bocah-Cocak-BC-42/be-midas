@@ -178,4 +178,13 @@ public class UserService
         _userRepository.Update(model);
         return true;
     }
+
+    public void DeleteUser(string userId, string deletedById)
+    {
+        var model = _userRepository.GetById(userId);
+        model.DeletedAt = DateTime.Now;
+        model.DeletedBy = deletedById;
+
+        _userRepository.Update(model);
+    }
 }

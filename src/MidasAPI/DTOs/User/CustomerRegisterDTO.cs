@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using MidasAPI.Validations.User;
 
 namespace MidasAPI.DTOs.User
 {
     public class CustomerRegisterDTO
     {
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        [UniqueEmailValidation]
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
 
@@ -26,6 +28,7 @@ namespace MidasAPI.DTOs.User
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Range(1, Int64.MaxValue, ErrorMessage ="{0} harus berupa angka")]
+        [UniqueIdNumberValidation]
         [Display(Name = "NIK")]
         public string IdentityNumber { get; set; } = null!;
 
@@ -41,11 +44,13 @@ namespace MidasAPI.DTOs.User
         public string BirthPlace { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        [BirthDateValidation]
         [Display(Name = "Tanggal Lahir")]
         public DateOnly? BirthDate { get; set; }
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+        [UniquePhoneNumberValidation]
         [Display(Name = "Nomor Telepon")]
         public string PhoneNumber { get; set; } = null!;
     }

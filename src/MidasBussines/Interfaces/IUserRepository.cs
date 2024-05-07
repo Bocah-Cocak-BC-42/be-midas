@@ -18,6 +18,5 @@ namespace MidasBussines.Interfaces
         public User GetCustomerByName(string name);
         public void Insert(User model);
         public void Update(User model);
-        public void SoftDelete(User model);
     }
 }

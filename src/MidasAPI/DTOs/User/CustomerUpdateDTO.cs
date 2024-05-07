@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MidasAPI.Validations.User;
+using System.ComponentModel.DataAnnotations;
 
 namespace MidasAPI.DTOs.User
 {
@@ -8,6 +9,7 @@ namespace MidasAPI.DTOs.User
         public string Id { get; set; } = null!;
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        [UniqueEmailUpdateCustomerValidation]
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
 
@@ -23,6 +25,7 @@ namespace MidasAPI.DTOs.User
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+        [UniqueIdNumberUpdateCustomerValidation]
         [Display(Name = "NIK")]
         public string IdentityNumber { get; set; } = null!;
 
@@ -43,6 +46,7 @@ namespace MidasAPI.DTOs.User
 
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
         [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+        [UniquePhoneUpdateCustomerValidation]
         [Display(Name = "Nomor Telepon")]
         public string PhoneNumber { get; set; } = null!;
     }
