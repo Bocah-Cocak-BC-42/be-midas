@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidasDataAccess.Models;
 
@@ -11,9 +12,11 @@ using MidasDataAccess.Models;
 namespace MidasDataAccess.Migrations
 {
     [DbContext(typeof(MidasContext))]
-    partial class MidasContextModelSnapshot : ModelSnapshot
+    [Migration("20240507091325_addSeederBank")]
+    partial class addSeederBank
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
