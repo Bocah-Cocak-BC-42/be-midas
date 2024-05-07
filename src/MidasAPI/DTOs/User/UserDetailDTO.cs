@@ -28,6 +28,6 @@
 
         public DateTime? RegistrationDate { get; set; }
 
-        public string RoleId { get; set; } = null!;
+        public string RoleName { get; set; } = null!;
     }
 }

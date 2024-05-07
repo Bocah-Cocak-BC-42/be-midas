@@ -61,7 +61,7 @@ public class AssociateUserBranchController : ControllerBase
             });
         }  
     }
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     public IActionResult Update([FromBody] AssociateUserBranchUpdateDTO req)
     {
         try
@@ -80,7 +80,7 @@ public class AssociateUserBranchController : ControllerBase
             });
         }
     }
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
         try

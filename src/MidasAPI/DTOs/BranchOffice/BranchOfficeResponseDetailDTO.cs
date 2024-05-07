@@ -13,5 +13,5 @@ public class BranchOfficeResponseDetailDTO
     public string SubDistrict { get; set; } = null!;
     public string Village { get; set; } = null!;
     public string PostalCode { get; set; } = null!;
-    public List<UserResponseDTO> Employees { get; set; } = new List<UserResponseDTO>();
+    public List<UserDetailDTO> Employees { get; set; } = new List<UserDetailDTO>();
 }

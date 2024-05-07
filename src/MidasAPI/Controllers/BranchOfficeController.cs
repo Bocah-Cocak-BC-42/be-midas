@@ -79,16 +79,21 @@ public class BranchOfficeController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetDetail(string id)
     {
-        try
-        {
+        // try
+        // {
             var res = _service.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
-            var employees = res.AssociateUserBranches.ToList()
-            .Select(resp => new UserResponseDTO(){
-                Id = resp.User.Id??"",
-                FullName = resp.User.FullName??"",
-                NickName = resp.User.NickName??"",
-                Role = resp.User.Role.Name??""
-            });
+            List<UserDetailDTO> employees = new List<UserDetailDTO>();  
+            foreach (var user in res.AssociateUserBranches.ToList())
+            {
+                var employee = new UserDetailDTO(){
+                    Id = user.User.Id,
+                    FullName = user.User.FullName,
+                    IdentityNumber = user.User.IdentityNumber,
+                    RegistrationDate = user.User.RegistrationDate,
+                    RoleName = user.User.Role.Name,
+                };
+                employees.Add(employee);
+            }
             
             if (res is null)
                 return NotFound(new ResponseDTO<string[]>(){
@@ -113,14 +118,15 @@ public class BranchOfficeController : ControllerBase
                     Employees = employees.ToList()
                 },
             });
-        }
-        catch (System.Exception)
-        {
-            return BadRequest(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED,
-            });
-        }  
+        // }
+
+        // catch (System.Exception)
+        // {
+        //     return BadRequest(new ResponseDTO<string>(){
+        //         Message = ConstantConfigs.MESSAGE_FAILED,
+        //         Status = ConstantConfigs.STATUS_FAILED,
+        //     });
+        // }  
     }
     [HttpPost]
     public IActionResult Insert([FromBody] BranchOfficeInsertDTO req)
