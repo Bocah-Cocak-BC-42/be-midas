@@ -91,7 +91,7 @@ public static class CitySeeder
 				CreatedAt = DateTime.Now
 			},
 			new City{
-				Id = "172d8827-30b5-46b2-9a45-87b87ede3193",
+				Id = "d89fa8a3-6701-4ea6-96b0-5ade9c5ddef9",
 				Name = "Aceh Tenggara",
 				ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
 				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
@@ -147,30 +147,9 @@ public static class CitySeeder
 				CreatedAt = DateTime.Now
 			},
 			new City {
-				Id = "e6ff7e6e-deae-42b6-adff-d6752336da0b",
-				Name = "Aceh Barat Daya",
-				ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
-				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-				CreatedAt = DateTime.Now
-			},
-			new City {
-				Id = "e6ff7e6e-deae-42b6-adff-d6752336da0b",
-				Name = "Aceh Barat Daya",
-				ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
-				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-				CreatedAt = DateTime.Now
-			},
-			new City {
 				Id = "ead6807b-2852-43c8-aa4d-42caa0fd02ba",
 				Name = "Pidie",
 				ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
-				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-				CreatedAt = DateTime.Now
-			},
-			new City {
-				Id = "def84e18-144e-4b4a-b900-024d22c389b9",
-				Name = "Bima",
-				ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193",
 				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
 				CreatedAt = DateTime.Now
 			},
@@ -255,13 +234,6 @@ public static class CitySeeder
 				Id = "961b6103-033e-4290-b64c-f072ebcaa8de",
 				Name = "Yogyakarta",
 				ProvinceId = "16358396-d6d8-4868-a998-72d46370adae",
-				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-				CreatedAt = DateTime.Now
-			},
-			new City{
-				Id = "9c5829fb-dc32-4700-8d61-16869dcf40d3",
-				Name = "Bener Meriah",
-				ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
 				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
 				CreatedAt = DateTime.Now
 			},
