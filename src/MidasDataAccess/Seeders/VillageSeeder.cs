@@ -39,7 +39,7 @@ public static class VillageSeeder
 				PostalCode = "23773"
 			},
 			new Village{
-				Id = "3c83b90f-1de1-4444-8039-afd777e2f080",
+				Id = "3d1c4668-07e3-4456-a066-7991e231037d",
 				Name = "Tanjung Karang",
 				SubDistrictId = "925a7f89-9d21-411c-800c-5ac7c47b152f",
 				CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
@@ -135,52 +135,52 @@ public static class VillageSeeder
 				PostalCode = "83116"
 			},
 			new Village{
-                Id = "a53b4bd8-ea83-4dc5-b615-dcdf3e9535d6",
-                Name = "Gedongkiwo",
-                SubDistrictId = "12d1fba7-cc1b-4cd0-bd9c-060bad09f79c",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "55142"
+        Id = "a53b4bd8-ea83-4dc5-b615-dcdf3e9535d6",
+        Name = "Gedongkiwo",
+        SubDistrictId = "12d1fba7-cc1b-4cd0-bd9c-060bad09f79c",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "55142"
 			},
-            new Village {
-                Id = "a97032a3-b3ba-4bd8-9927-f27fe70ec36d",
-                Name = "Ujong Mangki (Ujung Mangki)",
-                SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "23773"
-            },
-            new Village {
-                Id = "bf1f59a3-8d4f-42f3-95c1-fc5a26d15e1d",
-                Name = "Keude Bakongan",
-                SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "23773"
-            },
-            new Village{
-                Id = "e6f007cd-5103-422d-b33c-0a7fa8a1c657",
-                Name = "Pejeruk",
-                SubDistrictId = "a4efc8b0-b662-4745-b414-704ef5081bac",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "83113"
-            },
-            new Village{
-                Id = "eaecb320-e5b9-4396-92e0-4d8c7b4cc7a4",
-                Name = "Gampong Baro (Kampung Baru)",
-                SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "23773"
-            },
-            new Village{
-                Id = "f06d56e7-b092-4665-948f-b89426ca8d0f",
-                Name = "Aikmel Barat",
-                SubDistrictId = "e6209b8b-511c-490e-8ba8-b732eca766b2",
-                CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                CreatedAt = DateTime.Now,
-                PostalCode = "83653"
-            }
+      new Village {
+        Id = "a97032a3-b3ba-4bd8-9927-f27fe70ec36d",
+        Name = "Ujong Mangki (Ujung Mangki)",
+        SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "23773"
+      },
+      new Village {
+        Id = "bf1f59a3-8d4f-42f3-95c1-fc5a26d15e1d",
+        Name = "Keude Bakongan",
+        SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "23773"
+      },
+      new Village{
+        Id = "e6f007cd-5103-422d-b33c-0a7fa8a1c657",
+        Name = "Pejeruk",
+        SubDistrictId = "a4efc8b0-b662-4745-b414-704ef5081bac",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "83113"
+      },
+      new Village{
+        Id = "eaecb320-e5b9-4396-92e0-4d8c7b4cc7a4",
+        Name = "Gampong Baro (Kampung Baru)",
+        SubDistrictId = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "23773"
+      },
+      new Village{
+        Id = "f06d56e7-b092-4665-948f-b89426ca8d0f",
+        Name = "Aikmel Barat",
+        SubDistrictId = "e6209b8b-511c-490e-8ba8-b732eca766b2",
+        CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
+        CreatedAt = DateTime.Now,
+        PostalCode = "83653"
+      }
     };
 }
