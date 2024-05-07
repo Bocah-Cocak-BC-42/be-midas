@@ -63,7 +63,7 @@ public class UserService
             BirthPlace = model.BirthPlace,
             BirthDate = model.BirthDate,
             PhoneNumber = model.PhoneNumber,
-            RoleId = model.RoleId,
+            RoleName = model.Role.Name,
             IdentityNumber = model.IdentityNumber,
             CreditScore = model.CreditScore,
             PersonalCreditLimit = model.PersonalCreditLimit,

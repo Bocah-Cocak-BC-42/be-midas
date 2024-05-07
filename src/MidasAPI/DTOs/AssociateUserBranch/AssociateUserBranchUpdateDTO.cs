@@ -1,11 +1,11 @@
 ﻿using MidasAPI.Validations.AssociateUserBranch;
-namespace MidasAPI;
+namespace MidasAPI.DTOs.AssociateUserBranch;
 
 public class AssociateUserBranchUpdateDTO
 {
     
     public string Id { get; set; } = null!;
-    [StaffAndSupervisorValidation]
+    [StaffAndSupervisorUpdateValidation]
     public string UserId { get; set; } = null!;
     public string BranchOfficeId { get; set; } = null!;
 }

@@ -1,4 +1,5 @@
-﻿using MidasBussines.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
 namespace MidasBussines.Repositories;
@@ -26,7 +27,11 @@ public class AssociateUserBranchRepository : IAssociateUserBranchRepository
     }
 
     public List<AssociateUserBranch> Get()=>
-        _context.AssociateUserBranches.ToList();
+        _context.AssociateUserBranches
+        .Include(associate=>associate.User)
+            .ThenInclude(user=>user.Role)
+        .Include(associate=>associate.BranchOffice)
+        .ToList();
 
     public AssociateUserBranch? Get(string id)=>
         _context.AssociateUserBranches
