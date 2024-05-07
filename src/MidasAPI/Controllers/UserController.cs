@@ -19,7 +19,7 @@ namespace MidasAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAllCustomers")]
+        [HttpGet("get-all-customers")]
         public IActionResult GetCustomers(int page = 1, int pageSize = 5, string fullName ="", 
             string nik = "")
         {
@@ -57,7 +57,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpGet("GetAllEmployees")]
+        [HttpGet("get-all-employees")]
         public IActionResult GetEmployees(int page = 1, int pageSize = 5, string fullName = "", 
             string nip = "", string role = "")
         {
@@ -95,7 +95,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpGet("GetUserDetail")]
+        [HttpGet("get-user-detail")]
         public IActionResult GetUserDetail(string id)
         {
             try
@@ -117,12 +117,20 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPost("AddCustomer")]
+        [HttpPost("add-customer")]
         public IActionResult AddCustomer(CustomerRegisterDTO customerRegisterDTO)
         {
             try
             {
-                if (customerRegisterDTO.IdentityNumber.Length != 16)
+                if(!customerRegisterDTO.Email.Contains("@"))
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Format Email Salah",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = customerRegisterDTO.Email    
+                    });
+
+                else if (customerRegisterDTO.IdentityNumber.Length != 16)
                     return BadRequest(new ResponseDTO<string>()
                     {
                         Message = "NIK harus berjumlah 16 digit",
@@ -158,7 +166,7 @@ namespace MidasAPI.Controllers
         }
 
         [Authorize(Roles ="Admin")]
-        [HttpPost("AddEmployee")]
+        [HttpPost("add-employee")]
         public IActionResult AddEmployee(EmployeeRegisterDTO employeeRegisterDTO)
         {
             try
@@ -190,7 +198,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPut("UpdateCustomer/{userId}")]
+        [HttpPut("update-customer/{userId}")]
         public IActionResult UpdateCustomer(CustomerUpdateDTO customerUpdateDTO)
         {
             try
@@ -230,7 +238,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPut("UpdateEmployee/{userId}")]
+        [HttpPut("update-employee/{userId}")]
         public IActionResult UpdateEmployee(EmployeeUpdateDTO employeeUpdateDTO)
         {
             try
@@ -263,7 +271,7 @@ namespace MidasAPI.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPatch("ResetPassword")]
+        [HttpPatch("reset-password/{userId}")]
         public IActionResult ResetPassword(string userId)
         {
             try
@@ -287,7 +295,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpPatch("ChangePassword")]
+        [HttpPatch("change-password")]
         public IActionResult ChangePassword(ChangePasswordDTO changePasswordDTO)
         {
             try
@@ -327,7 +335,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [HttpDelete("DeleteUser/{userId}")]
+        [HttpDelete("delete-user/{userId}")]
         public IActionResult DeleteUser(string userId)
         {
             try
