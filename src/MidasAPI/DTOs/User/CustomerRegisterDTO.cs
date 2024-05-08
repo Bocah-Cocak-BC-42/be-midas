@@ -8,6 +8,8 @@ namespace MidasAPI.DTOs.User
     public class CustomerRegisterDTO
     {
         [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage ="Format Email salah")]
         [UniqueEmailValidation]
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
