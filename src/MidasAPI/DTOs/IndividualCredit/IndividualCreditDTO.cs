@@ -65,4 +65,5 @@ public class IndividualCreditDTO
     public string? DeletedBy { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+    public List<EmergencyContactDTO> EmergencyContacts { get; set; } = new List<EmergencyContactDTO>();
 }
