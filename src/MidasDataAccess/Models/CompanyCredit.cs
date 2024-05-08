@@ -31,8 +31,6 @@ public partial class CompanyCredit
 
     public string VillageId { get; set; } = null!;
 
-    public string CompanyOwnerId { get; set; } = null!;
-
     public string BranchOfficeId { get; set; } = null!;
 
     public decimal ApplicationAmount { get; set; }
@@ -83,7 +81,6 @@ public partial class CompanyCredit
 
     public virtual ICollection<CompanyAsset> CompanyAssets { get; set; } = new List<CompanyAsset>();
 
-    public virtual User CompanyOwner { get; set; } = null!;
 
     public virtual FileManagement CompanyRegistrationNumberFileNavigation { get; set; } = null!;
 
