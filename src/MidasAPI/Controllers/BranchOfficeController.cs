@@ -89,7 +89,6 @@ public class BranchOfficeController : ControllerBase
                     Id = user.User.Id,
                     FullName = user.User.FullName,
                     IdentityNumber = user.User.IdentityNumber,
-                    RegistrationDate = user.User.RegistrationDate,
                     RoleName = user.User.Role.Name,
                 };
                 employees.Add(employee);
