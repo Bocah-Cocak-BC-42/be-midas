@@ -15,11 +15,13 @@ public static class ConfigureBussinesService
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ISubdistrictRepository, SubdistrictRepository>();
         services.AddScoped<IVillageRepository, VillageRepository>();
-        services.AddScoped<IBankRepository,BankRepository>();
-        services.AddScoped<IBusinessSectorRepository,BusinessSectorRepository>();
-        services.AddScoped<IBranchOfficeRepository,BranchOfficeRepository>();
+        services.AddScoped<IBankRepository, BankRepository>();
+        services.AddScoped<IBusinessSectorRepository, BusinessSectorRepository>();
+        services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
         services.AddScoped<IFileManagementRepository, FileManagementRepository>();
-        services.AddScoped<IAssociateUserBranchRepository,AssociateUserBranchRepository>();
+        services.AddScoped<IAssociateUserBranchRepository, AssociateUserBranchRepository>();
+        services.AddScoped<IEmergencyContactRepository, EmergencyContactRepository>();
+        services.AddScoped<IIndividualCreditRepository, IndividualCreditRepository>();
 
 
         //Services
@@ -35,7 +37,8 @@ public static class ConfigureBussinesService
         services.AddScoped<FileManagementServices>();
         services.AddScoped<BranchOfficeService>();
         services.AddScoped<AssociateUserBranchService>();
-        
+        services.AddScoped<IndividualCreditService>();
+
         return services;
     }
 }

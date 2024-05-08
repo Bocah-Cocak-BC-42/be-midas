@@ -38,10 +38,10 @@ namespace MidasBussines.Repositories
                 _context.IndividualCredits.Add(model);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 throw;
-            };
+            }
         }
 
         public void Update(IndividualCredit model)
@@ -51,10 +51,10 @@ namespace MidasBussines.Repositories
                 _context.IndividualCredits.Update(model);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 throw;
-            };
+            }
         }
     }
 }

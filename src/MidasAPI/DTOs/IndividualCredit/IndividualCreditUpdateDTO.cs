@@ -1,10 +1,8 @@
 ﻿namespace MidasAPI.DTO.IndividualCredit;
 
-public class IndividualCreditDTO
+public class IndividualCreditUpdateDTO
 {
     public string Id { get; set; } = null!;
-
-    public string CreditApplicationNumber { get; set; } = null!;
 
     public string UserId { get; set; } = null!;
 
@@ -36,10 +34,6 @@ public class IndividualCreditDTO
 
     public DateTime? ApplicationDate { get; set; }
 
-    public DateTime? CreditStartDate { get; set; }
-
-    public DateTime? CreditEndDate { get; set; }
-
     public string Status { get; set; } = null!;
 
     public string? Note { get; set; }
@@ -54,16 +48,9 @@ public class IndividualCreditDTO
 
     public string BusinessCertificateFile { get; set; } = null!;
 
-    public string CreatedBy { get; set; } = null!;
-
-    public DateTime CreatedAt { get; set; }
-
     public string? UpdatedBy { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
-    public string? DeletedBy { get; set; }
-
-    public DateTime? DeletedAt { get; set; }
     public List<EmergencyContactDTO> EmergencyContacts { get; set; } = new List<EmergencyContactDTO>();
 }

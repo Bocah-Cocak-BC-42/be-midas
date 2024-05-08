@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MidasBussines.Repositories
 {
-    public class EmergencyContactRepository : IEmergencyContractRepository
+    public class EmergencyContactRepository : IEmergencyContactRepository
     {
         private readonly MidasContext _context;
 

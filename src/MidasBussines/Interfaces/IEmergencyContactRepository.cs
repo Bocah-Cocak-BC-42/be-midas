@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MidasBussines.Interfaces
 {
-    public interface IEmergencyContactRepository
+    public interface IEmergencyContractRepository
     {
         public void Insert(EmergencyContact model);
         public void Update(EmergencyContact model);
