@@ -122,21 +122,14 @@ namespace MidasAPI.Controllers
         {
             try
             {
-                if(!customerRegisterDTO.Email.Contains("@"))
-                    return BadRequest(new ResponseDTO<string>()
-                    {
-                        Message = "Format Email Salah",
-                        Status = ConstantConfigs.STATUS_FAILED,
-                        Data = customerRegisterDTO.Email    
-                    });
-
-                else if (customerRegisterDTO.IdentityNumber.Length != 16)
+                if (customerRegisterDTO.IdentityNumber.Length != 16)
                     return BadRequest(new ResponseDTO<string>()
                     {
                         Message = "NIK harus berjumlah 16 digit",
                         Status = ConstantConfigs.STATUS_FAILED,
                         Data = customerRegisterDTO.IdentityNumber
                     });
+
                 else if (customerRegisterDTO.PhoneNumber.Length < 10 ||
                     customerRegisterDTO.PhoneNumber.Length > 13)
                     return BadRequest(new ResponseDTO<string>()
