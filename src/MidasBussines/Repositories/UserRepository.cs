@@ -25,7 +25,7 @@ namespace MidasBussines.Repositories
 
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
+            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"
             && user.FullName.Contains(fullName??"") && user.IdentityNumber.Contains(identityNumber??"")
             && user.DeletedAt == null)
             .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
