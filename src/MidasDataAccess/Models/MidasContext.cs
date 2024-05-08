@@ -342,9 +342,6 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.CompanyName)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.CompanyOwnerId)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.CompanyRegistrationNumber)
                 .HasMaxLength(13)
                 .IsUnicode(false);
@@ -422,11 +419,6 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.BranchOfficeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CompanyCr__Branc__02FC7413");
-
-            entity.HasOne(d => d.CompanyOwner).WithMany(p => p.CompanyCreditCompanyOwners)
-                .HasForeignKey(d => d.CompanyOwnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__CompanyCr__Compa__02084FDA");
 
             entity.HasOne(d => d.CompanyRegistrationNumberFileNavigation).WithMany(p => p.CompanyCreditCompanyRegistrationNumberFileNavigations)
                 .HasForeignKey(d => d.CompanyRegistrationNumberFile)

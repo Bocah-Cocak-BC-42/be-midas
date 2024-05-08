@@ -73,8 +73,6 @@ public partial class User
 
     public virtual ICollection<City> CityUpdatedByNavigations { get; set; } = new List<City>();
 
-    public virtual ICollection<CompanyCredit> CompanyCreditCompanyOwners { get; set; } = new List<CompanyCredit>();
-
     public virtual ICollection<CompanyCredit> CompanyCreditCreatedByNavigations { get; set; } = new List<CompanyCredit>();
 
     public virtual ICollection<CompanyCredit> CompanyCreditDeletedByNavigations { get; set; } = new List<CompanyCredit>();

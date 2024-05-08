@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MidasAPI.DTOs;
 using MidasAPI.DTOs.CompanyCredit;
 using MidasAPI.DTOs.User;
 using MidasBussines.Interfaces;
@@ -50,13 +51,12 @@ public class CompanyCreditService
             PhoneNumber = dto.PhoneNumber,
             Address = dto.Address,
             VillageId = dto.VillageId,
-            CompanyOwnerId = dto.CompanyOwnerId,
             BranchOfficeId = dto.BranchOfficeId,
             ApplicationAmount = dto.ApplicationAmount,
             ApplicationPeriod = dto.ApplicationPeriod,
             ApplicationDate = dto.ApplicationDate,
             CreditEndDate = dto.CreditEndDate,
-            Status = dto.Status,
+            Status = ApprovalStatusConfig.DRAFT,
             Notes = dto.Notes,
             EstablishRegistrationNumberFile = dto.EstablishRegistrationNumberFile,
             CompanyRegistrationNumberFile = dto.CompanyRegistrationNumberFile,
