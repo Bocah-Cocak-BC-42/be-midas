@@ -10,7 +10,7 @@ namespace MidasBussines.Interfaces
     public interface IIndividualCreditRepository
     {
         public List<IndividualCredit> GetByStatus(int page, int pageSize, string status);
-        public IndividualCredit GetById(string id);
+        public IndividualCredit? GetById(string id);
         public void Insert(IndividualCredit model);
         public void Update(IndividualCredit model);
     }

@@ -18,22 +18,43 @@ namespace MidasBussines.Repositories
             _context = context;
         }
 
+        public IndividualCredit? GetById(string id)
+        {
+            return _context.IndividualCredits.Include("User").Include("EmergencyContacts")
+                .Where(indiv => indiv.Id == id).FirstOrDefault();
+        }
+
         public List<IndividualCredit> GetByStatus(int page, int pageSize, string status)
         {
-            return _context.IndividualCredits.Include("User").Where(indiv => indiv.Status == status)
+            return _context.IndividualCredits.Include("User")
+                .Where(indiv => indiv.Status == status)
                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public void Insert(IndividualCredit model)
         {
-            _context.IndividualCredits.Add(model);
-            _context.SaveChanges();
+            try
+            {
+                _context.IndividualCredits.Add(model);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            };
         }
 
         public void Update(IndividualCredit model)
         {
-            _context.IndividualCredits.Update(model);
-            _context.SaveChanges();
+            try
+            {
+                _context.IndividualCredits.Update(model);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            };
         }
     }
 }
