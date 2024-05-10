@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MidasAPI.DTO.IndividualCredit;
+using MidasAPI.DTOs.IndividualCredit;
 using MidasAPI.Services;
+using System.Net.NetworkInformation;
+using System.Security.Claims;
+using static Azure.Core.HttpHeader;
 
 namespace MidasAPI.Controllers;
 [Authorize(Roles = "Nasabah")]
@@ -138,4 +143,83 @@ public class IndividualCreditController : ControllerBase
     //         });
     //     }
     // }
+
+    [HttpGet("get-by-status")]
+    public IActionResult GetByStatus(int page = 1, int pageSize = 5, string status = "")
+    {
+        try
+        {
+            var model = _service.GetByStatus(page, pageSize, status);
+            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
+            {
+                Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = model
+            });
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    //[HttpPost("submit-credit")]
+    //public IActionResult SubmitCredit()
+    //{
+
+    //}
+
+    [HttpPatch("reject-credit/{individualCreditId}")]
+    public IActionResult RejectCredit(string individualCreditId, string notes ="")
+    {
+        try
+        {
+            _service.RejectCredit(individualCreditId, notes, 
+                User.FindFirstValue("userId")??"", User.FindFirstValue(ClaimTypes.Role)??"");
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = "Kredit Ditolak",
+                Status = ConstantConfigs.STATUS_OK,
+                Data = individualCreditId
+            });
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPatch("approve-credit/{individualCreditId}")]
+    public IActionResult ApproveCredit(string individualCreditId)
+    {
+        try
+        {
+            _service.ApproveCredit(individualCreditId,
+                User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = "Kredit Disetujui",
+                Status = ConstantConfigs.STATUS_OK,
+                Data = individualCreditId
+            });
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
 }

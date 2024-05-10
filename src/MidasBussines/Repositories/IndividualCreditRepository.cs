@@ -21,13 +21,13 @@ namespace MidasBussines.Repositories
         public IndividualCredit? GetById(string id)
         {
             return _context.IndividualCredits.Include("User").Include("EmergencyContacts")
-                .Where(indiv => indiv.Id == id).FirstOrDefault();
+                .Where(indiv => indiv.Id == id && indiv.DeletedAt == null).FirstOrDefault();
         }
 
         public List<IndividualCredit> GetByStatus(int page, int pageSize, string status)
         {
             return _context.IndividualCredits.Include("User")
-                .Where(indiv => indiv.Status == status)
+                .Where(indiv => indiv.Status == status && indiv.DeletedAt == null)
                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
