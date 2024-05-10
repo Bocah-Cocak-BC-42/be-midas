@@ -51,7 +51,7 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpPost("draft")]
-    public IActionResult Insert(CompanyCreditInsertDTO dto)
+    public IActionResult Insert(CompanyCreditInsertDraftDTO dto)
     {
         try
         {
@@ -73,4 +73,101 @@ public class CompanyCreditController : ControllerBase
             });
         }
     }
+
+    [HttpPut("draft/{id}")]
+    public IActionResult UpdateDraft(CompanyCreditUpdateDraftDTO dto)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.UpdateDraft(dto, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("company credit"),
+                Status = ConstantConfigs.STATUS_OK
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpDelete("draft/{id}")]
+    public IActionResult DeleteDraft(string id)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.DeleteDraft(id, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_DELETE("company credit"),
+                Status = ConstantConfigs.STATUS_OK
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPut("apply-credit/{id}")]
+    public IActionResult ApplyCredit(string id)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.ApplyCredit(id, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
+                Status = ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            }); 
+        }
+    }
+
+    [HttpPut("credit-rejected/{id}")]
+    public IActionResult CreditRejected(CompanyCreditDraftRevisionDTO dto)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.CreditRejected(dto, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
+                Status = ApprovalStatusConfig.REJECTED_FILES
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
 }

@@ -2,7 +2,7 @@
 
 namespace MidasAPI.DTOs.CompanyCredit;
 
-public class CompanyCreditInsertDTO
+public class CompanyCreditInsertDraftDTO
 {
     public string Npwp { get; set; } = null!;
     public string CompanyName { get; set; } = null!;
