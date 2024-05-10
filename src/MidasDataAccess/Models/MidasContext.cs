@@ -321,8 +321,6 @@ public partial class MidasContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__CompanyC__3214EC07AE1E45A9");
 
-            entity.HasIndex(e => e.CreditApplicationNumber, "UQ__CompanyC__5473C74C9619A32C").IsUnique();
-
             entity.HasIndex(e => e.Npwp, "UQ__CompanyC__E542917DCD57F910").IsUnique();
 
             entity.Property(e => e.Id)
@@ -399,7 +397,7 @@ public partial class MidasContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Status)
-                .HasMaxLength(15)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy)
