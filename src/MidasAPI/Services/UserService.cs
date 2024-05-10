@@ -41,6 +41,16 @@ public class UserService
         }).ToList();
     }
 
+    public List<UserDropdownResponseDTO> GetAll()
+    {
+        return _userRepository.GetAll().Select(x => new UserDropdownResponseDTO
+        {
+            Id = x.Id,
+            Role = x.Role.Name,
+            FullName = x.FullName,
+        }).ToList();
+    }
+
     public int CountAllCustomers(string fullName, string identityNumber)
     {
         return _userRepository.CountAllCustomers(fullName, identityNumber);

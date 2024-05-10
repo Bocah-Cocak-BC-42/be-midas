@@ -95,6 +95,37 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [HttpGet("get-all")]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                var res = _service.GetAll();
+                if (res.Count == 0)
+                    return NotFound(new ResponseDTO<string[]>()
+                    {
+                        Message = ConstantConfigs.MESSAGE_NOT_FOUND("Customer"),
+                        Status = ConstantConfigs.STATUS_NOT_FOUND,
+                        Data = Array.Empty<string>()
+                    });
+
+                return Ok(new ResponseDTO<List<UserDropdownResponseDTO>>()
+                {
+                    Message = ConstantConfigs.MESSAGE_GET("Customer"),
+                    Status = ConstantConfigs.STATUS_OK,
+                    Data = res,
+                });
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_FAILED,
+                    Status = ConstantConfigs.STATUS_FAILED,
+                });
+            }
+        }
+
         [HttpGet("get-user-detail")]
         public IActionResult GetUserDetail(string id)
         {
