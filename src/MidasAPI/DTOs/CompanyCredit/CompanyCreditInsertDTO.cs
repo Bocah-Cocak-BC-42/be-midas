@@ -25,13 +25,10 @@ public class CompanyCreditInsertDTO
     public string PhoneNumber { get; set; } = null!;
     public string Address { get; set; } = null!;
     public string VillageId { get; set; } = null!;
-    public string CompanyOwnerId { get; set; } = null!;
     public string BranchOfficeId { get; set; } = null!;
     public decimal ApplicationAmount { get; set; }
     public int ApplicationPeriod { get; set; }
-    public DateTime? ApplicationDate { get; set; }
     public DateTime CreditEndDate { get; set; }
-    public string Status { get; set; } = null!;
     public string Notes { get; set; } = null!;
     public string EstablishRegistrationNumberFile { get; set; } = null!;
     public string CompanyRegistrationNumberFile { get; set; } = null!;
@@ -39,6 +36,4 @@ public class CompanyCreditInsertDTO
     public string IdentityNumberFile { get; set; } = null!;
     public string BoardOfManagementFile { get; set; } = null!;
     public string FinancialStatementFile { get; set; } = null!;
-
-    public BranchOfficeResponseDTO BranchOffice { get; set; }
 }
