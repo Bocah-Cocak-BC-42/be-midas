@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MidasAPI.DTOs;
 using MidasAPI.DTOs.CompanyCredit;
 using MidasAPI.DTOs.User;
@@ -19,14 +20,43 @@ public class CompanyCreditController : ControllerBase
         _service = service;
     }
 
-    [HttpPost]
+    [HttpGet("company-type")]
+    public IActionResult GetCompanyTypes()
+    {
+        try
+        {
+            var companyType = _service.GetCompanyTypes();
+            if (companyType.Count == 0)
+            {
+                return NotFound(new ResponseDTO<string[]>()
+                {
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("company type"),
+                    Status = ConstantConfigs.STATUS_NOT_FOUND,
+                    Data = Array.Empty<string>()
+                });
+            }
+
+            return Ok(new ResponseDTO<List<SelectListItem>>()
+            {
+                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = companyType
+            });
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+    }
+
+    [HttpPost("draft")]
     public IActionResult Insert(CompanyCreditInsertDTO dto)
     {
         try
         {
-            UserResponseDTO user = new UserResponseDTO();
-            user.IdentityNumber = User.FindFirst("userId")?.Value??string.Empty;
-            _service.Insert(dto, user);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.Insert(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -36,8 +66,11 @@ public class CompanyCreditController : ControllerBase
         }
         catch (System.Exception)
         {
-            
-            throw;
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
         }
     }
 }

@@ -23,7 +23,7 @@ public class CompanyCreditService
         return $"KBU-{branchOfficeCode}-{nik}-{DateTime.Now.ToString("ddMMyyyy")}";
     }
 
-    private List<SelectListItem> GetCompanyTypes()
+    public List<SelectListItem> GetCompanyTypes()
     {
         return new List<SelectListItem>()
         {
@@ -35,11 +35,12 @@ public class CompanyCreditService
         };
     }
 
-    public void Insert(CompanyCreditInsertDTO dto, UserResponseDTO user)
+    public void Insert(CompanyCreditInsertDTO dto, string userId)
     {
         var companyCredit = new CompanyCredit()
-        {
-            CreditApplicationNumber = CreateCreditApplicationNumber(dto.BranchOffice.Code, user.IdentityNumber),
+        {   
+            Id = Guid.NewGuid().ToString(),
+            CreditApplicationNumber = "-",
             Npwp = dto.Npwp,
             CompanyName = dto.CompanyName,
             CompanyType = dto.CompanyType,
@@ -54,7 +55,6 @@ public class CompanyCreditService
             BranchOfficeId = dto.BranchOfficeId,
             ApplicationAmount = dto.ApplicationAmount,
             ApplicationPeriod = dto.ApplicationPeriod,
-            ApplicationDate = dto.ApplicationDate,
             CreditEndDate = dto.CreditEndDate,
             Status = ApprovalStatusConfig.DRAFT,
             Notes = dto.Notes,
@@ -64,7 +64,7 @@ public class CompanyCreditService
             IdentityNumberFile = dto.IdentityNumberFile,
             BoardOfManagementFile = dto.BoardOfManagementFile,
             FinancialStatementFile = dto.FinancialStatementFile,
-            CreatedBy = user.Id,
+            CreatedBy = userId,
             CreatedAt = DateTime.Now
         };
 
