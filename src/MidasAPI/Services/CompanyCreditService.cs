@@ -18,6 +18,24 @@ public class CompanyCreditService
         _branchOfficeRepository = branchOfficeRepository;
     }
 
+
+    public List<CompanyCreditDTO> GetDraft(int page, int pageSize){
+        var model = _repository
+            .GetDraft(page, pageSize)
+            .Select(cc => new CompanyCreditDTO(){
+                CreditApplicationNumber = cc.CreditApplicationNumber??"-",
+                BranchOffice = cc.BranchOffice.OfficeName,
+                ApplicationAmount = cc.ApplicationAmount,
+                ApplicationPeriod = cc.ApplicationPeriod,
+                Status = cc.Status
+            });
+
+        return model.ToList();
+    }
+
+    public int CountData() => _repository.CountData();
+
+
     private string CreateCreditApplicationNumber(string branchOfficeCode, string nik)
     {
         return $"KBU-{branchOfficeCode}-{nik}-{DateTime.Now.ToString("ddMMyyyy")}";
