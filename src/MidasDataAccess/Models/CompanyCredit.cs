@@ -7,7 +7,7 @@ public partial class CompanyCredit
 {
     public string Id { get; set; } = null!;
 
-    public string CreditApplicationNumber { get; set; } = null!;
+    public string? CreditApplicationNumber { get; set; }
 
     public string Npwp { get; set; } = null!;
 
@@ -43,7 +43,7 @@ public partial class CompanyCredit
 
     public string Status { get; set; } = null!;
 
-    public string Notes { get; set; } = null!;
+    public string? Notes { get; set; }
 
     public string EstablishRegistrationNumberFile { get; set; } = null!;
 
