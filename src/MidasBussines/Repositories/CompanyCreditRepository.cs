@@ -1,4 +1,5 @@
-﻿using MidasBussines.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
 namespace MidasBussines.Repositories;
@@ -11,6 +12,24 @@ public class CompanyCreditRepository : ICompanyCreditRepository
     {
         _context = context;
     }
+
+
+    public List<CompanyCredit> GetDraft(int page, int pageSize)
+    {
+        var companyCredit = _context.CompanyCredits;
+        return companyCredit
+            .Include("BranchOffice")
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();     
+    }
+
+
+    public int CountData(){
+        var companyCredit = _context.CompanyCredits;
+        return companyCredit.Count();
+    }
+
 
     public void Insert(CompanyCredit companyCredit)
     {
