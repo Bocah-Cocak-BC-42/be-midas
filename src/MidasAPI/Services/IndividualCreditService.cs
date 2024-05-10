@@ -1,6 +1,7 @@
 ﻿using MidasBussines.Interfaces;
 using MidasAPI.DTO.IndividualCredit;
 using MidasDataAccess.Models;
+using MidasAPI.DTOs;
 
 namespace MidasAPI.Services;
 
@@ -15,13 +16,13 @@ public class IndividualCreditService
         _emergencyContactRepository = emergencyContactRepository;
     }
 
-    public void Insert(IndividualCreditInsertDTO request)
+    public void Insert(IndividualCreditInsertDTO request, string userId)
     {
         var individualCredit = new IndividualCredit()
         {
             Id = Guid.NewGuid().ToString(),
             CreditApplicationNumber = "-",
-            UserId = request.UserId,
+            UserId = userId,
             FamilyCardNumber = request.FamilyCardNumber,
             Address = request.Address,
             VillageId = request.VillageId,
@@ -35,14 +36,14 @@ public class IndividualCreditService
             BranchOfficeId = request.BranchOfficeId,
             ApplicationAmount = request.ApplicationAmount,
             ApplicationPeriod = request.ApplicationPeriod,
-            ApplicationDate = request.ApplicationDate,
             DomicileFile = request.DomicileFile,
             IdentityCardFile = request.IdentityCardFile,
             IdentityCardSelfieFile = request.IdentityCardSelfieFile,
             FamilyCardFile = request.FamilyCardFile,
             BusinessCertificateFile = request.BusinessCertificateFile,
-            CreatedBy = request.CreatedBy,
-            CreatedAt = request.CreatedAt
+            Status = ApprovalStatusConfig.DRAFT,
+            CreatedBy = userId,
+            CreatedAt = DateTime.Now
         };
 
         _individualCreditRepository.Insert(individualCredit);

@@ -661,7 +661,7 @@ public partial class MidasContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Individu__3214EC07B8A14867");
 
-            entity.HasIndex(e => e.CreditApplicationNumber, "UQ__Individu__5473C74C2A8121B5").IsUnique();
+            entity.HasIndex(e => e.CreditApplicationNumber, "UQ__Individu__5473C74C2A8121B5");
 
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
