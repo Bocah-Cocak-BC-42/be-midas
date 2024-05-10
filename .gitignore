@@ -27,3 +27,4 @@ project.lock.json
 /src/MidasDataAccess/DbContextConnectionConfig.cs
 /.gitignore
 /src/MidasDataAccess/DbContextConnectionConfig.cs
+/src/MidasAPI/Files/Foto
