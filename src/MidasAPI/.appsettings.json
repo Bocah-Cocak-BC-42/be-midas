@@ -7,7 +7,7 @@
     },
     "AllowedHosts": "*",
     "ConnectionStrings": {
-      "MidasConnection" : "Data Source=[NAMA LAPTOP];Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True"
+      "MidasConnection" : "Data Source=LAPTOP-0GO7OGRC;Initial Catalog=Midas;Trusted_Connection=True;TrustServerCertificate=True"
     },
     "AppSettings": {
       "Token": "LorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRelLorRelKidulRel"

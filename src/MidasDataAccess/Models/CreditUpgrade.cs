@@ -35,7 +35,13 @@ public partial class CreditUpgrade
 
     public DateTime? DeletedAt { get; set; }
 
+    public string? ApprovedBy { get; set; }
+
+    public DateTime? ApprovedAt { get; set; }
+
     public virtual User CreatedByNavigation { get; set; } = null!;
+
+    public virtual User? ApprovedByNavigation { get; set; }
 
     public virtual User? DeletedByNavigation { get; set; }
 

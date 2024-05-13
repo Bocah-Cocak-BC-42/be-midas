@@ -588,6 +588,9 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.ApprovedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.UserId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -596,6 +599,11 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CreditUpg__Creat__2DE6D218");
+
+            entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.CreditUpgradeApprovedByNavigations)
+                .HasForeignKey(d => d.ApprovedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__CreditUpg__Approv__2DE6D200");
 
             entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.CreditUpgradeDeletedByNavigations)
                 .HasForeignKey(d => d.DeletedBy)

@@ -98,6 +98,7 @@ public partial class User
     public virtual ICollection<CreditUpgrade> CreditUpgradeDeletedByNavigations { get; set; } = new List<CreditUpgrade>();
 
     public virtual ICollection<CreditUpgrade> CreditUpgradeUpdatedByNavigations { get; set; } = new List<CreditUpgrade>();
+    public virtual ICollection<CreditUpgrade> CreditUpgradeApprovedByNavigations { get; set; } = new List<CreditUpgrade>();
 
     public virtual ICollection<CreditUpgrade> CreditUpgradeUsers { get; set; } = new List<CreditUpgrade>();
 

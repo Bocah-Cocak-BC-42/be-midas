@@ -1,0 +1,148 @@
+﻿using MidasAPI.DTOs;
+using MidasBussines.Interfaces;
+using MidasDataAccess.Models;
+
+namespace MidasAPI;
+
+public class CreditUpgradeServices
+{
+    private readonly ICreditUpgradeRepository _creditUpgradeRepository;
+    private readonly IUserRepository _userRepository;
+
+    public CreditUpgradeServices(ICreditUpgradeRepository creditUpgradeRepository, IUserRepository userRepository)
+    {
+        _creditUpgradeRepository = creditUpgradeRepository;
+        _userRepository = userRepository;
+    }
+
+    private string GetIdentityNumber(string userId)
+    {
+        return _userRepository.GetById(userId).IdentityNumber;
+    }
+
+    private string CreateCreditUpgradeNumber(string userId)
+    {
+        string creditUpgradeNumber = "UK-";
+        string identityNumber = GetIdentityNumber(userId)+"-";
+        string submitDate = DateTime.Now.ToString("ddMMyyyy");
+        return creditUpgradeNumber+identityNumber+submitDate;;
+    }
+
+    public void InsertCreditUpgrade(CreditUpgradeInsertDTO creditUpgrade, string userId)
+    {
+        _creditUpgradeRepository.Insert(new CreditUpgrade(){
+            Id = Guid.NewGuid().ToString(),
+            UserId = userId,
+            CreditUpgradeNumber = CreateCreditUpgradeNumber(userId),
+            MonthlyIncome = creditUpgrade.MonthlyIncome,
+            AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,
+            ProfitBusinessGross = creditUpgrade.ProfitBusinessGross,
+            Status = UpgradeCreditApprovalStatusConfig.PENDING,
+            Notes = creditUpgrade.Notes,
+            FinancialStatementFile = creditUpgrade.FinancialStatementFileId,
+            CreatedBy = userId, 
+            CreatedAt = DateTime.Now,
+        });
+    }
+
+    public CreditUpgradeResponseDTO Get(string creditUpgradeId)
+    {
+        var creditUpgrade = _creditUpgradeRepository.Get(creditUpgradeId);
+        return new CreditUpgradeResponseDTO(){
+            Id = creditUpgrade.Id,
+            UserId = creditUpgrade.UserId,
+            CreditUpgradeNumber = creditUpgrade.CreditUpgradeNumber,
+            MonthlyIncome = creditUpgrade.MonthlyIncome,
+            AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,
+            ProfitBusinessGross = creditUpgrade.ProfitBusinessGross,
+            Status = creditUpgrade.Status,
+            Notes = creditUpgrade.Notes,
+            FinancialStatementFile = creditUpgrade.FinancialStatementFile,
+            CreatedAt = creditUpgrade.CreatedAt,
+            UpdatedAt = creditUpgrade.UpdatedAt,
+            ApprovedBy = creditUpgrade.ApprovedBy,
+            ApprovedAt = creditUpgrade.ApprovedAt
+        };
+    }
+
+    public CreditUpgradeListResDTO GetCreditUpgradesCustomer(string userId)
+    {
+        var creditUpgrades = _creditUpgradeRepository.GetCreditUpgradesCustomer(userId);
+        return new CreditUpgradeListResDTO(){
+            CreditUpgrades = creditUpgrades.Select(c => new CreditUpgradeResponseDTO(){
+                Id = c.Id,
+                UserId = c.UserId,
+                CreditUpgradeNumber = c.CreditUpgradeNumber,
+                MonthlyIncome = c.MonthlyIncome,
+                AnnualBusinessGross = c.AnnualBusinessGross,
+                ProfitBusinessGross = c.ProfitBusinessGross,
+                Status = c.Status,
+                Notes = c.Notes,
+                FinancialStatementFile = c.FinancialStatementFile,
+                CreatedAt = c.CreatedAt,
+                UpdatedAt = c.UpdatedAt,
+                ApprovedBy = c.ApprovedBy,
+                ApprovedAt = c.ApprovedAt
+            }).ToList(),
+        };
+    }
+
+    public PaginationDTO CreditUpgradePagination(string role, int page, int pageSize)
+    {
+        var creditUpgrades = new List<CreditUpgrade>();
+        if(role == "Admin"){
+            creditUpgrades = _creditUpgradeRepository.GetCreditUpgradeAdmin(page, pageSize);
+        }else if(role == "Supervisor"){
+            creditUpgrades = _creditUpgradeRepository.GetCreditUpgradeSupervisor(page, pageSize);
+        }
+        return new PaginationDTO(){
+            Page = page,
+            PageSize = pageSize,
+            TotalData = creditUpgrades.Count,
+        };
+    }
+
+    public CreditUpgradeListResDTO GetCreditUpgrades(string role, int page, int pageSize)
+    {
+        var creditUpgrades = new List<CreditUpgrade>();
+        if(role == "Admin"){
+            creditUpgrades = _creditUpgradeRepository.GetCreditUpgradeAdmin(page, pageSize);
+        }else if(role == "Supervisor"){
+            creditUpgrades = _creditUpgradeRepository.GetCreditUpgradeSupervisor(page, pageSize);
+        }
+        return new CreditUpgradeListResDTO(){
+            CreditUpgrades = creditUpgrades.Select(c => new CreditUpgradeResponseDTO(){
+                Id = c.Id,
+                UserId = c.UserId,
+                CreditUpgradeNumber = c.CreditUpgradeNumber,
+                MonthlyIncome = c.MonthlyIncome,
+                AnnualBusinessGross = c.AnnualBusinessGross,
+                ProfitBusinessGross = c.ProfitBusinessGross,
+                Status = c.Status,
+                Notes = c.Notes,
+                FinancialStatementFile = c.FinancialStatementFile,
+                CreatedAt = c.CreatedAt,
+                UpdatedAt = c.UpdatedAt,
+                ApprovedBy = c.ApprovedBy,
+                ApprovedAt = c.ApprovedAt
+            }).ToList(),
+        };
+    }
+
+    public void ApproveCreditUpgrade(string userId, string role, ApproveCreditUpgradeDTO dto)
+    {
+        var creditUpgrade = _creditUpgradeRepository.Get(dto.CreditUpgradeId);
+        creditUpgrade.ApprovedBy = userId;
+        creditUpgrade.ApprovedAt = DateTime.Now;
+        if(role == "Supervisor") creditUpgrade.Status = UpgradeCreditApprovalStatusConfig.APPROVED;
+        _creditUpgradeRepository.Update(creditUpgrade);
+    }
+
+    public void RejectCreditUpgrade(RejectCreditUpgradeDTO dto)
+    {
+        var creditUpgrade = _creditUpgradeRepository.Get(dto.CreditUpgradeId);
+        creditUpgrade.Notes = dto.Notes;
+        creditUpgrade.Status = UpgradeCreditApprovalStatusConfig.REJECTED;
+        _creditUpgradeRepository.Update(creditUpgrade);
+    }
+}

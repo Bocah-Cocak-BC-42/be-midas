@@ -20,6 +20,7 @@ public static class ConfigureBussinesService
         services.AddScoped<IBranchOfficeRepository,BranchOfficeRepository>();
         services.AddScoped<IFileManagementRepository, FileManagementRepository>();
         services.AddScoped<IAssociateUserBranchRepository,AssociateUserBranchRepository>();
+        services.AddScoped<ICreditUpgradeRepository,CreditUpgradeRepository>();
 
 
         //Services
@@ -35,6 +36,7 @@ public static class ConfigureBussinesService
         services.AddScoped<FileManagementServices>();
         services.AddScoped<BranchOfficeService>();
         services.AddScoped<AssociateUserBranchService>();
+        services.AddScoped<CreditUpgradeServices>();
         
         return services;
     }
