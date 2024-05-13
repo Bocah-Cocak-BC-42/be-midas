@@ -91,7 +91,6 @@ public class CompanyCreditInsertDTO
     [RegularExpression(@"^-?[0-9][0-9,\.]+$", ErrorMessage = "{0} harus berupa angka")]
     public int ApplicationPeriod { get; set; }
     public DateTime CreditEndDate { get; set; }
-    public string Notes { get; set; } = null!;
     public string EstablishRegistrationNumberFile { get; set; } = null!;
     public string CompanyRegistrationNumberFile { get; set; } = null!;
     public string Npwpfile { get; set; } = null!;

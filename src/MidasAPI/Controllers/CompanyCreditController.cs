@@ -20,7 +20,6 @@ public class CompanyCreditController : ControllerBase
         _service = service;
     }
 
-
     [HttpGet]
     public IActionResult GetDraft(int page, int pageSize){
         try{
@@ -51,8 +50,6 @@ public class CompanyCreditController : ControllerBase
             });
         }
     }
-
-
 
     [HttpGet("company-type")]
     public IActionResult GetCompanyTypes()
@@ -85,7 +82,7 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpPost("draft")]
-    public IActionResult Insert(CompanyCreditInsertDTO dto)
+    public IActionResult InsertDraft(CompanyCreditInsertDTO dto)
     {
         try
         {   
@@ -140,7 +137,7 @@ public class CompanyCreditController : ControllerBase
             }
 
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.Insert(dto, userId);
+            _service.InsertDraft(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -231,7 +228,7 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpPut("credit-rejected/{id}")]
-    public IActionResult CreditRejected(CompanyCreditDraftRevisionDTO dto)
+    public IActionResult CreditRejected(CompanyCreditDraftRejectedDTO dto)
     {
         try
         {
@@ -254,4 +251,99 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
+    [HttpPut("credit-revision/{id}")]
+    public IActionResult CreditRevision(CompanyCreditDraftRevisionDTO dto)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.CreditRevision(dto, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
+                Status = ApprovalStatusConfig.REJECTED_FILES
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPut("credit-approved/{id}")]
+    public IActionResult CreditApproved(string id)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.CreditApproved(id, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
+                Status = ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPut("final-verification-rejected/{id}")]
+    public IActionResult FinalVerificationRejected(string id)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.FinalVerificationRejected(id, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
+                Status = ApprovalStatusConfig.REJECTED
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPut("final-verification-approved/{id}")]
+    public IActionResult FinalVerificationApproved(string id)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _service.FinalVerificationApproved(id, userId);
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
+                Status = ApprovalStatusConfig.APPROVED
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
 }

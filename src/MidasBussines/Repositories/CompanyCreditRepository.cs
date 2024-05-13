@@ -13,7 +13,6 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         _context = context;
     }
 
-
     public List<CompanyCredit> GetDraft(int page, int pageSize)
     {
         var companyCredit = _context.CompanyCredits;
@@ -24,12 +23,10 @@ public class CompanyCreditRepository : ICompanyCreditRepository
             .ToList();     
     }
 
-
     public int CountData(){
         var companyCredit = _context.CompanyCredits;
         return companyCredit.Count();
     }
-
 
     public CompanyCredit GetById(string id)
     {
@@ -39,7 +36,7 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         .FirstOrDefault();
     }
 
-    public void Insert(CompanyCredit companyCredit)
+    public void InsertDraft(CompanyCredit companyCredit)
     {
         try
         {
@@ -78,7 +75,33 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         }
     }
 
-    public void CreditRejected(CompanyCredit companyCredit)
+    public void CreditVerification(CompanyCredit companyCredit)
+    {
+        try
+        {
+            _context.CompanyCredits.Update(companyCredit);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
+    public void CreditRevision(CompanyCredit companyCredit)
+    {
+        try
+        {
+            _context.CompanyCredits.Update(companyCredit);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
+    public void FinalVerification(CompanyCredit companyCredit)
     {
         try
         {
