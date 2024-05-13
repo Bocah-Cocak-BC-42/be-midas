@@ -29,5 +29,6 @@
         public DateTime? RegistrationDate { get; set; }
 
         public string RoleName { get; set; } = null!;
+        public string AssociateId { get; set; } = null!;
     }
 }
