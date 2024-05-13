@@ -12,10 +12,12 @@ namespace MidasAPI.Services;
 public class BranchOfficeService
 {
     private readonly IBranchOfficeRepository _officeRep;
+    private readonly IAssociateUserBranchRepository _associateRep;
 
-    public BranchOfficeService(IBranchOfficeRepository officeRep)
+    public BranchOfficeService(IBranchOfficeRepository officeRep, IAssociateUserBranchRepository associateRep)
     {
         _officeRep = officeRep;
+        _associateRep = associateRep;
     }
 
     public List<BranchOfficeResponseDTO> Get(int page, int pageSize, string officeName, string province, string city) =>
@@ -44,8 +46,12 @@ public class BranchOfficeService
         .ToList();
     public int CountData(string officeName, string province, string city) =>
         _officeRep.CountData(officeName,province,city);
+    public int CountDataEmployeeByOffice(string branchOfficeId, string fullName, string role)=>
+        _associateRep.CountDataEmployeeByOffice(branchOfficeId,fullName,role);
     public BranchOffice? Get(string id) =>
         _officeRep.Get(id);
+    public List<AssociateUserBranch> GetEmployeeByOffice(int page, int pageSize, string branchOfficeId, string fullName, string role) =>
+        _associateRep.GetEmployeeByOffice(page, pageSize, branchOfficeId,fullName,role);
     public void Insert(BranchOfficeInsertDTO req, string userId) =>
         _officeRep.Insert(new BranchOffice
             {

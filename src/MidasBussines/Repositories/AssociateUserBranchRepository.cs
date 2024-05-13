@@ -32,7 +32,32 @@ public class AssociateUserBranchRepository : IAssociateUserBranchRepository
             .ThenInclude(user=>user.Role)
         .Include(associate=>associate.BranchOffice)
         .ToList();
-
+    public List<AssociateUserBranch> GetEmployeeByOffice(int page, int pageSize, string branchOfficeId, string fullName, string role)
+    {
+        return _context.AssociateUserBranches
+        .Where(
+            associate=>associate.BranchOfficeId == branchOfficeId&&
+            associate.User.FullName.Contains(fullName ?? "") &&
+            associate.User.Role.Name.Contains(role ?? "")
+        )
+        .Include(associate=>associate.User)
+            .ThenInclude(user=>user.Role)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+    }
+    public int CountDataEmployeeByOffice(string branchOfficeId, string fullName, string role)
+    {
+        return _context.AssociateUserBranches
+        .Where(
+            associate=>associate.BranchOfficeId == branchOfficeId&&
+            associate.User.FullName.Contains(fullName ?? "") &&
+            associate.User.Role.Name.Contains(role ?? "")
+        )
+        .Include(associate=>associate.User)
+            .ThenInclude(user=>user.Role)
+        .Count();
+    }
     public AssociateUserBranch? Get(string id)=>
         _context.AssociateUserBranches
         .FirstOrDefault(associate=>associate.Id == id);

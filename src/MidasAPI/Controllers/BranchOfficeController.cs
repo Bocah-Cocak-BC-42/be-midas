@@ -77,55 +77,50 @@ public class BranchOfficeController : ControllerBase
         }
     }
     [HttpGet("{id}")]
-    public IActionResult GetDetail(string id)
+    public IActionResult GetDetail(string id, int page, int pageSize, string fullName="", string role="")
     {
-        // try
-        // {
-            var res = _service.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
-            List<UserDetailDTO> employees = new List<UserDetailDTO>();  
-            foreach (var user in res.AssociateUserBranches.ToList())
-            {
-                var employee = new UserDetailDTO(){
-                    Id = user.User.Id,
-                    FullName = user.User.FullName,
-                    IdentityNumber = user.User.IdentityNumber,
-                    RoleName = user.User.Role.Name,
-                };
-                employees.Add(employee);
-            }
-            
-            if (res is null)
-                return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
-                    Status = ConstantConfigs.STATUS_NOT_FOUND,
-                    Data = Array.Empty<string>()
-                });
-
-            return Ok(new ResponseDTO<BranchOfficeResponseDetailDTO>(){
-                Message = ConstantConfigs.MESSAGE_GET("kantor cabang"),
-                Status = ConstantConfigs.STATUS_OK,
-                Data = new BranchOfficeResponseDetailDTO(){
-                    Id = res.Id,
-                    Name = res.OfficeName,
-                    Code = res.OfficeCode,
-                    Province = res.Village.SubDistrict.City.ProvinceId,
-                    City = res.Village.SubDistrict.CityId,
-                    SubDistrict = res.Village.SubDistrictId,
-                    Address = res.Address,
-                    Village = res.VillageId,
-                    PostalCode = res.Village.PostalCode,
-                    Employees = employees.ToList()
-                },
+        var resOffice = _service.Get(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"));
+        var resEmployee = _service.GetEmployeeByOffice(page,pageSize,id,fullName,role);
+        List<UserDetailDTO> employees = new List<UserDetailDTO>();  
+        foreach (var associate in resEmployee)
+        {
+            var employee = new UserDetailDTO(){
+                Id = associate.User.Id,
+                FullName = associate.User.FullName,
+                IdentityNumber = associate.User.IdentityNumber,
+                RoleName = associate.User.Role.Name,
+            };
+            employees.Add(employee);
+        }
+        
+        if (resOffice is null )
+            return NotFound(new ResponseDTO<string[]>(){
+                Message = ConstantConfigs.MESSAGE_NOT_FOUND("kantor cabang"),
+                Status = ConstantConfigs.STATUS_NOT_FOUND,
+                Data = Array.Empty<string>()
             });
-        // }
 
-        // catch (System.Exception)
-        // {
-        //     return BadRequest(new ResponseDTO<string>(){
-        //         Message = ConstantConfigs.MESSAGE_FAILED,
-        //         Status = ConstantConfigs.STATUS_FAILED,
-        //     });
-        // }  
+        return Ok(new ResponseWithPaginationDTO<BranchOfficeResponseDetailDTO>(){
+            Message = ConstantConfigs.MESSAGE_GET("kantor cabang"),
+            Status = ConstantConfigs.STATUS_OK,
+            Data = new BranchOfficeResponseDetailDTO(){
+                Id = resOffice.Id,
+                Name = resOffice.OfficeName,
+                Code = resOffice.OfficeCode,
+                Province = resOffice.Village.SubDistrict.City.ProvinceId,
+                City = resOffice.Village.SubDistrict.CityId,
+                SubDistrict = resOffice.Village.SubDistrictId,
+                Address = resOffice.Address,
+                Village = resOffice.VillageId,
+                PostalCode = resOffice.Village.PostalCode,
+                Employees = employees.ToList()
+            },
+            Pagination = new PaginationDTO(){
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalData = _service.CountDataEmployeeByOffice(id,fullName,role)
+            }
+        });
     }
     [HttpPost]
     public IActionResult Insert([FromBody] BranchOfficeInsertDTO req)
