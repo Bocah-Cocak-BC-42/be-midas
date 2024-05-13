@@ -39,6 +39,11 @@ namespace MidasBussines.Repositories
             .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         }
 
+        public List<User> GetAll()
+        {
+            return dbContext.Users.Include("Role").Where(user =>  user.DeletedAt == null).ToList();
+        }
+
         public int CountAllCustomers(string fullName, string identityNumber)
         {
             return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"

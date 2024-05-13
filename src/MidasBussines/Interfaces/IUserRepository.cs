@@ -13,6 +13,7 @@ namespace MidasBussines.Interfaces
         public User GetByEmail(string email);
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber);
         public List<User> GetAllEmployee(int pageNumber, int pageSize, string fullName, string identityNumber, string role);
+        public List<User> GetAll();
         public int CountAllCustomers(string fullName, string identityNumber);
         public int CountAllEmployee(string fullName, string identityNumber, string role);
         public User GetCustomerByName(string name);
