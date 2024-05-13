@@ -22,6 +22,7 @@ public class IndividualCreditService
         {
             Id = Guid.NewGuid().ToString(),
             UserId = userId,
+            CreditApplicationNumber = "-",
             FamilyCardNumber = request.FamilyCardNumber,
             Address = request.Address,
             VillageId = request.VillageId,
@@ -184,7 +185,7 @@ public class IndividualCreditService
         var model = _individualCreditRepository.GetById(individualCreditId);
         string dateOfSubmission = DateTime.Now.Date.ToString("ddMMyyyy");
 
-        if(model.User.PersonalCreditLimit < model.ApplicationAmount)
+        if (model.User.PersonalCreditLimit < model.ApplicationAmount)
         {
             return new ResponseDTO<string>()
             {
@@ -194,15 +195,16 @@ public class IndividualCreditService
             };
         }
 
-        if(model.CreditApplicationNumber == null)
+        if (model.CreditApplicationNumber == "-")
         {
-            model.CreditApplicationNumber = 
+            model.CreditApplicationNumber =
                 $"KP-{model.BranchOffice.OfficeCode}-{model.User.IdentityNumber}-{dateOfSubmission}";
+            model.ApplicationDate = DateTime.Now;
         }
 
         model.Status = SendPendingStatus(model.Status);
         model.UpdatedAt = DateTime.Now;
-        model.UpdatedBy = userId ;
+        model.UpdatedBy = userId;
 
         _individualCreditRepository.Update(model);
 
@@ -235,7 +237,10 @@ public class IndividualCreditService
 
         model.Status = GetApprovalStatus(role);
         if (model.Status == ApprovalStatusConfig.APPROVED)
+        {
+            model.CreditStartDate = DateTime.Now;
             model.User.PersonalCreditLimit -= model.ApplicationAmount;
+        }
 
         _individualCreditRepository.Update(model);
     }
