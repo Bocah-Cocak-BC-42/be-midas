@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace MidasAPI.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/v1/user")]
     public class UserController : ControllerBase
@@ -19,6 +18,7 @@ namespace MidasAPI.Controllers
             _service = service;
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet("get-all-customers")]
         public IActionResult GetCustomers(int page = 1, int pageSize = 5, string fullName ="", 
             string nik = "")
@@ -57,6 +57,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-all-employees")]
         public IActionResult GetEmployees(int page = 1, int pageSize = 5, string fullName = "", 
             string nip = "", string role = "")
@@ -95,6 +96,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-user-detail")]
         public IActionResult GetUserDetail(string id)
         {
@@ -191,6 +193,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Customer")]
         [HttpPut("update-customer/{userId}")]
         public IActionResult UpdateCustomer(CustomerUpdateDTO customerUpdateDTO)
         {
@@ -231,6 +234,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("update-employee/{userId}")]
         public IActionResult UpdateEmployee(EmployeeUpdateDTO employeeUpdateDTO)
         {
@@ -288,6 +292,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPatch("change-password")]
         public IActionResult ChangePassword(ChangePasswordDTO changePasswordDTO)
         {
@@ -328,6 +333,7 @@ namespace MidasAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-user/{userId}")]
         public IActionResult DeleteUser(string userId)
         {

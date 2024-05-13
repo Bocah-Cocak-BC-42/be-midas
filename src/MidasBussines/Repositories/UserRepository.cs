@@ -6,26 +6,26 @@ namespace MidasBussines.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly MidasContext dbContext;
+        private readonly MidasContext _context;
 
         public UserRepository(MidasContext dbContext)
         {
-            this.dbContext = dbContext;
+            this._context = dbContext;
         }
 
         public User GetById(string id)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Id == id).FirstOrDefault() ?? new User();
+            return _context.Users.Include("Role").Where(user => user.Id == id).FirstOrDefault() ?? new User();
         }
 
         public User GetByEmail(string email)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Email == email).FirstOrDefault() ?? new User();
+            return _context.Users.Include("Role").Where(user => user.Email == email).FirstOrDefault() ?? new User();
         }
 
         public List<User> GetAllCustomers(int pageNumber, int pageSize, string fullName, string identityNumber)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
+            return _context.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"
             && user.FullName.Contains(fullName??"") && user.IdentityNumber.Contains(identityNumber??"")
             && user.DeletedAt == null)
             .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
@@ -33,7 +33,7 @@ namespace MidasBussines.Repositories
 
         public List<User> GetAllEmployee(int pageNumber, int pageSize, string fullName, string identityNumber, string role)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name != "Nasabah"
+            return _context.Users.Include("Role").Where(user => user.Role.Name != "Nasabah"
             && user.FullName.Contains(fullName ?? "") && user.IdentityNumber.Contains(identityNumber ?? "")
             && user.Role.Name.Contains(role ?? "") && user.DeletedAt == null)
             .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
@@ -41,7 +41,7 @@ namespace MidasBussines.Repositories
 
         public int CountAllCustomers(string fullName, string identityNumber)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"
+            return _context.Users.Include("Role").Where(user => user.Role.Name == "Nasabah"
             && user.FullName.Contains(fullName?? "") && user.IdentityNumber.Contains(identityNumber ?? "")
             && user.DeletedAt == null)
             .Count();
@@ -49,7 +49,7 @@ namespace MidasBussines.Repositories
 
         public int CountAllEmployee(string fullName, string identityNumber, string role)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name != "Nasabah"
+            return _context.Users.Include("Role").Where(user => user.Role.Name != "Nasabah"
             && user.FullName.Contains(fullName ?? "") && user.IdentityNumber.Contains(identityNumber ?? "")
             && user.Role.Name.Contains(role ?? "") && user.DeletedAt == null)
             .Count();
@@ -57,7 +57,7 @@ namespace MidasBussines.Repositories
 
         public User GetCustomerByName(string name)
         {
-            return dbContext.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
+            return _context.Users.Include("Role").Where(user => user.Role.Name == "Nasabah" 
             && user.FullName.Contains(name??"") && user.DeletedAt == null)
             .First();
         }
@@ -66,8 +66,8 @@ namespace MidasBussines.Repositories
         {
             try
             {
-                dbContext.Users.Add(model);
-                dbContext.SaveChanges();
+                _context.Users.Add(model);
+                _context.SaveChanges();
             }
             catch (Exception)
             {
@@ -79,8 +79,8 @@ namespace MidasBussines.Repositories
         {
             try
             {
-                dbContext.Users.Update(model);
-                dbContext.SaveChanges();
+                _context.Users.Update(model);
+                _context.SaveChanges();
             }
             catch (Exception)
             {
