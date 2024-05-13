@@ -85,8 +85,7 @@ public class BranchOfficeController : ControllerBase
         foreach (var associate in resEmployee)
         {
             var employee = new UserDetailDTO(){
-                AssociateId = associate.Id,
-                Id = associate.User.Id,
+                Id = associate.Id,
                 FullName = associate.User.FullName,
                 IdentityNumber = associate.User.IdentityNumber,
                 RoleName = associate.User.Role.Name,
