@@ -134,7 +134,84 @@ public class IndividualCreditService
                 IdentityCardSelfieFile = indiv.IdentityCardSelfieFile,
                 FamilyCardFile = indiv.FamilyCardFile,
                 BusinessCertificateFile = indiv.BusinessCertificateFile,
+                EmergencyContacts = indiv.EmergencyContacts.Select(contact => new EmergencyContactDTO()
+                {
+                    Name = contact.Name,
+                    PhoneNumber = contact.PhoneNumber,
+                    Relative = contact.Relative
+                }).ToList()
             }).ToList();
+    }
+
+    public List<IndividualCreditResponseDTO> GetByCustomer(int page, int pageSize, string userId)
+    {
+        return _individualCreditRepository.GetByCustomer(page, pageSize, userId)
+            .Select(indiv => new IndividualCreditResponseDTO()
+            {
+                Id = indiv.Id,
+                CreditApplicationNumber = indiv.CreditApplicationNumber,
+                UserId = indiv.UserId,
+                FamilyCardNumber = indiv.FamilyCardNumber,
+                Address = indiv.Address,
+                VillageId = indiv.VillageId,
+                BusinessSectorId = indiv.BusinessSectorId,
+                BusinessAddress = indiv.BusinessAddress,
+                BusinessPhoneNumber = indiv.BusinessPhoneNumber,
+                BusinessPeriod = indiv.BusinessPeriod,
+                BusinessPlaceStatus = indiv.BusinessPlaceStatus,
+                TotalEmployee = indiv.TotalEmployee,
+                BusinessVillage = indiv.BusinessVillage,
+                BranchOfficeId = indiv.BranchOfficeId,
+                ApplicationAmount = indiv.ApplicationAmount,
+                ApplicationPeriod = indiv.ApplicationPeriod,
+                ApplicationDate = indiv.ApplicationDate,
+                DomicileFile = indiv.DomicileFile,
+                IdentityCardFile = indiv.IdentityCardFile,
+                IdentityCardSelfieFile = indiv.IdentityCardSelfieFile,
+                FamilyCardFile = indiv.FamilyCardFile,
+                BusinessCertificateFile = indiv.BusinessCertificateFile,
+                EmergencyContacts = indiv.EmergencyContacts.Select(contact => new EmergencyContactDTO()
+                {
+                    Name = contact.Name,
+                    PhoneNumber = contact.PhoneNumber,
+                    Relative = contact.Relative
+                }).ToList()
+            }).ToList();
+    }
+
+    public ResponseDTO<string> SubmitCredit(string individualCreditId, string userId)
+    {
+        var model = _individualCreditRepository.GetById(individualCreditId);
+        string dateOfSubmission = DateTime.Now.Date.ToString("ddMMyyyy");
+
+        if(model.User.PersonalCreditLimit < model.ApplicationAmount)
+        {
+            return new ResponseDTO<string>()
+            {
+                Message = "Limit tidak mencukupi",
+                Status = ConstantConfigs.STATUS_OK,
+                Data = individualCreditId
+            };
+        }
+
+        if(model.CreditApplicationNumber == null)
+        {
+            model.CreditApplicationNumber = 
+                $"KP-{model.BranchOffice.OfficeCode}-{model.User.IdentityNumber}-{dateOfSubmission}";
+        }
+
+        model.Status = SendPendingStatus(model.Status);
+        model.UpdatedAt = DateTime.Now;
+        model.UpdatedBy = userId ;
+
+        _individualCreditRepository.Update(model);
+
+        return new ResponseDTO<string>()
+        {
+            Message = "Pengajuan Kredit Berhasil",
+            Status = ConstantConfigs.STATUS_OK,
+            Data = individualCreditId
+        };
     }
 
     public void RejectCredit(string individualCreditId, string notes, string updatedById, string role)
@@ -157,10 +234,20 @@ public class IndividualCreditService
         model.UpdatedBy = updatedById;
 
         model.Status = GetApprovalStatus(role);
+        if (model.Status == ApprovalStatusConfig.APPROVED)
+            model.User.PersonalCreditLimit -= model.ApplicationAmount;
 
         _individualCreditRepository.Update(model);
     }
 
+    private string SendPendingStatus(string status)
+    {
+        return
+            status == ApprovalStatusConfig.DRAFT ? ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA :
+            status == ApprovalStatusConfig.REJECTED_PERSONAL_DATA ? ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA :
+            status == ApprovalStatusConfig.REJECTED_FILES ? ApprovalStatusConfig.WAITING_VERIFICATION_FILES :
+            ApprovalStatusConfig.WAITING_VERIFICATION_CREDIT_SCORE;
+    }
     private string GetRejectStatus(string role)
     {
         return
@@ -178,6 +265,4 @@ public class IndividualCreditService
             role == "Supervisor" ? ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER :
             ApprovalStatusConfig.APPROVED;
     }
-
-    // public void
 }

@@ -4,6 +4,7 @@ using MidasDataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,14 +21,22 @@ namespace MidasBussines.Repositories
 
         public IndividualCredit? GetById(string id)
         {
-            return _context.IndividualCredits.Include("User").Include("EmergencyContacts")
+            return _context.IndividualCredits
+                .Include("User").Include("EmergencyContacts").Include("BranchOffice")
                 .Where(indiv => indiv.Id == id && indiv.DeletedAt == null).FirstOrDefault();
         }
 
         public List<IndividualCredit> GetByStatus(int page, int pageSize, string status)
         {
-            return _context.IndividualCredits.Include("User")
+            return _context.IndividualCredits.Include("EmergencyContacts").Include("User")
                 .Where(indiv => indiv.Status == status && indiv.DeletedAt == null)
+                .Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public List<IndividualCredit> GetByCustomer(int page, int pageSize, string userId)
+        {
+            return _context.IndividualCredits.Include("EmergencyContacts").Include("User")
+                .Where(indiv => indiv.UserId == userId && indiv.DeletedAt == null)
                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 

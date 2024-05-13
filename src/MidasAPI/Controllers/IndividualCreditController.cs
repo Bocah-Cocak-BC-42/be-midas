@@ -118,86 +118,11 @@ public class IndividualCreditController : ControllerBase
         }
     }
 
-    [HttpGet("get-by-status")]
-    public IActionResult GetByStatus(int page = 1, int pageSize = 5, string status = "")
-    {
-        try
-        {
-            var model = _service.GetByStatus(page, pageSize, status);
-            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
-            {
-                Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
-                Status = ConstantConfigs.STATUS_OK,
-                Data = model
-            });
-        }
-        catch (System.Exception e)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = e.Message,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
-    [HttpPatch("reject-credit/{individualCreditId}")]
-    public IActionResult RejectCredit(string individualCreditId, string notes = "")
-    {
-        try
-        {
-            _service.RejectCredit(individualCreditId, notes,
-                User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = "Kredit Ditolak",
-                Status = ConstantConfigs.STATUS_OK,
-                Data = individualCreditId
-            });
-        }
-        catch (System.Exception e)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = e.Message,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
-    [HttpPatch("approve-credit/{individualCreditId}")]
-    public IActionResult ApproveCredit(string individualCreditId)
-    {
-        try
-        {
-            _service.ApproveCredit(individualCreditId,
-                User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = "Kredit Disetujui",
-                Status = ConstantConfigs.STATUS_OK,
-                Data = individualCreditId
-            });
-        }
-        catch (System.Exception e)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = e.Message,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
     [HttpPut("update-individual-credit/{individualCreditId}")]
     public IActionResult Update(IndividualCreditUpdateDTO request)
     {
         try
         {
-            // var userId = User.FindFirst("userId")?.Value ?? string.Empty;
-
             if (request.EmergencyContacts.Count() < 2)
             {
                 return BadRequest(new ResponseDTO<string>()
@@ -286,6 +211,144 @@ public class IndividualCreditController : ControllerBase
             return BadRequest(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpGet("get-by-status-{status}")]
+    public IActionResult GetByStatus(string status, int page = 1, int pageSize = 5)
+    {
+        try
+        {
+            var model = _service.GetByStatus(page, pageSize, status);
+
+            if(model.Count == 0)
+                return Ok(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("Daftar Kredit Perseorangan"),
+                    Status = ConstantConfigs.STATUS_OK
+                });
+
+            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
+            {
+                Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = model
+            });
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpGet("get-by-customer-{userId}")]
+    public IActionResult GetByCustomer(string userId, int page = 1, int pageSize = 5)
+    {
+        try
+        {
+            var model = _service.GetByCustomer(page, pageSize, userId);
+
+            if (model.Count == 0)
+                return Ok(new ResponseDTO<string>()
+                {
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("Daftar Kredit Perseorangan"),
+                    Status = ConstantConfigs.STATUS_OK
+                });
+
+            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
+            {
+                Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = model
+            });
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPost("submit-credit-{individualCreditId}")]
+    public IActionResult SubmitCredit(string individualCreditId)
+    {
+        try
+        {
+            var model = _service.SubmitCredit(individualCreditId, User.FindFirstValue("userId") ?? "");
+
+            if(model.Message != "Pengajuan Kredit Berhasil")
+                return BadRequest(model);
+
+            return Ok(model);
+        }
+
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+
+    [HttpPatch("reject-credit/{individualCreditId}")]
+    public IActionResult RejectCredit(string individualCreditId, string notes = "")
+    {
+        try
+        {
+            _service.RejectCredit(individualCreditId, notes,
+                User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = "Kredit Ditolak",
+                Status = ConstantConfigs.STATUS_OK,
+                Data = individualCreditId
+            });
+        }
+
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
+                Status = ConstantConfigs.STATUS_FAILED
+            });
+        }
+    }
+
+    [HttpPatch("approve-credit/{individualCreditId}")]
+    public IActionResult ApproveCredit(string individualCreditId)
+    {
+        try
+        {
+            _service.ApproveCredit(individualCreditId,
+                User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
+
+            return Ok(new ResponseDTO<string>()
+            {
+                Message = "Kredit Disetujui",
+                Status = ConstantConfigs.STATUS_OK,
+                Data = individualCreditId
+            });
+        }
+
+        catch (System.Exception e)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = e.Message,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
