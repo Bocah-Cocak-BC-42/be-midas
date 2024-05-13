@@ -18,7 +18,6 @@ public class CompanyCreditUpdateDraftDTO
     public decimal ApplicationAmount { get; set; }
     public int ApplicationPeriod { get; set; }
     public DateTime CreditEndDate { get; set; }
-    public string Notes { get; set; } = null!;
     public string EstablishRegistrationNumberFile { get; set; } = null!;
     public string CompanyRegistrationNumberFile { get; set; } = null!;
     public string Npwpfile { get; set; } = null!;
