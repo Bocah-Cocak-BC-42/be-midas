@@ -7,7 +7,6 @@ namespace MidasAPI.DTOs.CompanyCredit;
 public class CompanyCreditInsertDTO
 {   
 
-    //Valdasi unique
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Range(1, Int64.MaxValue, ErrorMessage ="{0} harus berupa angka")]
     [Display(Name = "NPWP Badan Usaha")]
@@ -88,7 +87,7 @@ public class CompanyCreditInsertDTO
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Display(Name = "Jangka waktu pengajuan")]
-    [RegularExpression(@"^-?[0-9][0-9,\.]+$", ErrorMessage = "{0} harus berupa angka")]
+    [Range(1, 10, ErrorMessage = "{0} harus antara 1 sampai 10")]
     public int ApplicationPeriod { get; set; }
     public DateTime CreditEndDate { get; set; }
     public string EstablishRegistrationNumberFile { get; set; } = null!;

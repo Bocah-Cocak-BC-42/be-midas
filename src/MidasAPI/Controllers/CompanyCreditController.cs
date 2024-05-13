@@ -144,6 +144,7 @@ public class CompanyCreditController : ControllerBase
                 Message = ConstantConfigs.MESSAGE_POST("kredit badan usaha"),
                 Status = ApprovalStatusConfig.DRAFT
             });
+
         }
         catch (System.Exception)
         {
@@ -203,7 +204,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("apply-credit/{id}")]
+    [HttpPatch("apply-credit/{id}")]
     public IActionResult ApplyCredit(string id)
     {
         try
@@ -227,7 +228,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("credit-rejected/{id}")]
+    [HttpPatch("credit-rejected/{id}")]
     public IActionResult CreditRejected(CompanyCreditDraftRejectedDTO dto)
     {
         try
@@ -275,7 +276,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("credit-approved/{id}")]
+    [HttpPatch("credit-approved/{id}")]
     public IActionResult CreditApproved(string id)
     {
         try
@@ -299,7 +300,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("final-verification-rejected/{id}")]
+    [HttpPatch("final-verification-rejected/{id}")]
     public IActionResult FinalVerificationRejected(string id)
     {
         try
@@ -323,7 +324,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("final-verification-approved/{id}")]
+    [HttpPatch("final-verification-approved/{id}")]
     public IActionResult FinalVerificationApproved(string id)
     {
         try
