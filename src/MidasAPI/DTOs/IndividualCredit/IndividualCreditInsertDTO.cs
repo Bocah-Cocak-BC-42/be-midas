@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MidasAPI.DTO.IndividualCredit;
+namespace MidasAPI.DTOs.IndividualCredit;
 
 public class IndividualCreditInsertDTO
 {
@@ -33,9 +33,9 @@ public class IndividualCreditInsertDTO
     public string BusinessPhoneNumber { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
-    [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+    [Range(1, Int32.MaxValue, ErrorMessage = "{0} harus berupa angka")]
     [Display(Name = "Lama Berdirinya Usaha (Tahun)")]
-    public int BusinessPeriod { get; set; }
+    public string BusinessPeriod { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "{0} hanya boleh berupa huruf")]
@@ -43,9 +43,9 @@ public class IndividualCreditInsertDTO
     public string BusinessPlaceStatus { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
-    [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+    [Range(1, Int32.MaxValue, ErrorMessage = "{0} harus berupa angka")]
     [Display(Name = "Jumlah Karyawan")]
-    public int TotalEmployee { get; set; }
+    public string TotalEmployee { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Display(Name = "Id Desa/Kelurahan Tempat Usaha")]
@@ -61,9 +61,9 @@ public class IndividualCreditInsertDTO
     public decimal ApplicationAmount { get; set; }
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
-    [Range(1, Int64.MaxValue, ErrorMessage = "{0} harus berupa angka")]
+    [Range(1, Int32.MaxValue, ErrorMessage = "{0} harus berupa angka")]
     [Display(Name = "Jangka Waktu Kredit (Tahun)")]
-    public int ApplicationPeriod { get; set; }
+    public string ApplicationPeriod { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Display(Name = "File Surat Domisili")]

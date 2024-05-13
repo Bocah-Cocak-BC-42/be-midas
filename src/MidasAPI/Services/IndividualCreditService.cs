@@ -1,5 +1,5 @@
 ﻿using MidasBussines.Interfaces;
-using MidasAPI.DTO.IndividualCredit;
+using MidasAPI.DTOs.IndividualCredit;
 using MidasDataAccess.Models;
 using MidasAPI.DTOs;
 
@@ -21,7 +21,6 @@ public class IndividualCreditService
         var individualCredit = new IndividualCredit()
         {
             Id = Guid.NewGuid().ToString(),
-            CreditApplicationNumber = "-",
             UserId = userId,
             FamilyCardNumber = request.FamilyCardNumber,
             Address = request.Address,
@@ -29,13 +28,13 @@ public class IndividualCreditService
             BusinessSectorId = request.BusinessSectorId,
             BusinessAddress = request.BusinessAddress,
             BusinessPhoneNumber = request.BusinessPhoneNumber,
-            BusinessPeriod = request.BusinessPeriod,
+            BusinessPeriod = Convert.ToInt32(request.BusinessPeriod),
             BusinessPlaceStatus = request.BusinessPlaceStatus,
-            TotalEmployee = request.TotalEmployee,
+            TotalEmployee = Convert.ToInt32(request.TotalEmployee),
             BusinessVillage = request.BusinessVillage,
             BranchOfficeId = request.BranchOfficeId,
             ApplicationAmount = request.ApplicationAmount,
-            ApplicationPeriod = request.ApplicationPeriod,
+            ApplicationPeriod = Convert.ToInt32(request.ApplicationPeriod),
             DomicileFile = request.DomicileFile,
             IdentityCardFile = request.IdentityCardFile,
             IdentityCardSelfieFile = request.IdentityCardSelfieFile,
@@ -59,6 +58,52 @@ public class IndividualCreditService
                 IndividualCreditId = individualCredit.Id
             };
             _emergencyContactRepository.Insert(emergencyContact);
+        }
+    }
+
+    public void Update(IndividualCreditUpdateDTO request)
+    {
+        var individualCredit = _individualCreditRepository.GetById(request.Id);
+        if (individualCredit != null)
+        {
+            individualCredit.FamilyCardNumber = request.FamilyCardNumber;
+            individualCredit.Address = request.Address;
+            individualCredit.VillageId = request.VillageId;
+            individualCredit.BusinessSectorId = request.BusinessSectorId;
+            individualCredit.BusinessAddress = request.BusinessAddress;
+            individualCredit.BusinessPhoneNumber = request.BusinessPhoneNumber;
+            individualCredit.BusinessPeriod = Convert.ToInt32(request.BusinessPeriod);
+            individualCredit.BusinessPlaceStatus = request.BusinessPlaceStatus;
+            individualCredit.TotalEmployee = Convert.ToInt32(request.TotalEmployee);
+            individualCredit.BusinessVillage = request.BusinessVillage;
+            individualCredit.BranchOfficeId = request.BranchOfficeId;
+            individualCredit.ApplicationAmount = request.ApplicationAmount;
+            individualCredit.ApplicationPeriod = Convert.ToInt32(request.ApplicationPeriod);
+            individualCredit.DomicileFile = request.DomicileFile;
+            individualCredit.IdentityCardFile = request.IdentityCardFile;
+            individualCredit.IdentityCardSelfieFile = request.IdentityCardSelfieFile;
+            individualCredit.FamilyCardFile = request.FamilyCardFile;
+            individualCredit.BusinessCertificateFile = request.BusinessCertificateFile;
+            individualCredit.UpdatedBy = individualCredit.UserId;
+            individualCredit.UpdatedAt = DateTime.Now;
+
+            _emergencyContactRepository.DeleteByCredit(individualCredit.Id);
+
+            foreach (var contact in request.EmergencyContacts)
+            {
+                var emergencyContact = new EmergencyContact()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    PhoneNumber = contact.PhoneNumber,
+                    Name = contact.Name,
+                    Relative = contact.Relative,
+                    IndividualCreditId = individualCredit.Id
+                };
+                _emergencyContactRepository.Insert(emergencyContact);
+            }
+
+            _individualCreditRepository.Update(individualCredit);
+
         }
     }
 
@@ -128,9 +173,11 @@ public class IndividualCreditService
     private string GetApprovalStatus(string role)
     {
         return
-            role == "Mantri" ? ApprovalStatusConfig.WAITING_VERIFICATION_FILES:
+            role == "Mantri" ? ApprovalStatusConfig.WAITING_VERIFICATION_FILES :
             role == "Admin" ? ApprovalStatusConfig.WAITING_VERIFICATION_CREDIT_SCORE :
             role == "Supervisor" ? ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER :
             ApprovalStatusConfig.APPROVED;
     }
+
+    // public void
 }

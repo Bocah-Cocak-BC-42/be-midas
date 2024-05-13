@@ -1,4 +1,4 @@
-﻿using MidasAPI.DTO.IndividualCredit;
+﻿using MidasAPI.DTOs.IndividualCredit;
 
 namespace MidasAPI.DTOs.IndividualCredit
 {

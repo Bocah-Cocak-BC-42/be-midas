@@ -1,9 +1,4 @@
 ﻿using MidasDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MidasBussines.Interfaces
 {
@@ -11,5 +6,6 @@ namespace MidasBussines.Interfaces
     {
         public void Insert(EmergencyContact model);
         public void Update(EmergencyContact model);
+        public void DeleteByCredit(string individualCreditId);
     }
 }

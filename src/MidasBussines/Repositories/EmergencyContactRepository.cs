@@ -43,5 +43,19 @@ namespace MidasBussines.Repositories
                 throw;
             };
         }
+
+        public void DeleteByCredit(string individualCreditId)
+        {
+            try
+            {
+                var emergencyContacts = _context.EmergencyContacts.Where(x => x.IndividualCreditId == individualCreditId);
+                _context.EmergencyContacts.RemoveRange(emergencyContacts);
+                _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            };
+        }
     }
 }

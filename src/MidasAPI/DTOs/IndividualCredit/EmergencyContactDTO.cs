@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MidasAPI.DTO.IndividualCredit;
+namespace MidasAPI.DTOs.IndividualCredit;
 
 public class EmergencyContactDTO
 {
