@@ -88,6 +88,9 @@ public class IndividualCreditService
             individualCredit.UpdatedBy = individualCredit.UserId;
             individualCredit.UpdatedAt = DateTime.Now;
 
+            if (individualCredit.Status != ApprovalStatusConfig.DRAFT)
+                individualCredit.Status = SendPendingStatus(individualCredit.Status);
+
             _emergencyContactRepository.DeleteByCredit(individualCredit.Id);
 
             foreach (var contact in request.EmergencyContacts)
@@ -104,7 +107,6 @@ public class IndividualCreditService
             }
 
             _individualCreditRepository.Update(individualCredit);
-
         }
     }
 
@@ -195,14 +197,10 @@ public class IndividualCreditService
             };
         }
 
-        if (model.CreditApplicationNumber == "-")
-        {
-            model.CreditApplicationNumber =
-                $"KP-{model.BranchOffice.OfficeCode}-{model.User.IdentityNumber}-{dateOfSubmission}";
-            model.ApplicationDate = DateTime.Now;
-        }
+        model.ApplicationDate = DateTime.Now;
+        model.CreditApplicationNumber = $"KP-{model.BranchOffice.OfficeCode}-{model.User.IdentityNumber}-{dateOfSubmission}";
 
-        model.Status = SendPendingStatus(model.Status);
+        model.Status = ApprovalStatusConfig.DRAFT;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = userId;
 

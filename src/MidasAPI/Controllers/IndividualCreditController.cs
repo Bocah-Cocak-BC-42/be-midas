@@ -303,11 +303,11 @@ public class IndividualCreditController : ControllerBase
 
 
     [HttpPatch("reject-credit/{individualCreditId}")]
-    public IActionResult RejectCredit(string individualCreditId, string notes = "")
+    public IActionResult RejectCredit(string individualCreditId, RejectResponseDTO rejectDTO)
     {
         try
         {
-            _service.RejectCredit(individualCreditId, notes,
+            _service.RejectCredit(individualCreditId, rejectDTO.Notes,
                 User.FindFirstValue("userId") ?? "", User.FindFirstValue(ClaimTypes.Role) ?? "");
 
             return Ok(new ResponseDTO<string>()
