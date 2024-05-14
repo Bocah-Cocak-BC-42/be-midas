@@ -1,11 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration.UserSecrets;
+﻿using System.Security.Claims;
 using MidasAPI.DTOs;
-using MidasAPI.DTOs.BusinessOwnerDetail;
 using MidasAPI.DTOs.CompanyCredit;
-using MidasAPI.DTOs.User;
-using MidasBussines;
 using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
@@ -29,33 +24,38 @@ public class CompanyCreditService
         _companyAssetRepository = companyAssetRepository;
     }
 
-    public List<CompanyCreditDTO> GetDraft(int page, int pageSize, string status){
-        var model = _repository
-            .GetDraft(page, pageSize, status)
-            .Select(cc => new CompanyCreditDTO(){
-                CreditApplicationNumber = cc.CreditApplicationNumber??"-",
-                BranchOffice = cc.BranchOffice.OfficeName,
-                ApplicationAmount = cc.ApplicationAmount,
-                ApplicationPeriod = cc.ApplicationPeriod,
-                Status = cc.Status
-            });
+    public List<CompanyCreditDTO> GetCredit(int page, int pageSize, string status, string userId, string userRole){
+        
+        if(userRole == "Nasabah"){
+            var model = _repository
+                .GetCreditPerCustomer(page, pageSize, status, userId)
+                .Select(cc => new CompanyCreditDTO(){
+                    CreditApplicationNumber = cc.CreditApplicationNumber??"-",
+                    BranchOffice = cc.BranchOffice.OfficeName,
+                    ApplicationAmount = cc.ApplicationAmount,
+                    ApplicationPeriod = cc.ApplicationPeriod,
+                    Status = cc.Status
+                });
 
-        return model.ToList();
+            return model.ToList();
+        }
+        else if(userRole != "Nasabah" && userRole != "Admin"){
+            var model = _repository
+                .GetByStatus(page, pageSize, status)
+                .Select(cc => new CompanyCreditDTO(){
+                    CreditApplicationNumber = cc.CreditApplicationNumber??"-",
+                    BranchOffice = cc.BranchOffice.OfficeName,
+                    ApplicationAmount = cc.ApplicationAmount,
+                    ApplicationPeriod = cc.ApplicationPeriod,
+                    Status = cc.Status
+                });
+
+            return model.ToList();
+        }
+        
+        return new List<CompanyCreditDTO>();
     }
-
-    public List<CompanyCreditDTO> GetDraftPerCustomer(int page, int pageSize, string customerId){
-        var model = _repository
-            .GetCreditPerCustomer(page, pageSize, customerId)
-            .Select(cc => new CompanyCreditDTO(){
-                CreditApplicationNumber = cc.CreditApplicationNumber??"-",
-                BranchOffice = cc.BranchOffice.OfficeName,
-                ApplicationAmount = cc.ApplicationAmount,
-                ApplicationPeriod = cc.ApplicationPeriod,
-                Status = cc.Status
-            });
-
-        return model.ToList();
-    }   
+ 
 
     public int CountData() => _repository.CountData();
 

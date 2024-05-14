@@ -45,7 +45,8 @@ public class AuthService
         return new AuthResponseDTO(){
             Token = serializedToken,
             Nickname = model.NickName,
-            Role = model.Role.Name
+            Role = model.Role.Name,
+            UserId = model.Id
         };
     }
 
