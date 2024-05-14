@@ -19,6 +19,11 @@ public class IndividualCreditInsertDTO
     public string VillageId { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
+    [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "{0} hanya boleh berupa huruf")]
+    [Display(Name = "Nama Usaha")]
+    public string BusinessName { get; set; } = null!;
+
+    [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Display(Name = "Id Sektor Usaha")]
     public string BusinessSectorId { get; set; } = null!;
 

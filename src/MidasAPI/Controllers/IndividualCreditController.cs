@@ -33,6 +33,15 @@ public class IndividualCreditController : ControllerBase
                     Status = ConstantConfigs.STATUS_FAILED
                 });
             }
+            if (request.BusinessName.Length > 50)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Nama Usaha tidak boleh lebih dari 50 karakter",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = request.BusinessName
+                });
+            }
             if (request.FamilyCardNumber.Length != 16)
             {
                 return BadRequest(new ResponseDTO<string>()
@@ -216,43 +225,35 @@ public class IndividualCreditController : ControllerBase
         }
     }
 
-    [HttpGet("get-by-status-{status}")]
-    public IActionResult GetByStatus(string status, int page = 1, int pageSize = 5)
+    [HttpDelete("delete-individual-credit/{individualCreditId}")]
+    public IActionResult DeleteById(string individualCreditId)
     {
         try
         {
-            var model = _service.GetByStatus(page, pageSize, status);
+            _service.Delete(individualCreditId, User.FindFirstValue("userId") ?? "");
 
-            if(model.Count == 0)
-                return Ok(new ResponseDTO<string>()
-                {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("Daftar Kredit Perseorangan"),
-                    Status = ConstantConfigs.STATUS_OK
-                });
-
-            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
+            return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
-                Status = ConstantConfigs.STATUS_OK,
-                Data = model
+                Message = ConstantConfigs.MESSAGE_DELETE("kredit individu"),
+                Status = ConstantConfigs.STATUS_OK
             });
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
     }
 
-    [HttpGet("get-by-customer-{userId}")]
-    public IActionResult GetByCustomer(string userId, int page = 1, int pageSize = 5)
+    [HttpGet("get-all-credit")]
+    public IActionResult GetCredit(string userId = "", string status = "", int page = 1, int pageSize = 5)
     {
         try
         {
-            var model = _service.GetByCustomer(page, pageSize, userId);
+            var model = _service.GetCredit(page, pageSize, userId, status);
 
             if (model.Count == 0)
                 return Ok(new ResponseDTO<string>()
@@ -268,34 +269,34 @@ public class IndividualCreditController : ControllerBase
                 Data = model
             });
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
     }
 
-    [HttpPost("submit-credit-{individualCreditId}")]
+    [HttpPost("submit-credit/{individualCreditId}")]
     public IActionResult SubmitCredit(string individualCreditId)
     {
         try
         {
             var model = _service.SubmitCredit(individualCreditId, User.FindFirstValue("userId") ?? "");
 
-            if(model.Message != "Pengajuan Kredit Berhasil")
+            if (model.Message != "Pengajuan Kredit Berhasil")
                 return BadRequest(model);
 
             return Ok(model);
         }
 
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
@@ -318,11 +319,11 @@ public class IndividualCreditController : ControllerBase
             });
         }
 
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }
@@ -344,11 +345,11 @@ public class IndividualCreditController : ControllerBase
             });
         }
 
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>()
             {
-                Message = e.Message,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED
             });
         }

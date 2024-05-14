@@ -26,6 +26,7 @@ public class IndividualCreditService
             FamilyCardNumber = request.FamilyCardNumber,
             Address = request.Address,
             VillageId = request.VillageId,
+            BusinessName = request.BusinessName,
             BusinessSectorId = request.BusinessSectorId,
             BusinessAddress = request.BusinessAddress,
             BusinessPhoneNumber = request.BusinessPhoneNumber,
@@ -70,6 +71,7 @@ public class IndividualCreditService
             individualCredit.FamilyCardNumber = request.FamilyCardNumber;
             individualCredit.Address = request.Address;
             individualCredit.VillageId = request.VillageId;
+            individualCredit.BusinessName = request.BusinessName;
             individualCredit.BusinessSectorId = request.BusinessSectorId;
             individualCredit.BusinessAddress = request.BusinessAddress;
             individualCredit.BusinessPhoneNumber = request.BusinessPhoneNumber;
@@ -110,45 +112,18 @@ public class IndividualCreditService
         }
     }
 
-    public List<IndividualCreditResponseDTO> GetByStatus(int page, int pageSize, string status)
+    public void Delete(string individualCreditId, string userId)
     {
-        return _individualCreditRepository.GetByStatus(page, pageSize, status)
-            .Select(indiv => new IndividualCreditResponseDTO()
-            {
-                Id = indiv.Id,
-                CreditApplicationNumber = indiv.CreditApplicationNumber,
-                UserId = indiv.UserId,
-                FamilyCardNumber = indiv.FamilyCardNumber,
-                Address = indiv.Address,
-                VillageId = indiv.VillageId,
-                BusinessSectorId = indiv.BusinessSectorId,
-                BusinessAddress = indiv.BusinessAddress,
-                BusinessPhoneNumber = indiv.BusinessPhoneNumber,
-                BusinessPeriod = indiv.BusinessPeriod,
-                BusinessPlaceStatus = indiv.BusinessPlaceStatus,
-                TotalEmployee = indiv.TotalEmployee,
-                BusinessVillage = indiv.BusinessVillage,
-                BranchOfficeId = indiv.BranchOfficeId,
-                ApplicationAmount = indiv.ApplicationAmount,
-                ApplicationPeriod = indiv.ApplicationPeriod,
-                ApplicationDate = indiv.ApplicationDate,
-                DomicileFile = indiv.DomicileFile,
-                IdentityCardFile = indiv.IdentityCardFile,
-                IdentityCardSelfieFile = indiv.IdentityCardSelfieFile,
-                FamilyCardFile = indiv.FamilyCardFile,
-                BusinessCertificateFile = indiv.BusinessCertificateFile,
-                EmergencyContacts = indiv.EmergencyContacts.Select(contact => new EmergencyContactDTO()
-                {
-                    Name = contact.Name,
-                    PhoneNumber = contact.PhoneNumber,
-                    Relative = contact.Relative
-                }).ToList()
-            }).ToList();
+        var individualCredit = _individualCreditRepository.GetById(individualCreditId);
+        individualCredit.DeletedBy = userId;
+        individualCredit.DeletedAt = DateTime.Now;
+
+        _individualCreditRepository.Update(individualCredit);
     }
 
-    public List<IndividualCreditResponseDTO> GetByCustomer(int page, int pageSize, string userId)
+    public List<IndividualCreditResponseDTO> GetCredit(int page, int pageSize, string userId, string status)
     {
-        return _individualCreditRepository.GetByCustomer(page, pageSize, userId)
+        return _individualCreditRepository.GetByStatus(page, pageSize, userId, status)
             .Select(indiv => new IndividualCreditResponseDTO()
             {
                 Id = indiv.Id,
@@ -200,7 +175,7 @@ public class IndividualCreditService
         model.ApplicationDate = DateTime.Now;
         model.CreditApplicationNumber = $"KP-{model.BranchOffice.OfficeCode}-{model.User.IdentityNumber}-{dateOfSubmission}";
 
-        model.Status = ApprovalStatusConfig.DRAFT;
+        model.Status = ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = userId;
 
@@ -220,6 +195,8 @@ public class IndividualCreditService
         model.Note = notes;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = updatedById;
+        model.VerifiedBy = updatedById;
+        model.VerifiedAt = DateTime.Now;
 
         model.Status = GetRejectStatus(role);
 
@@ -232,6 +209,8 @@ public class IndividualCreditService
         model.Note = null;
         model.UpdatedAt = DateTime.Now;
         model.UpdatedBy = updatedById;
+        model.VerifiedBy = updatedById;
+        model.VerifiedAt = DateTime.Now;
 
         model.Status = GetApprovalStatus(role);
         if (model.Status == ApprovalStatusConfig.APPROVED)

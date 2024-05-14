@@ -18,6 +18,7 @@ public partial class IndividualCredit
     public string VillageId { get; set; } = null!;
 
     public string BusinessSectorId { get; set; } = null!;
+    public string BusinessName { get; set; } = null!;
 
     public string BusinessAddress { get; set; } = null!;
 
@@ -68,6 +69,10 @@ public partial class IndividualCredit
     public string? DeletedBy { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
+    public string? VerifiedBy { get; set; }
+
+    public DateTime? VerifiedAt { get; set; }
 
     public virtual BranchOffice BranchOffice { get; set; } = null!;
 

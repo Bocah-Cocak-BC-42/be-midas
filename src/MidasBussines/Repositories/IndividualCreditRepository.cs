@@ -26,17 +26,11 @@ namespace MidasBussines.Repositories
                 .Where(indiv => indiv.Id == id && indiv.DeletedAt == null).FirstOrDefault();
         }
 
-        public List<IndividualCredit> GetByStatus(int page, int pageSize, string status)
+        public List<IndividualCredit> GetByStatus(int page, int pageSize, string userId, string status)
         {
             return _context.IndividualCredits.Include("EmergencyContacts").Include("User")
-                .Where(indiv => indiv.Status == status && indiv.DeletedAt == null)
-                .Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        }
-
-        public List<IndividualCredit> GetByCustomer(int page, int pageSize, string userId)
-        {
-            return _context.IndividualCredits.Include("EmergencyContacts").Include("User")
-                .Where(indiv => indiv.UserId == userId && indiv.DeletedAt == null)
+                .Where(indiv => (status == "" ? true : indiv.Status == status) &&
+                (userId == "" ? true : indiv.UserId == userId) && indiv.DeletedAt == null)
                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 

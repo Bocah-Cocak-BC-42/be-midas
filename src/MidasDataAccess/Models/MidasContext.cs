@@ -692,6 +692,9 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.BusinessSectorId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.BusinessName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -731,6 +734,10 @@ public partial class MidasContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.VerifiedAt).HasColumnType("datetime");
+            entity.Property(e => e.VerifiedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.UserId)

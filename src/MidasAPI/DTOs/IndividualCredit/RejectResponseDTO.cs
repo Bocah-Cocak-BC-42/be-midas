@@ -1,7 +1,10 @@
-﻿namespace MidasAPI.DTOs.IndividualCredit
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MidasAPI.DTOs.IndividualCredit
 {
     public class RejectResponseDTO
     {
-        public string Notes { get; set; }
+        [Required(ErrorMessage = "{0} tidak boleh kosong")]
+        public string Notes { get; set; } = null!;
     }
 }
