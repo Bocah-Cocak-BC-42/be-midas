@@ -1,4 +1,5 @@
 using MidasAPI.Services;
+using MidasBussines;
 using MidasBussines.Interfaces;
 using MidasBussines.Repositories;
 
@@ -21,6 +22,8 @@ public static class ConfigureBussinesService
         services.AddScoped<IFileManagementRepository, FileManagementRepository>();
         services.AddScoped<IAssociateUserBranchRepository, AssociateUserBranchRepository>();
         services.AddScoped<ICompanyCreditRepository, CompanyCreditRepository>();
+        services.AddScoped<IBusinessOwnerDetailRepository, BusinessOwnerDetailRepository>();
+        services.AddScoped<ICompanyAssetRepository, CompanyAssetRepository>();
 
 
         //Services

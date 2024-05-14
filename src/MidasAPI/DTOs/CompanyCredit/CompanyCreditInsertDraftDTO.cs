@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using MidasAPI.DTOs.BusinessOwnerDetail;
+using MidasAPI.DTOs.CompanyAsset;
 using MidasAPI.Validations.CompanyCredit;
 
 namespace MidasAPI.DTOs.CompanyCredit;
@@ -96,4 +98,6 @@ public class CompanyCreditInsertDTO
     public string IdentityNumberFile { get; set; } = null!;
     public string BoardOfManagementFile { get; set; } = null!;
     public string FinancialStatementFile { get; set; } = null!;
+    public List<BusinessOwnerDetailDTO> BusinessOwnerDetails { get; set; } = null!;
+    public List<CompanyAssetDTO> CompanyAssets { get; set; } = null!;
 }
