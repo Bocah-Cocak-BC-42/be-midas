@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MidasAPI.DTOs.BusinessOwnerDetail;
+using MidasAPI.DTOs.CompanyAsset;
 using MidasAPI.Validations.CompanyCredit;
 
 namespace MidasAPI.DTOs.CompanyCredit;
@@ -96,4 +98,7 @@ public class CompanyCreditUpdateDraftDTO
     public string IdentityNumberFile { get; set; } = null!;
     public string BoardOfManagementFile { get; set; } = null!;
     public string FinancialStatementFile { get; set; } = null!;
+
+    public List<BusinessOwnerDetailDTO> BusinessOwnerDetails { get; set; }
+    public List<CompanyAssetDTO> CompanyAssets { get; set; }
 }

@@ -5,6 +5,7 @@ using MidasAPI.DTOs;
 using MidasAPI.DTOs.CompanyCredit;
 using MidasAPI.DTOs.User;
 using MidasAPI.Services;
+using MidasDataAccess.Models;
 
 namespace MidasAPI.Controllers;
 
@@ -21,9 +22,9 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetDraft(int page, int pageSize){
+    public IActionResult GetDraft(int page, int pageSize, string status = ""){
         try{
-            var dto = _service.GetDraft(page, pageSize);
+            var dto = _service.GetDraft(page, pageSize, status);
             if(dto.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("kredit badan usaha"),
@@ -51,37 +52,47 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpGet("company-type")]
-    public IActionResult GetCompanyTypes()
-    {
-        try
-        {
-            var companyType = _service.GetCompanyTypes();
-            if (companyType.Count == 0)
-            {
-                return NotFound(new ResponseDTO<string[]>()
-                {
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("jenis perusahaan"),
-                    Status = ConstantConfigs.STATUS_NOT_FOUND,
-                    Data = Array.Empty<string>()
-                });
-            }
 
-            return Ok(new ResponseDTO<List<SelectListItem>>()
-            {
-                Message = ConstantConfigs.MESSAGE_GET("provinsi"),
-                Status = ConstantConfigs.STATUS_OK,
-                Data = companyType
-            });
-        }
-        catch (System.Exception)
-        {
-            
-            throw;
-        }
+    [HttpGet("draft-customer")]
+    public IActionResult GetDraftCustomer(int page, int pageSize){
+        // try{
+        //     var userId = User.FindFirst("userId")?.Value??string.Empty;
+
+        //     var dto = _service.GetDraftPerCustomer(page, pageSize, userId);
+        //     if(dto.Count == 0){
+        //         return NotFound(new ResponseDTO<string[]>(){
+        //             Message = ConstantConfigs.MESSAGE_NOT_FOUND("kredit badan usaha"),
+        //             Status = ConstantConfigs.STATUS_NOT_FOUND,
+        //             Data = Array.Empty<string>()
+        //         });
+        //     }
+
+        //     return Ok(new ResponseWithPaginationDTO<List<CompanyCreditDTO>>(){
+        //         Message = ConstantConfigs.MESSAGE_GET("kredit badan usaha"),
+        //         Status = ConstantConfigs.STATUS_OK,
+        //         Data = dto,
+        //         Pagination = new PaginationDTO(){
+        //             Page = page,
+        //             PageSize = pageSize,
+        //             TotalData = _service.CountData(userId)
+        //         }
+        //     });
+        // }
+        // catch(System.Exception){
+        //     return BadRequest(new ResponseDTO<string>(){
+        //         Message = ConstantConfigs.MESSAGE_FAILED,
+        //         Status = ConstantConfigs.STATUS_FAILED,
+        //     });
+        // }
+
+        var userId = User.FindFirst("userId")?.Value??string.Empty;
+
+        var dto = _service.GetDraftPerCustomer(page, pageSize, userId);
+        return Ok(dto);
     }
 
-    [HttpPost("draft")]
+
+    [HttpPost]
     public IActionResult InsertDraft(CompanyCreditInsertDTO dto)
     {
         try
@@ -135,6 +146,42 @@ public class CompanyCreditController : ControllerBase
                     Data = dto.Address
                 });
             }
+            else if(dto.BusinessOwnerDetails.Count < 2){
+                return BadRequest(new ResponseDTO<string>(){
+                    Message = "Pemilik badan usaha minimal harus 2 data",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+
+            else if(dto.CompanyAssets.Count < 1){
+                return BadRequest(new ResponseDTO<string>(){
+                    Message = "Aset perusahaa minimal harus 1 data",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+            foreach(var business in dto.BusinessOwnerDetails){
+                if(business.IdentityNumber.Length != 16){
+                    return BadRequest(new ResponseDTO<string>(){
+                        Message = "NIK pemilik badan usaha harus 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.IdentityNumber
+                    });
+                }
+                else if(business.EmployeeIdentityNumber.Length != 16){
+                    return BadRequest(new ResponseDTO<string>(){
+                        Message = "NIP pemilik badan usaha harus 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.EmployeeIdentityNumber
+                    });
+                }
+                else if(business.PhoneNumber.Length < 10 || business.PhoneNumber.Length > 13){
+                    return BadRequest(new ResponseDTO<string>(){
+                        Message = "Nomor telepon pemilik badan usaha harus berjumlah 10-13 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.PhoneNumber
+                    });
+                }
+            }
 
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _service.InsertDraft(dto, userId);
@@ -156,7 +203,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPut("draft/{id}")]
+    [HttpPut("{id}")]
     public IActionResult UpdateDraft(CompanyCreditUpdateDraftDTO dto)
     {
         try
@@ -180,7 +227,7 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpDelete("draft/{id}")]
+    [HttpDelete("{id}")]
     public IActionResult DeleteDraft(string id)
     {
         try
@@ -239,30 +286,6 @@ public class CompanyCreditController : ControllerBase
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
-                Status = ApprovalStatusConfig.REJECTED_FILES
-            });
-        }
-        catch (System.Exception)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
-    [HttpPut("credit-revision/{id}")]
-    public IActionResult CreditRevision(CompanyCreditDraftRevisionDTO dto)
-    {
-        try
-        {
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.CreditRevision(dto, userId);
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
                 Status = ApprovalStatusConfig.REJECTED_FILES
             });
         }
