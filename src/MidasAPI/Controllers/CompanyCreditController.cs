@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MidasAPI.DTOs;
@@ -21,26 +22,30 @@ public class CompanyCreditController : ControllerBase
         _service = service;
     }
 
+    
     [HttpGet]
-    public IActionResult GetDraft(int page, int pageSize, string status = ""){
+    public IActionResult Get(int page, int pageSize, string status = ""){
         try{
-            var dto = _service.GetDraft(page, pageSize, status);
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            var dto = _service.GetCredit(page, pageSize, status, userId, userRole);
             if(dto.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("kredit badan usaha"),
+                    Message = ConstantConfigs.MESSAGE_GET("Kredit Badan Usaha"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
 
             return Ok(new ResponseWithPaginationDTO<List<CompanyCreditDTO>>(){
-                Message = ConstantConfigs.MESSAGE_GET("kredit badan usaha"),
+                Message = ConstantConfigs.MESSAGE_GET("Kredit Badan Usaha"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = dto,
                 Pagination = new PaginationDTO(){
                     Page = page,
                     PageSize = pageSize,
-                    TotalData = _service.CountData()
+                    TotalData = _service.CountData(userId)
                 }
             });
         }
@@ -50,45 +55,6 @@ public class CompanyCreditController : ControllerBase
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
-    }
-
-
-    [HttpGet("draft-customer")]
-    public IActionResult GetDraftCustomer(int page, int pageSize){
-        // try{
-        //     var userId = User.FindFirst("userId")?.Value??string.Empty;
-
-        //     var dto = _service.GetDraftPerCustomer(page, pageSize, userId);
-        //     if(dto.Count == 0){
-        //         return NotFound(new ResponseDTO<string[]>(){
-        //             Message = ConstantConfigs.MESSAGE_NOT_FOUND("kredit badan usaha"),
-        //             Status = ConstantConfigs.STATUS_NOT_FOUND,
-        //             Data = Array.Empty<string>()
-        //         });
-        //     }
-
-        //     return Ok(new ResponseWithPaginationDTO<List<CompanyCreditDTO>>(){
-        //         Message = ConstantConfigs.MESSAGE_GET("kredit badan usaha"),
-        //         Status = ConstantConfigs.STATUS_OK,
-        //         Data = dto,
-        //         Pagination = new PaginationDTO(){
-        //             Page = page,
-        //             PageSize = pageSize,
-        //             TotalData = _service.CountData(userId)
-        //         }
-        //     });
-        // }
-        // catch(System.Exception){
-        //     return BadRequest(new ResponseDTO<string>(){
-        //         Message = ConstantConfigs.MESSAGE_FAILED,
-        //         Status = ConstantConfigs.STATUS_FAILED,
-        //     });
-        // }
-
-        var userId = User.FindFirst("userId")?.Value??string.Empty;
-
-        var dto = _service.GetDraftPerCustomer(page, pageSize, userId);
-        return Ok(dto);
     }
 
 
