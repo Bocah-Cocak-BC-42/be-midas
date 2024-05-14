@@ -4,10 +4,10 @@ namespace MidasBussines.Interfaces;
 
 public interface ICompanyCreditRepository
 {   
-    List<CompanyCredit> GetDraft(int page, int pageSize, string status);
-    List<CompanyCredit> GetCreditPerCustomer(int page, int pageSize, string customerId);
+    List<CompanyCredit> GetByStatus(int page, int pageSize, string status);
+    List<CompanyCredit> GetCreditPerCustomer(int page, int pageSize, string status, string userId);
     int CountData();
-    int CountData(string customerId);
+    int CountData(string userId);
     CompanyCredit GetById(string id);   
     void InsertDraft(CompanyCredit companyCredit);
     void UpdateDraft(CompanyCredit companyCredit);

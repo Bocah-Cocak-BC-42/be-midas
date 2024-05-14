@@ -13,23 +13,24 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         _context = context;
     }
 
-    public List<CompanyCredit> GetDraft(int page, int pageSize, string status)
-    {
+    public List<CompanyCredit> GetByStatus(int page, int pageSize, string status)
+    {   
         var companyCredit = _context.CompanyCredits;
         return companyCredit
             .Include("BranchOffice")
-            .Where(c => c.Status == status)
+            .Include("CreatedByNavigation")
+            .Where(c => c.Status == status && c.DeletedAt == null)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();     
     }
 
-    public List<CompanyCredit> GetCreditPerCustomer(int page, int pageSize, string customerId){
+    public List<CompanyCredit> GetCreditPerCustomer(int page, int pageSize, string status, string userId){
         var companyCredit = _context.CompanyCredits;
         return companyCredit
             .Include("CreatedByNavigation")
             .Include("BranchOffice")
-            .Where(c => c.CreatedBy == customerId)
+            .Where(c => c.CreatedBy == userId && c.DeletedAt == null && c.Status.ToLower().Contains(status.ToLower()??""))
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
@@ -40,11 +41,11 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         return companyCredit.Count();
     }
 
-    public int CountData(string customerId){
+    public int CountData(string userId){
         var companyCredit = _context.CompanyCredits;
         return companyCredit
             .Include("CreatedByNavigation")
-            .Where(c => c.CreatedBy == customerId)
+            .Where(c => c.CreatedBy == userId)
             .Count();
     }
 
