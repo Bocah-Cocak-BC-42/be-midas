@@ -5,4 +5,5 @@ public class AuthResponseDTO
     public string? Token { get; set; }
     public string Nickname { get; set; } = null!;
     public string Role { get; set; } = null!;
+    public string UserId { get; set; } = null!;
 }
