@@ -146,6 +146,13 @@ public class CompanyCreditController : ControllerBase
                     Status = ConstantConfigs.STATUS_FAILED
                 });
             }
+            else if(!dto.Email.Contains("@"))
+            {
+                return BadRequest(new ResponseDTO<string>(){
+                    Message = "Format email salah",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
             foreach(var business in dto.BusinessOwnerDetails)
             {
                 if(business.IdentityNumber.Length != 16){
@@ -200,15 +207,132 @@ public class CompanyCreditController : ControllerBase
     public IActionResult Update(CompanyCreditUpdateDTO dto)
     {
         try
-        {
+        {   
+            if(dto.Npwp.Length != 16){
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "NPWP Badan Usaha harus 16 digit",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.Npwp
+                });
+            }
+            else if(dto.CompanyName.Length > 20)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Nama perusahaan hanya diperbolehkan maksimal 20 karakter",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.CompanyName
+                });
+            }
+            else if(dto.PlaceOfEstasblishment.Length > 50)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Tempat pendirian perusahaan hanya diperbolehkan maksimal 50 karakter",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.PlaceOfEstasblishment
+                });
+            }
+            else if(dto.EstablishRegistrationNumber.Length != 20)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Nomor Akta Pendirian perusahaan harus 20 digit",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.EstablishRegistrationNumber
+                });
+            }
+            else if(dto.CompanyRegistrationNumber.Length != 13)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Nomor Induk Berusaha harus 13 digit",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.CompanyRegistrationNumber
+                });
+            }
+            else if(dto.PhoneNumber.Length < 10 || dto.PhoneNumber.Length > 13)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Nomor telepon harus berjumlah 10-13 digit",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.PhoneNumber
+                });
+            }
+            else if(dto.Address.Length > 200)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Alamat perusahaan hanya diperbolehkan maksimal 200 karakter",
+                    Status = ConstantConfigs.STATUS_FAILED,
+                    Data = dto.Address
+                });
+            }
+            else if(dto.BusinessOwnerDetails.Count < 2)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Pemilik badan usaha minimal harus 2 data",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+
+            else if(dto.CompanyAssets.Count < 1)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
+                    Message = "Aset perusahaa minimal harus 1 data",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+            else if(!dto.Email.Contains("@"))
+            {
+                return BadRequest(new ResponseDTO<string>(){
+                    Message = "Format email salah",
+                    Status = ConstantConfigs.STATUS_FAILED
+                });
+            }
+            foreach(var business in dto.BusinessOwnerDetails)
+            {
+                if(business.IdentityNumber.Length != 16){
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIK pemilik badan usaha harus 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.IdentityNumber
+                    });
+                }
+                else if(business.EmployeeIdentityNumber.Length != 16)
+                {
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "NIP pemilik badan usaha harus 16 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.EmployeeIdentityNumber
+                    });
+                }
+                else if(business.PhoneNumber.Length < 10 || business.PhoneNumber.Length > 13)
+                {
+                    return BadRequest(new ResponseDTO<string>()
+                    {
+                        Message = "Nomor telepon pemilik badan usaha harus berjumlah 10-13 digit",
+                        Status = ConstantConfigs.STATUS_FAILED,
+                        Data = business.PhoneNumber
+                    });
+                }
+            }
+
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _service.Update(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
-                Message = ConstantConfigs.MESSAGE_PUT("company credit"),
-                Status = ConstantConfigs.STATUS_OK
+                Message = ConstantConfigs.MESSAGE_POST("kredit badan usaha"),
+                Status = ApprovalStatusConfig.DRAFT
             });
+
         }
         catch (System.Exception)
         {
