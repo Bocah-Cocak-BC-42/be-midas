@@ -44,9 +44,7 @@ public class CompanyCreditUpdateDTO
     public string CompanyRegistrationNumber { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
-    [DataType(DataType.EmailAddress)]
     [EmailAddress(ErrorMessage ="Format Email salah")]
-    [Length(minimumLength:1, maximumLength:50, ErrorMessage = "{0} hanya diperbolehkan maksimal 50 karakter")]
     public string Email { get; set; } = null!;
 
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
