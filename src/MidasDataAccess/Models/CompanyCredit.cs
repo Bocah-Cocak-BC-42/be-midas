@@ -28,6 +28,7 @@ public partial class CompanyCredit
     public string PhoneNumber { get; set; } = null!;
 
     public string Address { get; set; } = null!;
+    public string CompanyOwnerId { get; set; } = null!;
 
     public string VillageId { get; set; } = null!;
 
@@ -38,8 +39,9 @@ public partial class CompanyCredit
     public int ApplicationPeriod { get; set; }
 
     public DateTime? ApplicationDate { get; set; }
+    public DateTime? CreditStartDate { get; set; }
 
-    public DateTime CreditEndDate { get; set; }
+    public DateTime? CreditEndDate { get; set; }
 
     public string Status { get; set; } = null!;
 
@@ -75,6 +77,7 @@ public partial class CompanyCredit
 
     public virtual FileManagement BoardOfManagementFileNavigation { get; set; } = null!;
 
+    public virtual User CompanyOwner { get; set; } = null!;
     public virtual BranchOffice BranchOffice { get; set; } = null!;
 
     public virtual ICollection<BusinessOwnerDetail> BusinessOwnerDetails { get; set; } = new List<BusinessOwnerDetail>();

@@ -91,7 +91,6 @@ public class CompanyCreditUpdateDraftDTO
     [Display(Name = "Jangka waktu pengajuan")]
     [Range(1, 10, ErrorMessage = "{0} harus antara 1 sampai 10")]
     public int ApplicationPeriod { get; set; }
-    public DateTime CreditEndDate { get; set; }
     public string EstablishRegistrationNumberFile { get; set; } = null!;
     public string CompanyRegistrationNumberFile { get; set; } = null!;
     public string Npwpfile { get; set; } = null!;
@@ -99,6 +98,6 @@ public class CompanyCreditUpdateDraftDTO
     public string BoardOfManagementFile { get; set; } = null!;
     public string FinancialStatementFile { get; set; } = null!;
 
-    public List<BusinessOwnerDetailDTO> BusinessOwnerDetails { get; set; }
-    public List<CompanyAssetDTO> CompanyAssets { get; set; }
+    public List<BusinessOwnerDetailDTO> BusinessOwnerDetails { get; set; } = null!;
+    public List<CompanyAssetDTO> CompanyAssets { get; set; } = null!;
 }

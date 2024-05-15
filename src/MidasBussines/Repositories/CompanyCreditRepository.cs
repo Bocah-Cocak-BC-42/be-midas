@@ -51,6 +51,7 @@ public class CompanyCreditRepository : ICompanyCreditRepository
     public CompanyCredit GetById(string id)
     {
         return _context.CompanyCredits
+        .Include(companyCredit => companyCredit.CompanyOwner)
         .Include(companyCredit => companyCredit.BranchOffice)
         .Where(companyCredit => companyCredit.Id == id)
         .FirstOrDefault();
@@ -95,33 +96,7 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         }
     }
 
-    public void CreditVerification(CompanyCredit companyCredit)
-    {
-        try
-        {
-            _context.CompanyCredits.Update(companyCredit);
-            _context.SaveChanges();
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
-    }
-
-    public void CreditRevision(CompanyCredit companyCredit)
-    {
-        try
-        {
-            _context.CompanyCredits.Update(companyCredit);
-            _context.SaveChanges();
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
-    }
-
-    public void FinalVerification(CompanyCredit companyCredit)
+    public void Verification(CompanyCredit companyCredit)
     {
         try
         {

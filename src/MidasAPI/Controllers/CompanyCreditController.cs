@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MidasAPI.DTOs;
@@ -256,14 +257,8 @@ public class CompanyCreditController : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.ApplyCredit(id, userId);
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
-                Status = ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA
-            });
+            var dto = _service.ApplyCredit(id);
+            return Ok(dto);
         }
         catch (System.Exception)
         {
@@ -275,18 +270,19 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPatch("credit-rejected/{id}")]
-    public IActionResult CreditRejected(CompanyCreditDraftRejectedDTO dto)
+    [HttpPatch("verification-rejected/{id}")]
+    public IActionResult VerificationRejected(CompanyCreditDraftRejectedDTO dto)
     {
         try
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.CreditRejected(dto, userId);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value??string.Empty;
+            _service.VerificationRejected(dto, userId, role);
 
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
-                Status = ApprovalStatusConfig.REJECTED_FILES
+                Status = ConstantConfigs.STATUS_OK
             });
         }
         catch (System.Exception)
@@ -299,66 +295,19 @@ public class CompanyCreditController : ControllerBase
         }
     }
 
-    [HttpPatch("credit-approved/{id}")]
-    public IActionResult CreditApproved(string id)
+    [HttpPatch("verification-approved/{id}")]
+    public IActionResult VerificationApproved(string id)
     {
         try
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.CreditApproved(id, userId);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value??string.Empty;
+            _service.VerificationApproved(id, userId, role);
 
             return Ok(new ResponseDTO<string>()
             {
                 Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
-                Status = ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER
-            });
-        }
-        catch (System.Exception)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
-    [HttpPatch("final-verification-rejected/{id}")]
-    public IActionResult FinalVerificationRejected(string id)
-    {
-        try
-        {
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.FinalVerificationRejected(id, userId);
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
-                Status = ApprovalStatusConfig.REJECTED
-            });
-        }
-        catch (System.Exception)
-        {
-            return BadRequest(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_FAILED,
-                Status = ConstantConfigs.STATUS_FAILED
-            });
-        }
-    }
-
-    [HttpPatch("final-verification-approved/{id}")]
-    public IActionResult FinalVerificationApproved(string id)
-    {
-        try
-        {
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.FinalVerificationApproved(id, userId);
-
-            return Ok(new ResponseDTO<string>()
-            {
-                Message = ConstantConfigs.MESSAGE_PUT("revisi kredit"),
-                Status = ApprovalStatusConfig.APPROVED
+                Status = ConstantConfigs.STATUS_OK
             });
         }
         catch (System.Exception)

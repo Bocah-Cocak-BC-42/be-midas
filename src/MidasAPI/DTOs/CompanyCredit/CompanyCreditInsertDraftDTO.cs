@@ -70,7 +70,6 @@ public class CompanyCreditInsertDTO
     [RegularExpression(@"^[a-zA-Z''-'\s]*$", ErrorMessage = "{0} harus berupa karakter!")]
     public string Address { get; set; } = null!;
 
-
     [Required(ErrorMessage = "{0} tidak boleh kosong")]
     [Display(Name = "Kelurahan/Desa")]
     public string VillageId { get; set; } = null!;
@@ -91,7 +90,6 @@ public class CompanyCreditInsertDTO
     [Display(Name = "Jangka waktu pengajuan")]
     [Range(1, 10, ErrorMessage = "{0} harus antara 1 sampai 10")]
     public int ApplicationPeriod { get; set; }
-    public DateTime CreditEndDate { get; set; }
     public string EstablishRegistrationNumberFile { get; set; } = null!;
     public string CompanyRegistrationNumberFile { get; set; } = null!;
     public string Npwpfile { get; set; } = null!;

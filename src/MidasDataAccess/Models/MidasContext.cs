@@ -327,6 +327,9 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(200)
                 .IsUnicode(false);
+            entity.Property(e => e.CompanyOwnerId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.ApplicationAmount).HasColumnType("money");
             entity.Property(e => e.ApplicationDate).HasColumnType("datetime");
             entity.Property(e => e.BoardOfManagementFile)
@@ -356,6 +359,7 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.CreditApplicationNumber)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.CreditStartDate).HasColumnType("datetime");
             entity.Property(e => e.CreditEndDate).HasColumnType("datetime");
             entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.DeletedBy)
@@ -410,6 +414,11 @@ public partial class MidasContext : DbContext
                 .HasForeignKey(d => d.BoardOfManagementFile)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CompanyCr__Board__07C12930");
+            
+            entity.HasOne(d => d.CompanyOwner).WithMany(p => p.CompanyCredits)
+                .HasForeignKey(d => d.CompanyOwnerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__CompanyCr__User");
 
             entity.HasOne(d => d.BranchOffice).WithMany(p => p.CompanyCredits)
                 .HasForeignKey(d => d.BranchOfficeId)

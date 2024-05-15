@@ -47,6 +47,8 @@ public partial class User
 
     public DateTime? DeletedAt { get; set; }
 
+    public virtual ICollection<CompanyCredit> CompanyCredits { get; set; } = new List<CompanyCredit>();
+
     public virtual ICollection<AssociateUserBranch> AssociateUserBranches { get; set; } = new List<AssociateUserBranch>();
 
     public virtual ICollection<Bank> BankCreatedByNavigations { get; set; } = new List<Bank>();

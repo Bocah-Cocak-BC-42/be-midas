@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using MidasAPI.DTOs;
 using MidasAPI.DTOs.BusinessOwnerDetail;
@@ -14,17 +15,15 @@ namespace MidasAPI.Services;
 public class CompanyCreditService
 {
     private readonly ICompanyCreditRepository _repository;
-    private readonly IUserRepository _userRepository;
     private readonly IBusinessOwnerDetailRepository _businessRepository;
     private readonly ICompanyAssetRepository _companyAssetRepository;
 
     public CompanyCreditService(
-        ICompanyCreditRepository repository, IUserRepository userRepository, 
+        ICompanyCreditRepository repository, 
         IBusinessOwnerDetailRepository businessRepository, ICompanyAssetRepository companyAssetRepository
     )
     {
         _repository = repository;
-        _userRepository = userRepository;
         _businessRepository = businessRepository;
         _companyAssetRepository = companyAssetRepository;
     }
@@ -66,12 +65,6 @@ public class CompanyCreditService
         return $"KBU-{branchOfficeCode}-{nik}-{DateTime.Now.ToString("ddMMyyyy")}";
     }
 
-    private string GetUserNIK(string userId)
-    {
-        var nik = _userRepository.GetById(userId).IdentityNumber;
-        return nik;
-    }
-
     public void InsertDraft(CompanyCreditInsertDTO dto, string userId)
     {
         var companyCredit = new CompanyCredit()
@@ -88,11 +81,11 @@ public class CompanyCreditService
             Email = dto.Email,
             PhoneNumber = dto.PhoneNumber,
             Address = dto.Address,
+            CompanyOwnerId = userId,
             VillageId = dto.VillageId,
             BranchOfficeId = dto.BranchOfficeId,
             ApplicationAmount = dto.ApplicationAmount,
             ApplicationPeriod = dto.ApplicationPeriod,
-            CreditEndDate = dto.CreditEndDate,
             Status = ApprovalStatusConfig.DRAFT,
             EstablishRegistrationNumberFile = dto.EstablishRegistrationNumberFile,
             CompanyRegistrationNumberFile = dto.CompanyRegistrationNumberFile,
@@ -130,14 +123,12 @@ public class CompanyCreditService
 
             _companyAssetRepository.Insert(companyAsset);
         }
-        
     }
 
     public void UpdateDraft(CompanyCreditUpdateDraftDTO dto, string userId)
     {
-        var companyCredit = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
+        var companyCredit = _repository.GetById(dto.Id);
 
-        companyCredit.CreditApplicationNumber = "-";
         companyCredit.Npwp = dto.Npwp;
         companyCredit.CompanyName = dto.CompanyName;
         companyCredit.CompanyType = dto.CompanyType;
@@ -152,7 +143,6 @@ public class CompanyCreditService
         companyCredit.BranchOfficeId = dto.BranchOfficeId;
         companyCredit.ApplicationAmount = dto.ApplicationAmount;
         companyCredit.ApplicationPeriod = dto.ApplicationPeriod;
-        companyCredit.CreditEndDate = dto.CreditEndDate;
         companyCredit.EstablishRegistrationNumberFile = dto.EstablishRegistrationNumberFile;
         companyCredit.Npwpfile = dto.Npwpfile;
         companyCredit.IdentityNumberFile = dto.IdentityNumberFile;
@@ -197,64 +187,88 @@ public class CompanyCreditService
 
     public void DeleteDraft(string id, string userId)
     {
-        var companyCredit = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
+        var companyCredit = _repository.GetById(id);
         companyCredit.DeletedBy = userId;
         companyCredit.DeletedAt = DateTime.Now;
 
         _repository.UpdateDraft(companyCredit);
     }
 
-    public void ApplyCredit(string id, string userId)
+    public ResponseDTO<string> ApplyCredit(string id)
     {
-        var companyCredit = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
-        companyCredit.CreditApplicationNumber = CreateCreditApplicationNumber(companyCredit.BranchOffice.OfficeCode, GetUserNIK(userId));
+        var companyCredit = _repository.GetById(id);
+
+        if (companyCredit.ApplicationAmount > companyCredit.CompanyOwner.CompanyCreditLimit)
+        {
+            return new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_PUT("Limit kredit tidak cukup"),
+                Status = ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA
+            };
+        }
+
+        companyCredit.CreditApplicationNumber = CreateCreditApplicationNumber(companyCredit.BranchOffice.OfficeCode, companyCredit.CompanyOwner.IdentityNumber);
         companyCredit.ApplicationDate = DateTime.Today;
         companyCredit.Status = ApprovalStatusConfig.WAITING_VERIFICATION_FILES;
 
         _repository.ApplyCredit(companyCredit);
+
+        return new ResponseDTO<string>()
+        {
+            Message = ConstantConfigs.MESSAGE_PUT("ajukan kredit"),
+            Status = ApprovalStatusConfig.WAITING_VERIFICATION_PERSONAL_DATA
+        };
     }
 
-    public void CreditRejected(CompanyCreditDraftRejectedDTO dto, string userId)
+    public void VerificationRejected(CompanyCreditDraftRejectedDTO dto, string userId, string role)
     {
-        var companyCredit = _repository.GetById(dto.Id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
+        var companyCredit = _repository.GetById(dto.Id);
+
+        if (companyCredit.CreditApplicationNumber == "-")
+        {
+            throw new Exception();
+        }
+
         companyCredit.Notes = dto.Notes;
-        companyCredit.Status = ApprovalStatusConfig.REJECTED_FILES;
         companyCredit.VerifiedBy = userId;
         companyCredit.VerifiedAt = DateTime.Now;
 
-        _repository.CreditVerification(companyCredit);
+        if (role == "Supervisor")
+        {
+            companyCredit.Status = ApprovalStatusConfig.REJECTED_FILES;
+        }
+
+        if (role == "Manager")
+        {
+            companyCredit.Status = ApprovalStatusConfig.REJECTED;
+        }
+        _repository.Verification(companyCredit);
     }
 
-    public void CreditApproved(string id, string userId)
+    public void VerificationApproved(string id, string userId, string role)
     {
-        var companyCredit = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
+        var companyCredit = _repository.GetById(id);
 
-        companyCredit.Status = ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER;
+        if (companyCredit.CreditApplicationNumber == "-")
+        {
+            throw new Exception();
+        }
+
         companyCredit.VerifiedBy = userId;
         companyCredit.VerifiedAt = DateTime.Now;
 
-        _repository.CreditVerification(companyCredit);
-    }
+        if (role == "Supervisor")
+        {
+            companyCredit.Status = ApprovalStatusConfig.WAITING_VERIFICATION_MANAGER;
+        }
 
-    public void FinalVerificationRejected(string id, string userId)
-    {
-        var companyCredit = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
+        if (role == "Manager")
+        {
+            companyCredit.Status = ApprovalStatusConfig.APPROVED;
+            companyCredit.CreditStartDate = DateTime.Now;
+            companyCredit.CompanyOwner.CompanyCreditLimit -= companyCredit.ApplicationAmount;
+        }
 
-        companyCredit.Status = ApprovalStatusConfig.REJECTED;
-        companyCredit.VerifiedBy = userId;
-        companyCredit.VerifiedAt = DateTime.Now;
-
-        _repository.FinalVerification(companyCredit);
-    }
-
-    public void FinalVerificationApproved(string id, string userId)
-    {
-        var companyCredit = _repository.GetById(id) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("company credit"));
-
-        companyCredit.Status = ApprovalStatusConfig.APPROVED;
-        companyCredit.VerifiedBy = userId;
-        companyCredit.VerifiedAt = DateTime.Now;
-
-        _repository.FinalVerification(companyCredit);
+        _repository.Verification(companyCredit);
     }
 }
