@@ -11,7 +11,5 @@ public interface ICompanyCreditRepository
     void InsertDraft(CompanyCredit companyCredit);
     void UpdateDraft(CompanyCredit companyCredit);
     void ApplyCredit(CompanyCredit companyCredit);
-    void CreditVerification(CompanyCredit companyCredit);
-    void CreditRevision(CompanyCredit companyCredit);
-    void FinalVerification(CompanyCredit companyCredit);
+    void Verification(CompanyCredit companyCredit);
 }

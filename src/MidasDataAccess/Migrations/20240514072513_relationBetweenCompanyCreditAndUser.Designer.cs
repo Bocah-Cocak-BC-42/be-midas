@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidasDataAccess.Models;
 
@@ -11,9 +12,11 @@ using MidasDataAccess.Models;
 namespace MidasDataAccess.Migrations
 {
     [DbContext(typeof(MidasContext))]
-    partial class MidasContextModelSnapshot : ModelSnapshot
+    [Migration("20240514072513_relationBetweenCompanyCreditAndUser")]
+    partial class relationBetweenCompanyCreditAndUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,98 +109,98 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "1b05a6c5-7dec-4893-a979-471de140a852",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5133),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(426),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bank Sumut"
                         },
                         new
                         {
                             Id = "38100c2c-f4a0-424f-9f8e-87f441b5e827",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5135),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(430),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mandiri"
                         },
                         new
                         {
                             Id = "4f935728-481e-44ad-bb41-fdab4869a104",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5137),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(432),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Dana"
                         },
                         new
                         {
                             Id = "62c1c057-efb3-4f8e-9906-43942151ce14",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5138),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(434),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "BTPN"
                         },
                         new
                         {
                             Id = "6c74507c-3b8a-4b98-94e3-aaa8a6a0c03b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5140),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(436),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bank DKI"
                         },
                         new
                         {
                             Id = "8250fdef-5dc8-4a8a-b252-fe0e1d7d49f8",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5142),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(440),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Permata"
                         },
                         new
                         {
                             Id = "88c0db84-8345-4c7c-945a-26d5853c4c05",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5144),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(442),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jenius"
                         },
                         new
                         {
                             Id = "9d09bc01-4e81-441e-82d2-7e3dfe7546e6",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5145),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(444),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Seabanks"
                         },
                         new
                         {
                             Id = "6793a561-f2b8-410b-80c6-e45071080294",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5147),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(446),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "BCA"
                         },
                         new
                         {
                             Id = "adc7c804-193f-48e7-ab1d-6590e5983310",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5149),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(449),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bank RUT"
                         },
                         new
                         {
                             Id = "b7c176d8-c7b2-400e-aa8f-3c3bf44c71f4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5150),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(451),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "BRI"
                         },
                         new
                         {
                             Id = "dc6fabd5-6ed0-4e88-8849-86c867fd4771",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5151),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(453),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bank Lampung"
                         },
                         new
                         {
                             Id = "e69d5415-6dcf-4863-92a9-30e0401461fb",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5153),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(455),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Berlian"
                         },
                         new
                         {
                             Id = "eea804c5-0bfd-46d8-a9f8-32a724726a1e",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5154),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(457),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Hana"
                         });
@@ -384,49 +387,49 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "1c7a0718-23d2-4f40-b0b0-9660b71124c9",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4654),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9740),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Crypto"
                         },
                         new
                         {
                             Id = "641bf0b4-73cd-4e79-b8cf-6317c55d88f3",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4660),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9745),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jasa"
                         },
                         new
                         {
                             Id = "b7ef6638-3077-4d8a-815f-6885edfe14a2",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4662),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9747),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Permainan"
                         },
                         new
                         {
                             Id = "ba4289cb-c761-470f-a1b1-03c4e391ca64",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4663),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9750),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kuliner"
                         },
                         new
                         {
                             Id = "c40544f0-a4d0-4cb4-9d83-8ce395496ea3",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4665),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9752),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Keuangan"
                         },
                         new
                         {
                             Id = "e4e433de-f9bc-4c29-92a8-1e01240cbf12",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4668),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9756),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mebel"
                         },
                         new
                         {
                             Id = "e64ba268-3bba-4df1-aabd-3a3af2a2d05c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4669),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9758),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Logistik"
                         });
@@ -495,7 +498,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "009fadbc-f3b3-4673-823f-f69783cf8a82",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4849),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(22),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lombok Timur",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -503,7 +506,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "0c9025cc-2085-4deb-9726-4227df85e546",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4858),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(26),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bireuen",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -511,7 +514,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "14332fcf-925a-45d5-8bfc-dfee96f16855",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4860),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(29),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Barat Daya",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -519,7 +522,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "1af41642-cb1f-43b9-b276-06cf1cc9e24f",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4862),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(31),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bener Meriah",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -527,7 +530,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "1de07e9a-4549-4ef0-9149-95fcfb8c6db5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4864),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(33),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sumbawa",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -535,7 +538,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "23e2f177-2bcd-4262-a171-743267a6d3d4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4866),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(37),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jembrana",
                             ProvinceId = "dcaec7fd-d140-4ebf-8654-0322c7376766"
@@ -543,7 +546,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "287299b2-a882-411d-8f93-52354a1bf3a4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4867),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(39),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Pidie Jaya",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -551,7 +554,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "b6229a2a-4848-469a-9345-65acb60df6e5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4869),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(41),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Langsa",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -559,7 +562,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4871),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(43),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mataram",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -567,7 +570,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "be6f0890-2c59-44bf-b334-0032f236242c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4873),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(47),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sabang",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -575,7 +578,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "ce4b8a5d-2c59-44bf-b334-0032f236242c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4875),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(49),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lombok Tengah",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -583,7 +586,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "d13134fb-61d6-4ca2-a107-4a0648e4db4f",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4876),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(51),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sumbawa Barat",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -591,7 +594,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "d89fa8a3-6701-4ea6-96b0-5ade9c5ddef9",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4878),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(53),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Tenggara",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -599,7 +602,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "def84e18-144e-4b4a-b900-024d22c389b9",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4879),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(62),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bima",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -607,7 +610,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "28a67009-fb09-4136-bd97-71698faec47a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4881),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(64),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Barat",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -615,7 +618,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "2e7a21c6-2fe4-4c18-8c65-9e0f05423bdd",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4883),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(66),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Simeulue",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -623,7 +626,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "3d7948d7-5d17-45fe-8e93-1f0da83c138d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4884),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(68),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Singaraja",
                             ProvinceId = "dcaec7fd-d140-4ebf-8654-0322c7376766"
@@ -631,7 +634,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "4aa8236c-0a11-484a-8823-45148d7827d5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4886),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(71),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Tamiang",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -639,7 +642,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "e27db493-6614-4e69-ac04-9121b2cbe83b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4888),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(73),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lombok Utara",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -647,7 +650,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "e4e55e4a-f42b-4d38-bf8a-dff81f55e302",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4890),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(75),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Tabanan",
                             ProvinceId = "dcaec7fd-d140-4ebf-8654-0322c7376766"
@@ -655,7 +658,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "ead6807b-2852-43c8-aa4d-42caa0fd02ba",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4891),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(76),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Pidie",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -663,7 +666,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "531b275f-7e7d-43ea-ad3f-bea09c346c45",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4893),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(78),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Subulussalam",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -671,7 +674,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "54aa93fe-9a3c-49df-83a1-ddd77f60e7cf",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4894),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(80),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gianyar",
                             ProvinceId = "dcaec7fd-d140-4ebf-8654-0322c7376766"
@@ -679,7 +682,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4895),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(82),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Selatan",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -687,7 +690,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "66998491-8591-4255-86cf-c853ac33a335",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4897),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(84),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Nagan Raya",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -695,7 +698,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "6e357876-73cd-41a6-9691-89f53bb8f39d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4899),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(86),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lhokseumawe",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -703,7 +706,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "6f4960ff-392a-4f50-90f3-7c9169940e6d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4900),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(88),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Utara",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -711,7 +714,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "746a75aa-dcf6-42b5-91a8-47788387ef26",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4902),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(90),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Timur",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -719,7 +722,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "7d69cd4a-0b3e-4c41-a801-1cf1012ab13c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4903),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(92),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Tengah",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -727,7 +730,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "7e89aa26-55e6-4056-b34e-9fbcc55898c4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4905),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(94),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lombok Barat",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -735,7 +738,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "886533a2-a68f-45de-828c-e3320671facd",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4906),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(95),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gayo Lues",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -743,7 +746,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "8ea293be-d587-4a64-b2f6-4eea78a02187",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4908),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(97),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Jaya",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -751,7 +754,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "961b6103-033e-4290-b64c-f072ebcaa8de",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4909),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(99),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Yogyakarta",
                             ProvinceId = "16358396-d6d8-4868-a998-72d46370adae"
@@ -759,7 +762,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "9cd53a54-ba51-494d-8167-ab763096af5e",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4912),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(103),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Besar",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -767,7 +770,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "a20ff930-cbba-466a-a3ef-acb046e50359",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4913),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(104),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Banda Aceh",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -775,7 +778,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "b28de821-4eb8-42ad-9caf-5097e9c1ddac",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4915),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(107),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Dompu",
                             ProvinceId = "172d8827-30b5-46b2-9a45-87b87ede3193"
@@ -783,7 +786,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "f8c3366e-dc73-4376-89e6-66980f4fe4ce",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4916),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(109),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh Singkil",
                             ProvinceId = "6e5c3799-606d-46d3-b191-1da8fdaf38d6"
@@ -900,10 +903,7 @@ namespace MidasDataAccess.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime?>("CreditEndDate")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime?>("CreditStartDate")
+                    b.Property<DateTime>("CreditEndDate")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -1547,266 +1547,266 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "00a357b8-990e-43ac-99c3-4e7312ce4416",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4702),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9808),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kepulauan Bangka Belitung"
                         },
                         new
                         {
                             Id = "0ef9590b-875d-408e-9642-32b6bac23ddf",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4705),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9812),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sulawesi Tengah"
                         },
                         new
                         {
                             Id = "0f4f8a37-859a-4398-9324-6766a3b34d74",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4707),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9814),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kepulauan Riau"
                         },
                         new
                         {
                             Id = "16358396-d6d8-4868-a998-72d46370adae",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4713),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9816),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "DI Yogyakarta"
                         },
                         new
                         {
                             Id = "172d8827-30b5-46b2-9a45-87b87ede3193",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4715),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9819),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Nusa Tenggara Barat"
                         },
                         new
                         {
                             Id = "176bb457-91de-4e1e-ac1c-52b901160225",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4717),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9822),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Maluku"
                         },
                         new
                         {
                             Id = "2d3f6b89-8158-4c13-a1b2-08efe7a70fa3",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4719),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9824),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Papua Barat Daya"
                         },
                         new
                         {
                             Id = "36f10aef-fed8-4305-939c-27c8905482a4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4720),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9827),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sulawesi Barat"
                         },
                         new
                         {
                             Id = "41245942-85e4-41f3-8a25-863bb42d5246",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4722),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9829),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Nusa Tenggara Timur (NTT)"
                         },
                         new
                         {
                             Id = "4868a839-6cdd-4b2e-a1a6-39432c803e14",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4725),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9832),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jawa Tengah"
                         },
                         new
                         {
                             Id = "506203f4-c027-484c-b94f-c21c76fb3e97",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4726),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9834),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sumatera Utara"
                         },
                         new
                         {
                             Id = "52ab62e2-d2f3-4230-97ed-02891ea8274a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4727),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9836),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Papua Tengah"
                         },
                         new
                         {
                             Id = "6e5c3799-606d-46d3-b191-1da8fdaf38d6",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4729),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9838),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aceh (NAD)"
                         },
                         new
                         {
                             Id = "71f90e92-d5e6-4b2f-bfda-06dd7106a0ab",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4730),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9840),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Papua Selatan"
                         },
                         new
                         {
                             Id = "77a016a8-b63e-425f-acae-e0d878f7e35c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4748),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9868),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kalimantan Timur"
                         },
                         new
                         {
                             Id = "7afd6f20-897a-4091-b804-3d94eefc8a9b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4760),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9886),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jakarta"
                         },
                         new
                         {
                             Id = "8ed7d069-12d9-4c09-8899-953850e933d4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4762),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9888),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Maluku Utara"
                         },
                         new
                         {
                             Id = "9a361418-0cdb-4068-aaff-253afb9cfdb0",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4765),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9898),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Banten"
                         },
                         new
                         {
                             Id = "a1a39d8e-3d38-4390-b285-393aa0d48a85",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4766),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9900),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jawa Timur"
                         },
                         new
                         {
                             Id = "a2346728-6d14-4392-af09-4d3ecd917ef3",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4768),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9902),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Papua"
                         },
                         new
                         {
                             Id = "a3e67ead-40eb-47a9-ac0c-636fbe9b2aa6",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4769),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9904),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kalimantan Utara"
                         },
                         new
                         {
                             Id = "a4509803-3652-40dd-a425-d9d36ccdad7c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4770),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9906),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Lampung"
                         },
                         new
                         {
                             Id = "a8c81edd-ed3d-416a-9ea8-b5943bfca14e",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4772),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9908),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jawa Barat"
                         },
                         new
                         {
                             Id = "a97b23fc-3c0a-451c-aa30-85c36e602293",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4773),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9909),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "DKI Jakarta"
                         },
                         new
                         {
                             Id = "ae8146a2-e35a-43b9-ae53-7c6f04922042",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4775),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9911),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kalimantan Tengah"
                         },
                         new
                         {
                             Id = "b07ad10d-a283-4533-832d-88ddad04e795",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4776),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9913),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sulawesi Tenggara"
                         },
                         new
                         {
                             Id = "b0f70a98-f3ca-4265-bd78-d29f39a4175e",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4778),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9915),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sumatera Barat"
                         },
                         new
                         {
                             Id = "b7f3d073-c897-4993-b171-837a1d96dc6a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4779),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9917),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sulawesi Utara"
                         },
                         new
                         {
                             Id = "bacf7410-b6d4-4558-8422-8cb63d1e1b1c",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4780),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9918),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sulawesi Selatan"
                         },
                         new
                         {
                             Id = "c0556eb8-cc50-45ab-9cf0-d41609c4f8df",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4782),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9920),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gorontalo"
                         },
                         new
                         {
                             Id = "c509b759-87f4-44e5-8fb2-9abefd16a01d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4783),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9922),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sumatera Selatan"
                         },
                         new
                         {
                             Id = "ce846670-cc6c-4d76-8673-4cb778bfaf27",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4785),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9923),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Riau"
                         },
                         new
                         {
                             Id = "cf46e31d-6ba0-4e9a-8db8-e412e8cc06d7",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4786),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9925),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kalimantan Selatan"
                         },
                         new
                         {
                             Id = "d306ed9f-5a1f-42f9-aed0-9c125b26398a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4789),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9929),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bengkulu"
                         },
                         new
                         {
                             Id = "d89e1f90-1efc-485b-9bbb-bd5a887beaeb",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4790),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9930),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jambi"
                         },
                         new
                         {
                             Id = "dcaec7fd-d140-4ebf-8654-0322c7376766",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4792),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9932),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bali"
                         },
                         new
                         {
                             Id = "dd5b78a8-5906-441d-b255-effb9deb4b3e",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4793),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9934),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kalimantan Barat"
                         },
                         new
                         {
                             Id = "e9ea3de4-bc06-4d69-b232-f6e163de65e4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4795),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9935),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Papua Pegunungan"
                         });
@@ -1848,37 +1848,37 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "a993d9d6-0836-40b7-9fd8-a28a7f04a3d0",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4469),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9455),
                             Name = "Admin"
                         },
                         new
                         {
                             Id = "445e48a4-f3f6-4660-96d7-82505bc740d3",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4483),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9480),
                             Name = "Nasabah"
                         },
                         new
                         {
                             Id = "0ca5493b-903d-4863-8194-f1a2925f2088",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4484),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9482),
                             Name = "Supervisor"
                         },
                         new
                         {
                             Id = "15bbe07e-c6e8-4a82-bedf-4a4303594292",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4486),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9484),
                             Name = "Mantri"
                         },
                         new
                         {
                             Id = "1f7e704a-d720-49bb-9129-a317cb79756a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4488),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9486),
                             Name = "Direktur"
                         },
                         new
                         {
                             Id = "fb0ea19a-7d05-4b0a-9532-59138d1a7bad",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4491),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9490),
                             Name = "Manager"
                         });
                 });
@@ -1947,7 +1947,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "0a794282-ef06-4e94-a567-e3aadcdb4f22",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4973),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(190),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mataram"
                         },
@@ -1955,7 +1955,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "10ec0309-bda9-41a8-b366-44d3a901f431",
                             CityId = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4976),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(194),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bakongan Timur"
                         },
@@ -1963,7 +1963,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "12d1fba7-cc1b-4cd0-bd9c-060bad09f79c",
                             CityId = "961b6103-033e-4290-b64c-f072ebcaa8de",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4978),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(197),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mantrijeron"
                         },
@@ -1971,7 +1971,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "13ae4b0f-4059-4962-9e34-c9a6fa61b4f3",
                             CityId = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4980),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(199),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kluet Tengah"
                         },
@@ -1979,7 +1979,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "19c0c127-d4b5-4ccc-a9e0-0fd934621aa8",
                             CityId = "7e89aa26-55e6-4056-b34e-9fbcc55898c4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4982),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(201),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Selaparang"
                         },
@@ -1987,7 +1987,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "2d8a5faf-395e-4c89-aa74-95aa264b8d3d",
                             CityId = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4984),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(205),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kluet Selatan"
                         },
@@ -1995,7 +1995,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "39eaed2a-63d4-47fb-8270-caa5ad8803c9",
                             CityId = "961b6103-033e-4290-b64c-f072ebcaa8de",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4986),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(207),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Wirobrajan"
                         },
@@ -2003,7 +2003,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "552500b3-f1fe-4421-a64b-fe1dc3911347",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4988),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(209),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sandubaya"
                         },
@@ -2011,7 +2011,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "55dc334e-4e28-4ce2-bdba-2c0b0429dd39",
                             CityId = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4989),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(212),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bakongan"
                         },
@@ -2019,7 +2019,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "56d332f7-c44c-417a-9655-ade356d09549",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4992),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(220),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Selaparang"
                         },
@@ -2027,7 +2027,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "925a7f89-9d21-411c-800c-5ac7c47b152f",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4993),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(222),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Sekarbela"
                         },
@@ -2035,7 +2035,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "a4efc8b0-b662-4745-b414-704ef5081bac",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4995),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(224),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Ampenan"
                         },
@@ -2043,7 +2043,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "ba70f8d4-86be-4b64-a262-159a5c771171",
                             CityId = "3c8aa9c4-22ad-4d85-9fb3-523242a75ec5",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4997),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(227),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Cakranegara"
                         },
@@ -2051,7 +2051,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "e6209b8b-511c-490e-8ba8-b732eca766b2",
                             CityId = "009fadbc-f3b3-4673-823f-f69783cf8a82",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4998),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(229),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jerowaru"
                         },
@@ -2059,7 +2059,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "f218305e-4358-4001-87d1-71a63f252bc4",
                             CityId = "009fadbc-f3b3-4673-823f-f69783cf8a82",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5000),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(231),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aikmel"
                         },
@@ -2067,7 +2067,7 @@ namespace MidasDataAccess.Migrations
                         {
                             Id = "f5f8ee19-bf92-4049-a2e5-4ef682b41750",
                             CityId = "65e2fb51-ea29-4b79-bb8b-44867608e588",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5001),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(233),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Kluet Timur"
                         });
@@ -2199,7 +2199,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "41dfada5-6c53-4c7b-8c07-89037e511874",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4621),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9686),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Email = "admin@midas.com",
                             FullName = "Admin",
@@ -2207,7 +2207,7 @@ namespace MidasDataAccess.Migrations
                             IdentityNumber = "AA00000001",
                             NickName = "Admin",
                             Password = "$2a$12$ZEqw5fRxjcndbH.TekcXq.Pvk03lJD.mzxN73qownotDhtSfJ.vdq",
-                            RegistrationDate = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(4616),
+                            RegistrationDate = new DateTime(2024, 5, 14, 14, 25, 12, 549, DateTimeKind.Local).AddTicks(9681),
                             RoleId = "a993d9d6-0836-40b7-9fd8-a28a7f04a3d0"
                         });
                 });
@@ -2279,7 +2279,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "325d131a-195e-422d-9e72-2ab306fe5ca7",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5038),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(293),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Bintaro",
                             PostalCode = "83118",
@@ -2288,7 +2288,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "34365695-fcff-454b-8f3e-0b4bcbf63780",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5042),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(298),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Cilinaya",
                             PostalCode = "83238",
@@ -2297,7 +2297,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "39baff07-06f8-4702-b313-2e26807d1d1b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5044),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(302),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Pagutan",
                             PostalCode = "83117",
@@ -2306,7 +2306,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "3c83b90f-1de1-4444-8039-afd777e2f080",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5046),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(304),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Darul Ikhsan",
                             PostalCode = "23773",
@@ -2315,7 +2315,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "3d1c4668-07e3-4456-a066-7991e231037d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5048),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(307),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Tanjung Karang",
                             PostalCode = "83115",
@@ -2324,7 +2324,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "45f38282-072d-49e1-885a-d7420b63ad9a",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5052),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(311),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Pakuncen",
                             PostalCode = "55253",
@@ -2333,7 +2333,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "46216ca1-14fb-4361-afb0-8e7cc9ff485b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5054),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(314),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Dasan Cermen",
                             PostalCode = "83232",
@@ -2342,7 +2342,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "4b1401bf-3619-44df-8191-6516e4b65397",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5056),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(316),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Mayura",
                             PostalCode = "83232",
@@ -2351,7 +2351,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "56effc3e-cca8-4c9c-adcb-ee69dfebecbd",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5058),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(319),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aik Prapa",
                             PostalCode = "83653",
@@ -2360,7 +2360,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "596fc007-022c-4c8f-9633-f8a22f487d66",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5061),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(322),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Padang Beurahan (Padang Berahan)",
                             PostalCode = "23773",
@@ -2369,7 +2369,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "59a370b6-0db0-4f5e-8d2a-d5835b38d242",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5063),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(325),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Turida",
                             PostalCode = "83237",
@@ -2378,7 +2378,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "79f1dc3a-50ba-4223-96d1-1ad1f1585904",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5065),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(327),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gampong Drien (Kampung Drien)",
                             PostalCode = "23773",
@@ -2387,7 +2387,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "82718aa0-9400-499a-8acc-89ef5b9e9ca2",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5072),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(330),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Ujong Padang (Ujung Padang)",
                             PostalCode = "23773",
@@ -2396,7 +2396,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "8f836995-92ca-4d16-aef9-940e1a79c2cf",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5074),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(332),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Karang Baru",
                             PostalCode = "83123",
@@ -2405,7 +2405,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "9360a076-35ab-4bf7-b267-62b2a79fc0a9",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5076),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(335),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Monjok Barat",
                             PostalCode = "83122",
@@ -2414,7 +2414,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "93fd0c5d-a66a-4434-b617-e1762caf666b",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5078),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(338),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Jempong Baru",
                             PostalCode = "83116",
@@ -2423,7 +2423,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "a53b4bd8-ea83-4dc5-b615-dcdf3e9535d6",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5080),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(340),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gedongkiwo",
                             PostalCode = "55142",
@@ -2432,7 +2432,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "a97032a3-b3ba-4bd8-9927-f27fe70ec36d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5082),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(344),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Ujong Mangki (Ujung Mangki)",
                             PostalCode = "23773",
@@ -2441,7 +2441,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "bf1f59a3-8d4f-42f3-95c1-fc5a26d15e1d",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5084),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(346),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Keude Bakongan",
                             PostalCode = "23773",
@@ -2450,7 +2450,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "e6f007cd-5103-422d-b33c-0a7fa8a1c657",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5086),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(355),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Pejeruk",
                             PostalCode = "83113",
@@ -2459,7 +2459,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "eaecb320-e5b9-4396-92e0-4d8c7b4cc7a4",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5088),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(358),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Gampong Baro (Kampung Baru)",
                             PostalCode = "23773",
@@ -2468,7 +2468,7 @@ namespace MidasDataAccess.Migrations
                         new
                         {
                             Id = "f06d56e7-b092-4665-948f-b89426ca8d0f",
-                            CreatedAt = new DateTime(2024, 5, 14, 16, 38, 30, 638, DateTimeKind.Local).AddTicks(5090),
+                            CreatedAt = new DateTime(2024, 5, 14, 14, 25, 12, 550, DateTimeKind.Local).AddTicks(360),
                             CreatedBy = "41dfada5-6c53-4c7b-8c07-89037e511874",
                             Name = "Aikmel Barat",
                             PostalCode = "83653",
