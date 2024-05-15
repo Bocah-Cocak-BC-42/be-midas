@@ -24,36 +24,18 @@ public class CompanyCreditService
         _companyAssetRepository = companyAssetRepository;
     }
 
-    public List<CompanyCreditDTO> GetCredit(int page, int pageSize, string status, string userId, string userRole){
-        
-        if(userRole == "Nasabah"){
-            var model = _repository
-                .GetCreditPerCustomer(page, pageSize, status, userId)
-                .Select(cc => new CompanyCreditDTO(){
-                    CreditApplicationNumber = cc.CreditApplicationNumber??"-",
-                    BranchOffice = cc.BranchOffice.OfficeName,
-                    ApplicationAmount = cc.ApplicationAmount,
-                    ApplicationPeriod = cc.ApplicationPeriod,
-                    Status = cc.Status
-                });
+    public List<CompanyCreditDTO> GetCredit(int page, int pageSize, string status, string userId){
+        var model = _repository
+            .GetByStatus(page, pageSize, status, userId)
+            .Select(cc => new CompanyCreditDTO(){
+                CreditApplicationNumber = cc.CreditApplicationNumber??"-",
+                BranchOffice = cc.BranchOffice.OfficeName,
+                ApplicationAmount = cc.ApplicationAmount,
+                ApplicationPeriod = cc.ApplicationPeriod,
+                Status = cc.Status
+            });
 
-            return model.ToList();
-        }
-        else if(userRole != "Nasabah" && userRole != "Admin"){
-            var model = _repository
-                .GetByStatus(page, pageSize, status)
-                .Select(cc => new CompanyCreditDTO(){
-                    CreditApplicationNumber = cc.CreditApplicationNumber??"-",
-                    BranchOffice = cc.BranchOffice.OfficeName,
-                    ApplicationAmount = cc.ApplicationAmount,
-                    ApplicationPeriod = cc.ApplicationPeriod,
-                    Status = cc.Status
-                });
-
-            return model.ToList();
-        }
-        
-        return new List<CompanyCreditDTO>();
+        return model.ToList();
     }
  
 
