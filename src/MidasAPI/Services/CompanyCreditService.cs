@@ -1,8 +1,4 @@
-﻿using System.Security.Claims;
-﻿using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Configuration.UserSecrets;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using MidasAPI.DTOs;
 using MidasAPI.DTOs.CompanyCredit;
 using MidasBussines.Interfaces;
@@ -26,7 +22,8 @@ public class CompanyCreditService
         _companyAssetRepository = companyAssetRepository;
     }
 
-    public List<CompanyCreditDTO> GetCredit(int page, int pageSize, string status, string userId){
+    public List<CompanyCreditDTO> GetCredit(int page, int pageSize, string status, string userId)
+    {
         var model = _repository
             .GetByStatus(page, pageSize, status, userId)
             .Select(cc => new CompanyCreditDTO(){
@@ -50,7 +47,7 @@ public class CompanyCreditService
         return $"KBU-{branchOfficeCode}-{nik}-{DateTime.Now.ToString("ddMMyyyy")}";
     }
 
-    public void InsertDraft(CompanyCreditInsertDTO dto, string userId)
+    public void Insert(CompanyCreditInsertDTO dto, string userId)
     {
         var companyCredit = new CompanyCredit()
         {   
@@ -82,9 +79,10 @@ public class CompanyCreditService
             CreatedAt = DateTime.Now
         };
 
-        _repository.InsertDraft(companyCredit);
+        _repository.Insert(companyCredit);
 
-        foreach(var business in dto.BusinessOwnerDetails){
+        foreach(var business in dto.BusinessOwnerDetails)
+        {
             var businessOwnerDetail = new BusinessOwnerDetail(){
                 Id = Guid.NewGuid().ToString(),
                 IdentityNumber = business.IdentityNumber,
@@ -98,7 +96,8 @@ public class CompanyCreditService
             _businessRepository.Insert(businessOwnerDetail);
         }
 
-        foreach(var asset in dto.CompanyAssets){
+        foreach(var asset in dto.CompanyAssets)
+        {
             var companyAsset = new CompanyAsset(){
                 Id = Guid.NewGuid().ToString(),
                 Name = asset.Name,
@@ -110,7 +109,7 @@ public class CompanyCreditService
         }
     }
 
-    public void UpdateDraft(CompanyCreditUpdateDraftDTO dto, string userId)
+    public void Update(CompanyCreditUpdateDTO dto, string userId)
     {
         var companyCredit = _repository.GetById(dto.Id);
 
@@ -129,23 +128,27 @@ public class CompanyCreditService
         companyCredit.ApplicationAmount = dto.ApplicationAmount;
         companyCredit.ApplicationPeriod = dto.ApplicationPeriod;
         companyCredit.EstablishRegistrationNumberFile = dto.EstablishRegistrationNumberFile;
+        companyCredit.CompanyRegistrationNumberFile = dto.CompanyRegistrationNumberFile;
         companyCredit.Npwpfile = dto.Npwpfile;
         companyCredit.IdentityNumberFile = dto.IdentityNumberFile;
         companyCredit.BoardOfManagementFile = dto.BoardOfManagementFile;
         companyCredit.FinancialStatementFile = dto.FinancialStatementFile;
         companyCredit.UpdatedBy = userId;
         companyCredit.UpdatedAt = DateTime.Now;
+
         if (companyCredit.Status == ApprovalStatusConfig.REJECTED_FILES)
         {
             companyCredit.Status = ApprovalStatusConfig.WAITING_VERIFICATION_FILES;
         }
 
-        _repository.UpdateDraft(companyCredit);
+        _repository.Update(companyCredit);
         _businessRepository.Delete(companyCredit.Id);
         _companyAssetRepository.Delete(companyCredit.Id);
 
-        foreach(var business in dto.BusinessOwnerDetails){
-            var businessOwnerDetail = new BusinessOwnerDetail(){
+        foreach(var business in dto.BusinessOwnerDetails)
+        {
+            var businessOwnerDetail = new BusinessOwnerDetail()
+            {
                 Id = Guid.NewGuid().ToString(),
                 IdentityNumber = business.IdentityNumber,
                 EmployeeIdentityNumber = business.EmployeeIdentityNumber,
@@ -158,8 +161,10 @@ public class CompanyCreditService
             _businessRepository.Insert(businessOwnerDetail);
         }
 
-        foreach(var asset in dto.CompanyAssets){
-            var companyAsset = new CompanyAsset(){
+        foreach(var asset in dto.CompanyAssets)
+        {
+            var companyAsset = new CompanyAsset()
+            {
                 Id = Guid.NewGuid().ToString(),
                 Name = asset.Name,
                 Value = asset.Value,
@@ -170,13 +175,13 @@ public class CompanyCreditService
         }
     }
 
-    public void DeleteDraft(string id, string userId)
+    public void Delete(string id, string userId)
     {
         var companyCredit = _repository.GetById(id);
         companyCredit.DeletedBy = userId;
         companyCredit.DeletedAt = DateTime.Now;
 
-        _repository.UpdateDraft(companyCredit);
+        _repository.Update(companyCredit);
     }
 
     public ResponseDTO<string> ApplyCredit(string id)
@@ -205,7 +210,7 @@ public class CompanyCreditService
         };
     }
 
-    public void VerificationRejected(CompanyCreditDraftRejectedDTO dto, string userId, string role)
+    public void VerificationRejected(CompanyCreditRejectedDTO dto, string userId, string role)
     {
         var companyCredit = _repository.GetById(dto.Id);
 
