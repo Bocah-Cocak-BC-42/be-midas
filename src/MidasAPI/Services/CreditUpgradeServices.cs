@@ -72,6 +72,7 @@ public class CreditUpgradeServices
             CreditUpgrades = creditUpgrades.Select(c => new CreditUpgradeResponseDTO(){
                 Id = c.Id,
                 UserId = c.UserId,
+                FullName = c.User.FullName,
                 CreditUpgradeNumber = c.CreditUpgradeNumber,
                 MonthlyIncome = c.MonthlyIncome,
                 AnnualBusinessGross = c.AnnualBusinessGross,
@@ -114,6 +115,7 @@ public class CreditUpgradeServices
             CreditUpgrades = creditUpgrades.Select(c => new CreditUpgradeResponseDTO(){
                 Id = c.Id,
                 UserId = c.UserId,
+                FullName = c.User.FullName,
                 CreditUpgradeNumber = c.CreditUpgradeNumber,
                 MonthlyIncome = c.MonthlyIncome,
                 AnnualBusinessGross = c.AnnualBusinessGross,

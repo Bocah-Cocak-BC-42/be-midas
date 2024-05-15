@@ -21,12 +21,17 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
 
     public List<CreditUpgrade> GetCreditUpgradesCustomer(string userId)
     {
-        return _context.CreditUpgrades.Where(c => c.UserId == userId).ToList();
+        return _context
+            .CreditUpgrades
+            .Include(c => c.User)
+            .Where(c => c.UserId == userId)
+            .ToList();
     }
 
     public List<CreditUpgrade> GetCreditUpgradeAdmin(int page, int pageSize)
     {
         return _context.CreditUpgrades
+            .Include(c => c.User)
             .Skip((page-1)*pageSize)
             .Take(pageSize)
             .ToList();
@@ -35,6 +40,7 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
     {
         return _context.CreditUpgrades
             .Where(c => c.ApprovedByNavigation.Role.Name == "Admin")
+            .Include(c => c.User)
             .Include( c => c.ApprovedByNavigation)
                 .ThenInclude( u => u.Role)
             .Skip((page-1)*pageSize)

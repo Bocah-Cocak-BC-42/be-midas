@@ -100,11 +100,10 @@ public class CreditUpgradeController: ControllerBase
                 Status = ConstantConfigs.STATUS_OK
             });
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return BadRequest(new ResponseDTO<string>(){
-                Message = e.Message,
-                // Message = ConstantConfigs.MESSAGE_FAILED,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
