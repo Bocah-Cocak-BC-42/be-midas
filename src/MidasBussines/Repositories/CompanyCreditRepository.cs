@@ -19,19 +19,20 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         return companyCredit
             .Include("BranchOffice")
             .Include("CreatedByNavigation")
-            .Where(c => (status == "" ? true : c.Status == status) && (userId == "" ? true : c.CreatedBy == userId) 
-                && c.DeletedAt == null)
+            .Where(c => (status == "" ? true : c.Status == status) && (userId == "" ? true : c.CreatedBy == userId) && c.DeletedAt == null)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();     
     }
 
-    public int CountData(){
+    public int CountData()
+    {
         var companyCredit = _context.CompanyCredits;
         return companyCredit.Count();
     }
 
-    public int CountData(string userId){
+    public int CountData(string userId)
+    {
         var companyCredit = _context.CompanyCredits;
         return companyCredit
             .Include("CreatedByNavigation")
@@ -48,7 +49,7 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         .FirstOrDefault();
     }
 
-    public void InsertDraft(CompanyCredit companyCredit)
+    public void Insert(CompanyCredit companyCredit)
     {
         try
         {
@@ -61,7 +62,7 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         }
     }
 
-    public void UpdateDraft(CompanyCredit companyCredit)
+    public void Update(CompanyCredit companyCredit)
     {
         try
         {

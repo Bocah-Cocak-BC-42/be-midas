@@ -8,8 +8,8 @@ public interface ICompanyCreditRepository
     int CountData();
     int CountData(string userId);
     CompanyCredit GetById(string id);   
-    void InsertDraft(CompanyCredit companyCredit);
-    void UpdateDraft(CompanyCredit companyCredit);
+    void Insert(CompanyCredit companyCredit);
+    void Update(CompanyCredit companyCredit);
     void ApplyCredit(CompanyCredit companyCredit);
     void Verification(CompanyCredit companyCredit);
 }

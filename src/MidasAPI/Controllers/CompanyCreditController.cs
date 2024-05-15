@@ -24,30 +24,37 @@ public class CompanyCreditController : ControllerBase
 
     
     [HttpGet]
-    public IActionResult Get(int page, int pageSize, string status = "", string userId = ""){
+    public IActionResult Get(int page, int pageSize, string status = "", string userId = "")
+    {
         try{
             var dto = _service.GetCredit(page, pageSize, status, userId);
-            if(dto.Count == 0){
-                return NotFound(new ResponseDTO<string[]>(){
+            if(dto.Count == 0)
+            {
+                return NotFound(new ResponseDTO<string[]>()
+                {
                     Message = ConstantConfigs.MESSAGE_NOT_FOUND("Kredit Badan Usaha"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });
             }
 
-            return Ok(new ResponseWithPaginationDTO<List<CompanyCreditDTO>>(){
+            return Ok(new ResponseWithPaginationDTO<List<CompanyCreditDTO>>()
+            {
                 Message = ConstantConfigs.MESSAGE_GET("Kredit Badan Usaha"),
                 Status = ConstantConfigs.STATUS_OK,
                 Data = dto,
-                Pagination = new PaginationDTO(){
+                Pagination = new PaginationDTO()
+                {
                     Page = page,
                     PageSize = pageSize,
                     TotalData = _service.CountData(userId)
                 }
             });
         }
-        catch(System.Exception){
-            return BadRequest(new ResponseDTO<string>(){
+        catch(System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
                 Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
@@ -56,89 +63,112 @@ public class CompanyCreditController : ControllerBase
 
 
     [HttpPost]
-    public IActionResult InsertDraft(CompanyCreditInsertDTO dto)
+    public IActionResult Insert(CompanyCreditInsertDTO dto)
     {
         try
         {   
             if(dto.Npwp.Length != 16){
-                return BadRequest(new ResponseDTO<string>(){
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "NPWP Badan Usaha harus 16 digit",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.Npwp
                 });
             }
-            else if(dto.CompanyName.Length > 20){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.CompanyName.Length > 20)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Nama perusahaan hanya diperbolehkan maksimal 20 karakter",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.CompanyName
                 });
             }
-            else if(dto.PlaceOfEstasblishment.Length > 50){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.PlaceOfEstasblishment.Length > 50)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Tempat pendirian perusahaan hanya diperbolehkan maksimal 50 karakter",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.PlaceOfEstasblishment
                 });
             }
-            else if(dto.EstablishRegistrationNumber.Length != 20){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.EstablishRegistrationNumber.Length != 20)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Nomor Akta Pendirian perusahaan harus 20 digit",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.EstablishRegistrationNumber
                 });
             }
-            else if(dto.CompanyRegistrationNumber.Length != 13){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.CompanyRegistrationNumber.Length != 13)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Nomor Induk Berusaha harus 13 digit",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.CompanyRegistrationNumber
                 });
             }
-            else if(dto.PhoneNumber.Length < 10 || dto.PhoneNumber.Length > 13){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.PhoneNumber.Length < 10 || dto.PhoneNumber.Length > 13)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Nomor telepon harus berjumlah 10-13 digit",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.PhoneNumber
                 });
             }
-            else if(dto.Address.Length > 200){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.Address.Length > 200)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Alamat perusahaan hanya diperbolehkan maksimal 200 karakter",
                     Status = ConstantConfigs.STATUS_FAILED,
                     Data = dto.Address
                 });
             }
-            else if(dto.BusinessOwnerDetails.Count < 2){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.BusinessOwnerDetails.Count < 2)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Pemilik badan usaha minimal harus 2 data",
                     Status = ConstantConfigs.STATUS_FAILED
                 });
             }
 
-            else if(dto.CompanyAssets.Count < 1){
-                return BadRequest(new ResponseDTO<string>(){
+            else if(dto.CompanyAssets.Count < 1)
+            {
+                return BadRequest(new ResponseDTO<string>()
+                {
                     Message = "Aset perusahaa minimal harus 1 data",
                     Status = ConstantConfigs.STATUS_FAILED
                 });
             }
-            foreach(var business in dto.BusinessOwnerDetails){
+            foreach(var business in dto.BusinessOwnerDetails)
+            {
                 if(business.IdentityNumber.Length != 16){
-                    return BadRequest(new ResponseDTO<string>(){
+                    return BadRequest(new ResponseDTO<string>()
+                    {
                         Message = "NIK pemilik badan usaha harus 16 digit",
                         Status = ConstantConfigs.STATUS_FAILED,
                         Data = business.IdentityNumber
                     });
                 }
-                else if(business.EmployeeIdentityNumber.Length != 16){
-                    return BadRequest(new ResponseDTO<string>(){
+                else if(business.EmployeeIdentityNumber.Length != 16)
+                {
+                    return BadRequest(new ResponseDTO<string>()
+                    {
                         Message = "NIP pemilik badan usaha harus 16 digit",
                         Status = ConstantConfigs.STATUS_FAILED,
                         Data = business.EmployeeIdentityNumber
                     });
                 }
-                else if(business.PhoneNumber.Length < 10 || business.PhoneNumber.Length > 13){
-                    return BadRequest(new ResponseDTO<string>(){
+                else if(business.PhoneNumber.Length < 10 || business.PhoneNumber.Length > 13)
+                {
+                    return BadRequest(new ResponseDTO<string>()
+                    {
                         Message = "Nomor telepon pemilik badan usaha harus berjumlah 10-13 digit",
                         Status = ConstantConfigs.STATUS_FAILED,
                         Data = business.PhoneNumber
@@ -147,7 +177,7 @@ public class CompanyCreditController : ControllerBase
             }
 
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.InsertDraft(dto, userId);
+            _service.Insert(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -167,12 +197,12 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateDraft(CompanyCreditUpdateDraftDTO dto)
+    public IActionResult Update(CompanyCreditUpdateDTO dto)
     {
         try
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.UpdateDraft(dto, userId);
+            _service.Update(dto, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -191,12 +221,12 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteDraft(string id)
+    public IActionResult Delete(string id)
     {
         try
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
-            _service.DeleteDraft(id, userId);
+            _service.Delete(id, userId);
 
             return Ok(new ResponseDTO<string>()
             {
@@ -233,7 +263,7 @@ public class CompanyCreditController : ControllerBase
     }
 
     [HttpPatch("verification-rejected/{id}")]
-    public IActionResult VerificationRejected(CompanyCreditDraftRejectedDTO dto)
+    public IActionResult VerificationRejected(CompanyCreditRejectedDTO dto)
     {
         try
         {
