@@ -24,15 +24,12 @@ public class CompanyCreditController : ControllerBase
 
     
     [HttpGet]
-    public IActionResult Get(int page, int pageSize, string status = ""){
+    public IActionResult Get(int page, int pageSize, string status = "", string userId = ""){
         try{
-            var userId = User.FindFirst("userId")?.Value??string.Empty;
-            var userRole = User.FindFirstValue(ClaimTypes.Role);
-
-            var dto = _service.GetCredit(page, pageSize, status, userId, userRole);
+            var dto = _service.GetCredit(page, pageSize, status, userId);
             if(dto.Count == 0){
                 return NotFound(new ResponseDTO<string[]>(){
-                    Message = ConstantConfigs.MESSAGE_GET("Kredit Badan Usaha"),
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("Kredit Badan Usaha"),
                     Status = ConstantConfigs.STATUS_NOT_FOUND,
                     Data = Array.Empty<string>()
                 });

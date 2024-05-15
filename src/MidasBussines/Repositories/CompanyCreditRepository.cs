@@ -13,27 +13,17 @@ public class CompanyCreditRepository : ICompanyCreditRepository
         _context = context;
     }
 
-    public List<CompanyCredit> GetByStatus(int page, int pageSize, string status)
+    public List<CompanyCredit> GetByStatus(int page, int pageSize, string status, string userId)
     {   
         var companyCredit = _context.CompanyCredits;
         return companyCredit
             .Include("BranchOffice")
             .Include("CreatedByNavigation")
-            .Where(c => c.Status == status && c.DeletedAt == null)
+            .Where(c => (status == "" ? true : c.Status == status) && (userId == "" ? true : c.CreatedBy == userId) 
+                && c.DeletedAt == null)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();     
-    }
-
-    public List<CompanyCredit> GetCreditPerCustomer(int page, int pageSize, string status, string userId){
-        var companyCredit = _context.CompanyCredits;
-        return companyCredit
-            .Include("CreatedByNavigation")
-            .Include("BranchOffice")
-            .Where(c => c.CreatedBy == userId && c.DeletedAt == null && c.Status.ToLower().Contains(status.ToLower()??""))
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
     }
 
     public int CountData(){
