@@ -16,7 +16,7 @@ public class FileManagementsController: ControllerBase
         _service = service;
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public IActionResult GetFile(string id)
     {
         try
