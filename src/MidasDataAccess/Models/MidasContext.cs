@@ -582,13 +582,13 @@ public partial class MidasContext : DbContext
             entity.Property(e => e.Notes).IsUnicode(false);
             entity.Property(e => e.ProfitBusinessGross).HasColumnType("money");
             entity.Property(e => e.Status)
-                .HasMaxLength(15)
+                .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.ApprovedBy)
+            entity.Property(e => e.VerifiedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.UserId)
@@ -600,8 +600,8 @@ public partial class MidasContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CreditUpg__Creat__2DE6D218");
 
-            entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.CreditUpgradeApprovedByNavigations)
-                .HasForeignKey(d => d.ApprovedBy)
+            entity.HasOne(d => d.VerifiedByNavigation).WithMany(p => p.CreditUpgradeVerifiedByNavigations)
+                .HasForeignKey(d => d.VerifiedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CreditUpg__Approv__2DE6D200");
 

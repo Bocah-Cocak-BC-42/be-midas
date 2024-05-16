@@ -27,6 +27,7 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
         return _context
             .CreditUpgrades
             .Include(c => c.User)
+            .Include(c => c.VerifiedByNavigation)
             .Where(c => c.UserId == userId)
             .ToList();
     }
@@ -35,6 +36,7 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
     {
         return _context.CreditUpgrades
             .Include(c => c.User)
+            .Include(c => c.VerifiedByNavigation)
             .Skip((page-1)*pageSize)
             .Take(pageSize)
             .ToList();
@@ -42,9 +44,9 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
     public List<CreditUpgrade> GetCreditUpgradeSupervisor(int page, int pageSize)
     {
         return _context.CreditUpgrades
-            .Where(c => c.ApprovedByNavigation.Role.Name == "Admin")
+            .Where(c => c.VerifiedByNavigation.Role.Name == "Admin")
             .Include(c => c.User)
-            .Include( c => c.ApprovedByNavigation)
+            .Include( c => c.VerifiedByNavigation)
                 .ThenInclude( u => u.Role)
             .Skip((page-1)*pageSize)
             .Take(pageSize)
@@ -61,5 +63,14 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
     {
         _context.CreditUpgrades.Update(creditUpgrade);
         _context.SaveChanges();
+    }
+
+    public User GetVerifiedBy(string creditUpgradeId)
+    {
+        var creditUpg = _context.CreditUpgrades.FirstOrDefault(x => x.Id == creditUpgradeId);
+        return _context
+            .Users
+            .Include(u => u.Role)
+            .FirstOrDefault(u => u.Id == creditUpg.VerifiedBy) ?? null;
     }
 }

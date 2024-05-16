@@ -52,10 +52,11 @@ public class CreditUpgradeController: ControllerBase
                 Data = creditUpgrade,
             });
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             return BadRequest(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_FAILED,
+                Message = e.Message,
+                // Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
@@ -95,6 +96,28 @@ public class CreditUpgradeController: ControllerBase
         {
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _services.InsertCreditUpgrade(dto, userId);
+            return Ok(new ResponseDTO<string>(){
+                Message = ConstantConfigs.MESSAGE_POST("credit upgrade"),
+                Status = ConstantConfigs.STATUS_OK
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>(){
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED,
+            });
+        }
+    }
+    
+    [Authorize(Roles ="Nasabah")]
+    [HttpPut("{id}")]
+    public IActionResult Edit(string id, CreditUpgradeInsertDTO dto)
+    {
+        try
+        {
+            var userId = User.FindFirst("userId")?.Value??string.Empty;
+            _services.EditCreditUpgrade(dto, id, userId);
             return Ok(new ResponseDTO<string>(){
                 Message = ConstantConfigs.MESSAGE_POST("credit upgrade"),
                 Status = ConstantConfigs.STATUS_OK

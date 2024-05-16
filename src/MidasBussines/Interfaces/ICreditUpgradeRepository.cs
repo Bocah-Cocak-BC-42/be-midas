@@ -10,5 +10,5 @@ public interface ICreditUpgradeRepository
     List<CreditUpgrade> GetCreditUpgradeSupervisor(int page, int pageSize);
     void Insert(CreditUpgrade creditUpgrade);
     void Update(CreditUpgrade creditUpgrade);
-
+    User GetVerifiedBy(string creditUpgradeId);
 }

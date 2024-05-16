@@ -37,12 +37,32 @@ public class CreditUpgradeServices
             MonthlyIncome = creditUpgrade.MonthlyIncome,
             AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,
             ProfitBusinessGross = creditUpgrade.ProfitBusinessGross,
-            Status = UpgradeCreditApprovalStatusConfig.PENDING,
+            Status = UpgradeCreditApprovalStatusConfig.WAITING_ADMIN_VERIFICATION,
             Notes = creditUpgrade.Notes,
             FinancialStatementFile = creditUpgrade.FinancialStatementFileId,
             CreatedBy = userId, 
             CreatedAt = DateTime.Now,
         });
+    }
+
+    public void EditCreditUpgrade(CreditUpgradeInsertDTO creditUpgrade, string creditUpgradeId, string userId)
+    {
+        var VerifiedBy = _creditUpgradeRepository.GetVerifiedBy(creditUpgradeId);
+        var creditUpg = new CreditUpgrade(){
+            Id = creditUpgradeId,
+            UserId = userId,
+            CreditUpgradeNumber = CreateCreditUpgradeNumber(userId),
+            MonthlyIncome = creditUpgrade.MonthlyIncome,
+            AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,
+            ProfitBusinessGross = creditUpgrade.ProfitBusinessGross,
+            Notes = creditUpgrade.Notes,
+            FinancialStatementFile = creditUpgrade.FinancialStatementFileId,
+            CreatedBy = userId, 
+            CreatedAt = DateTime.Now,
+        };
+        if(VerifiedBy.Role.Name == null) creditUpg.Status = UpgradeCreditApprovalStatusConfig.WAITING_ADMIN_VERIFICATION;
+        if(VerifiedBy.Role.Name == "Admin") creditUpg.Status = UpgradeCreditApprovalStatusConfig.WAITING_SUPERFISOR_VERIFICATION;
+        _creditUpgradeRepository.Update(creditUpg);
     }
 
     public CreditUpgradeResponseDTO Get(string creditUpgradeId)
@@ -61,8 +81,9 @@ public class CreditUpgradeServices
             FinancialStatementFile = creditUpgrade.FinancialStatementFile,
             CreatedAt = creditUpgrade.CreatedAt,
             UpdatedAt = creditUpgrade.UpdatedAt,
-            ApprovedBy = creditUpgrade.ApprovedBy,
-            ApprovedAt = creditUpgrade.ApprovedAt
+            VerifiedBy = creditUpgrade.VerifiedBy,
+            VerifiedById = creditUpgrade?.VerifiedByNavigation?.FullName,
+            VerifiedAt = creditUpgrade?.VerifiedAt
         };
     }
 
@@ -83,8 +104,9 @@ public class CreditUpgradeServices
                 FinancialStatementFile = c.FinancialStatementFile,
                 CreatedAt = c.CreatedAt,
                 UpdatedAt = c.UpdatedAt,
-                ApprovedBy = c.ApprovedBy,
-                ApprovedAt = c.ApprovedAt
+                VerifiedById = c.VerifiedBy,
+                VerifiedBy = c?.VerifiedByNavigation?.FullName,
+                VerifiedAt = c?.VerifiedAt
             }).ToList(),
         };
     }
@@ -126,8 +148,9 @@ public class CreditUpgradeServices
                 FinancialStatementFile = c.FinancialStatementFile,
                 CreatedAt = c.CreatedAt,
                 UpdatedAt = c.UpdatedAt,
-                ApprovedBy = c.ApprovedBy,
-                ApprovedAt = c.ApprovedAt
+                VerifiedById = c.VerifiedBy,
+                VerifiedBy = c?.VerifiedByNavigation?.FullName,
+                VerifiedAt = c?.VerifiedAt
             }).ToList(),
         };
     }
@@ -135,9 +158,10 @@ public class CreditUpgradeServices
     public void ApproveCreditUpgrade(string userId, string role, ApproveCreditUpgradeDTO dto)
     {
         var creditUpgrade = _creditUpgradeRepository.Get(dto.CreditUpgradeId);
-        creditUpgrade.ApprovedBy = userId;
-        creditUpgrade.ApprovedAt = DateTime.Now;
+        creditUpgrade.VerifiedBy = userId;
+        creditUpgrade.VerifiedAt = DateTime.Now;
         if(role == "Supervisor") creditUpgrade.Status = UpgradeCreditApprovalStatusConfig.APPROVED;
+        else if(role == "Admin") creditUpgrade.Status = UpgradeCreditApprovalStatusConfig.WAITING_SUPERFISOR_VERIFICATION;
         _creditUpgradeRepository.Update(creditUpgrade);
     }
 
