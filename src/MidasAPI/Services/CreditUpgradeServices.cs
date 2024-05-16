@@ -51,6 +51,7 @@ public class CreditUpgradeServices
         return new CreditUpgradeResponseDTO(){
             Id = creditUpgrade.Id,
             UserId = creditUpgrade.UserId,
+            FullName = creditUpgrade.User.FullName,
             CreditUpgradeNumber = creditUpgrade.CreditUpgradeNumber,
             MonthlyIncome = creditUpgrade.MonthlyIncome,
             AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,

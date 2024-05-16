@@ -16,7 +16,10 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
 
     public CreditUpgrade? Get(string id)
     {
-        return _context.CreditUpgrades.FirstOrDefault(c => c.Id == id);
+        return _context
+            .CreditUpgrades
+            .Include(c => c.User)
+            .FirstOrDefault(c => c.Id == id);
     }
 
     public List<CreditUpgrade> GetCreditUpgradesCustomer(string userId)
