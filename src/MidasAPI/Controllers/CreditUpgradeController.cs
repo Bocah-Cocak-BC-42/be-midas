@@ -126,8 +126,7 @@ public class CreditUpgradeController: ControllerBase
         catch (System.Exception e)
         {
             return BadRequest(new ResponseDTO<string>(){
-                Message = e.Message,
-                // Message = ConstantConfigs.MESSAGE_FAILED,
+                Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
