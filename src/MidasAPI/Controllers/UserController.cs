@@ -96,7 +96,7 @@ namespace MidasAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Nasabah")]
         [HttpGet("get-user-detail")]
         public IActionResult GetUserDetail(string id)
         {

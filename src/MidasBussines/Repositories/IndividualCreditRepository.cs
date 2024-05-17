@@ -34,6 +34,14 @@ namespace MidasBussines.Repositories
                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
+        public int CountByStatus(string userId, string status)
+        {
+            return _context.IndividualCredits.Include("EmergencyContacts").Include("User")
+                .Where(indiv => (status == "" ? true : indiv.Status == status) &&
+                (userId == "" ? true : indiv.UserId == userId) && indiv.DeletedAt == null)
+                .Count();
+        }
+
         public void Insert(IndividualCredit model)
         {
             try
