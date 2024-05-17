@@ -35,6 +35,18 @@ public class VillageServices
         }).ToList();
     }
 
+    public FullAddressDTO GetFullAddress(string villageId)
+    {
+        var model = _repo.GetFullAddress(villageId) ?? throw new Exception(ConstantConfigs.MESSAGE_NOT_FOUND("kelurahan/desa"));
+        return new FullAddressDTO()
+        {
+            Province = model.SubDistrict.City.Province.Name,
+            City = model.SubDistrict.City.Name,
+            SubDistrict = model.SubDistrict.Name,
+            Village = model.Name
+        };
+    }
+
     public void Insert(VillageInsertDTO model, string userId)
     {
         var dto = new Village()

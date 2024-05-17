@@ -87,6 +87,38 @@ public class VillageController : ControllerBase
         }
     }
 
+    [HttpGet("address-detail/{villageId}")]
+    public IActionResult GetAddressDetail(string villageId)
+    {
+        try
+        {
+            var address = _service.GetFullAddress(villageId);
+            if (address is null)
+            {
+                return NotFound(new ResponseDTO<string[]>()
+                {
+                    Message = ConstantConfigs.MESSAGE_NOT_FOUND("alamat lengkap kelurahan/desa"),
+                    Status = ConstantConfigs.STATUS_NOT_FOUND,
+                    Data = Array.Empty<string>()
+                });
+            }
+            return Ok(new ResponseDTO<FullAddressDTO>()
+            {
+                Message = ConstantConfigs.MESSAGE_GET("alamat lengkap kelurahan/desa"),
+                Status = ConstantConfigs.STATUS_OK,
+                Data = address
+            });
+        }
+        catch (System.Exception)
+        {
+            return BadRequest(new ResponseDTO<string>()
+            {
+                Message = ConstantConfigs.MESSAGE_FAILED,
+                Status = ConstantConfigs.STATUS_FAILED,
+            });
+        }
+    }
+
     [HttpPost]
     public IActionResult Insert(VillageInsertDTO model)
     {

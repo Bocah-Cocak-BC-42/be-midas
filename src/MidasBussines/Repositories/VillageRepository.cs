@@ -1,4 +1,5 @@
-﻿using MidasBussines.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using MidasBussines.Interfaces;
 using MidasDataAccess.Models;
 
 namespace MidasBussines.Repositories;
@@ -33,6 +34,14 @@ public class VillageRepository : IVillageRepository
     public Village? GetById(string id)
     {
         return _context.Villages.Find(id);
+    }
+
+    public Village? GetFullAddress(string villageId)
+    {
+        return _context.Villages.Include(x => x.SubDistrict)
+        .ThenInclude(x => x.City).ThenInclude(x => x.Province)
+        .Where(x => x.Id == villageId && x.DeletedAt == null)
+        .FirstOrDefault();
     }
 
     public void Insert(Village req)
