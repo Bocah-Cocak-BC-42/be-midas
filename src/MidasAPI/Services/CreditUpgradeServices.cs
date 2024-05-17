@@ -45,24 +45,21 @@ public class CreditUpgradeServices
         });
     }
 
-    public void EditCreditUpgrade(CreditUpgradeInsertDTO creditUpgrade, string creditUpgradeId, string userId)
+    public void EditCreditUpgrade(CreditUpgradeInsertDTO dto, string creditUpgradeId, string userId)
     {
+        var CreditUpgradeLastUpdated = _creditUpgradeRepository.Get(creditUpgradeId);
         var VerifiedBy = _creditUpgradeRepository.GetVerifiedBy(creditUpgradeId);
-        var creditUpg = new CreditUpgrade(){
-            Id = creditUpgradeId,
-            UserId = userId,
-            CreditUpgradeNumber = CreateCreditUpgradeNumber(userId),
-            MonthlyIncome = creditUpgrade.MonthlyIncome,
-            AnnualBusinessGross = creditUpgrade.AnnualBusinessGross,
-            ProfitBusinessGross = creditUpgrade.ProfitBusinessGross,
-            Notes = creditUpgrade.Notes,
-            FinancialStatementFile = creditUpgrade.FinancialStatementFileId,
-            CreatedBy = userId, 
-            CreatedAt = DateTime.Now,
-        };
-        if(VerifiedBy.Role.Name == null) creditUpg.Status = UpgradeCreditApprovalStatusConfig.WAITING_ADMIN_VERIFICATION;
-        if(VerifiedBy.Role.Name == "Admin") creditUpg.Status = UpgradeCreditApprovalStatusConfig.WAITING_SUPERFISOR_VERIFICATION;
-        _creditUpgradeRepository.Update(creditUpg);
+        if(CreditUpgradeLastUpdated == null) throw new Exception("CreditUpgrade not found");
+        CreditUpgradeLastUpdated.MonthlyIncome = dto.MonthlyIncome;
+        CreditUpgradeLastUpdated.AnnualBusinessGross = dto.AnnualBusinessGross;
+        CreditUpgradeLastUpdated.ProfitBusinessGross = dto.ProfitBusinessGross;
+        CreditUpgradeLastUpdated.Notes = dto.Notes;
+        CreditUpgradeLastUpdated.FinancialStatementFile = dto.FinancialStatementFileId;
+        CreditUpgradeLastUpdated.UpdatedBy = userId;
+        CreditUpgradeLastUpdated.UpdatedAt = DateTime.Now;
+        if(VerifiedBy == null) CreditUpgradeLastUpdated.Status = UpgradeCreditApprovalStatusConfig.WAITING_ADMIN_VERIFICATION;
+        else if(VerifiedBy.Role.Name == "Admin") CreditUpgradeLastUpdated.Status = UpgradeCreditApprovalStatusConfig.WAITING_SUPERFISOR_VERIFICATION;
+        _creditUpgradeRepository.Update(CreditUpgradeLastUpdated);
     }
 
     public CreditUpgradeResponseDTO Get(string creditUpgradeId)

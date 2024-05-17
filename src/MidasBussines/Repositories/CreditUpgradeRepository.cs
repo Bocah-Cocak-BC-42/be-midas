@@ -67,10 +67,17 @@ public class CreditUpgradeRepository : ICreditUpgradeRepository
 
     public User GetVerifiedBy(string creditUpgradeId)
     {
-        var creditUpg = _context.CreditUpgrades.FirstOrDefault(x => x.Id == creditUpgradeId);
+        var creditUpg = _context
+            .CreditUpgrades
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == creditUpgradeId);
+
+        if(creditUpg.VerifiedBy == null) return null;
+        
         return _context
             .Users
             .Include(u => u.Role)
-            .FirstOrDefault(u => u.Id == creditUpg.VerifiedBy) ?? null;
+            .First(u => u.Id == creditUpg.VerifiedBy);
+        
     }
 }

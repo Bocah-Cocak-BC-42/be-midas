@@ -119,14 +119,15 @@ public class CreditUpgradeController: ControllerBase
             var userId = User.FindFirst("userId")?.Value??string.Empty;
             _services.EditCreditUpgrade(dto, id, userId);
             return Ok(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_POST("credit upgrade"),
+                Message = ConstantConfigs.MESSAGE_PUT("credit upgrade"),
                 Status = ConstantConfigs.STATUS_OK
             });
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             return BadRequest(new ResponseDTO<string>(){
-                Message = ConstantConfigs.MESSAGE_FAILED,
+                Message = e.Message,
+                // Message = ConstantConfigs.MESSAGE_FAILED,
                 Status = ConstantConfigs.STATUS_FAILED,
             });
         }
