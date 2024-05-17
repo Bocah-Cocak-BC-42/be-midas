@@ -262,11 +262,17 @@ public class IndividualCreditController : ControllerBase
                     Status = ConstantConfigs.STATUS_OK
                 });
 
-            return Ok(new ResponseDTO<List<IndividualCreditResponseDTO>>()
+            return Ok(new ResponseWithPaginationDTO<List<IndividualCreditResponseDTO>>()
             {
                 Message = ConstantConfigs.MESSAGE_GET("Daftar Kredit Perseorangan"),
                 Status = ConstantConfigs.STATUS_OK,
-                Data = model
+                Data = model,
+                Pagination = new PaginationDTO()
+                {
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalData = _service.CountByStatus(userId, status)
+                }
             });
         }
         catch (System.Exception)

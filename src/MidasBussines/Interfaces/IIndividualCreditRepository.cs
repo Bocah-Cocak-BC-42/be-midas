@@ -11,6 +11,7 @@ namespace MidasBussines.Interfaces
     {
         public List<IndividualCredit> GetByStatus(int page, int pageSize, string status, string userId);
         public IndividualCredit? GetById(string id);
+        public int CountByStatus(string userId, string status);
         public void Insert(IndividualCredit model);
         public void Update(IndividualCredit model);
     }

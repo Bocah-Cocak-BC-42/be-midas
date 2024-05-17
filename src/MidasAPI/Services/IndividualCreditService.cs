@@ -157,6 +157,11 @@ public class IndividualCreditService
             }).ToList();
     }
 
+    public int CountByStatus(string userId, string status)
+    {
+        return _individualCreditRepository.CountByStatus(userId, status);
+    }
+
     public ResponseDTO<string> SubmitCredit(string individualCreditId, string userId)
     {
         var model = _individualCreditRepository.GetById(individualCreditId);
